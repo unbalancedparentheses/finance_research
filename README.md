@@ -88,6 +88,16 @@ A few lines currently blur "shown" and "inferred." For each claim:
 - State what is a plausible interpretation
 - Avoid stronger historical claims unless actually demonstrated
 
+### Delta Selection and Source Attribution
+
+There is no clean public primary source where Taleb or Universa state a single exact recommended delta. What is publicly verifiable:
+
+- **Confirmed**: Taleb/Universa use very far OTM puts, small premium budget, constant protection. Patterson describes Universa as "constantly" buying far OTM puts aimed at roughly a 20% S&P decline in one month, but no exact delta is given ([Tim Ferriss transcript, 2023](https://tim.blog/2023/09/08/nassim-nicholas-taleb-scott-patterson-transcript/)).
+- **Secondary inference**: A widely cited writeup estimates Universa uses roughly 0.01-delta puts, 70–90 DTE, around 30–35% OTM, but presents this as inference, not official specification ([Grey Enlightenment, 2016](https://greyenlightenment.com/2016/10/04/tail-hedging-part-2/)).
+- **Qualitative only**: Spitznagel's own book discussions describe puts as "extremely far out of the money" with ~0.5% monthly spend, without a verified delta ([Founders podcast transcript](https://podscripts.co/podcasts/founders/70-mark-spitznagel-the-dao-of-capital)).
+
+The article's test range of -0.10 to -0.02 delta should be presented as our chosen test range, not as a precise published Taleb/Spitznagel rule. If keeping a numeric range, frame it as: "we test across this spectrum" rather than "Taleb recommends X." Secondary commentary often pegs Universa even more extreme (~0.01 delta), which is beyond our current test range and worth exploring.
+
 ### Out-of-Sample and Benchmark Discipline
 
 - Compare against alternative tail hedges, especially trend-following
