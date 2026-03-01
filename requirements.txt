@@ -1,0 +1,9 @@
+pandas~=2.2
+numpy~=2.2
+matplotlib~=3.10
+seaborn~=0.13
+altair~=5.5
+jupyter
+scipy
+pyprind
+pyarrow
