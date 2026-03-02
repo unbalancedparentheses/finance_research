@@ -30,52 +30,44 @@ See [`data/README.md`](data/README.md) for details on data sources and formats.
 
 ## Research
 
-Each topic lives in its own folder under `research/` with markdown writeups, code, and images.
+### [`spitznagel_spy/`](research/spitznagel_spy/) — Spitznagel Thesis on SPY
 
-### Tail Hedging (Spitznagel vs AQR)
+The core research thread. Tests whether deep OTM puts improve geometric compounding via variance drain reduction. Uses SPY options data 2008-2025 from Tiingo/OptionsDX.
 
-- [`research/spitznagel/`](research/spitznagel/) — Core analysis: SPY + deep OTM puts ([summary](research/spitznagel/summary.md), [full analysis](research/spitznagel/spitznagel_case_rerun.md))
-- [`research/equity_spitznagel/`](research/equity_spitznagel/) — Same analysis on ES futures + puts (CME data)
-- [`research/beyond_spitznagel/`](research/beyond_spitznagel/) — Can you profit from pure vol selling + tail protection without equity? (No)
-- [`research/paper_comparison/`](research/paper_comparison/) — Direct comparison with AQR/Israelov published numbers
-- [`research/trade_analysis/`](research/trade_analysis/) — Individual trade-level analysis
+- [`summary.md`](research/spitznagel_spy/summary.md) — Hand-written findings with full data tables
+- [`spitznagel_case_rerun.md`](research/spitznagel_spy/spitznagel_case_rerun.md) — Authoritative analysis: AQR framing vs Spitznagel overlay, parameter sweeps, out-of-sample, calm periods
+- [`beyond_spitznagel.md`](research/spitznagel_spy/beyond_spitznagel.md) — Can a pure options barbell work without equity? (No)
+- [`cross_asset_notes.md`](research/spitznagel_spy/cross_asset_notes.md) — Detailed notes on applying the structure to rates, FX, credit, commodities, EM debt. Includes data sourcing guide.
 
-### Multi-Asset Carry
+### [`spy_options_strategies/`](research/spy_options_strategies/) — SPY Options Strategy Analysis
 
-- [`research/multi_asset_carry/`](research/multi_asset_carry/) — FX carry with tail hedging (6 pairs, base + executed)
-- [`research/fx_carry/`](research/fx_carry/) — FX carry with realistic transaction costs (AUD/USD, AUD/JPY, dual-leg hedge)
-- [`research/commodity_carry/`](research/commodity_carry/) — Gold, crude, copper, natgas carry
-- [`research/bond_carry/`](research/bond_carry/) — US/UK bond carry strategies
-- [`research/carry_portfolio/`](research/carry_portfolio/) — Combined carry portfolio construction
-- [`research/combined_portfolio/`](research/combined_portfolio/) — Multi-asset portfolio aggregation
+Tests specific options structures on SPY against academic claims. Same backtester and data as the Spitznagel thread.
 
-### Treasury and Fixed Income
+- [`findings.md`](research/spy_options_strategies/findings.md) — Comprehensive findings: puts as hedge, calls for momentum, macro signal timing
+- [`paper_comparison.md`](research/spy_options_strategies/paper_comparison.md) — 10 strategies tested against Carr & Wu, Whaley, Israelov, etc.
+- [`volatility_premium.md`](research/spy_options_strategies/volatility_premium.md) — Variance risk premium analysis
+- [`strategies.md`](research/spy_options_strategies/strategies.md) — 4-strategy showcase (OTM put hedge, call momentum, straddle, strangle)
+- [`trade_analysis.md`](research/spy_options_strategies/trade_analysis.md) — Trade-level P&L, greeks at entry, crash breakdown
+- [`iron_condor.md`](research/spy_options_strategies/iron_condor.md) — Iron condor backtests
 
-- [`research/treasury_spitznagel/`](research/treasury_spitznagel/) — Treasury futures with tail hedging
-- [`research/gold_sp500/`](research/gold_sp500/) — Gold/S&P500 relationship analysis
+### [`fx_carry_hedged/`](research/fx_carry_hedged/) — FX Carry + Tail Hedge
 
-### Volatility and Options
+FX carry trades with OTM put protection. Uses Databento CME futures data 2010-2026. Progression: single pair -> multi-pair -> portfolio construction -> leverage analysis.
 
-- [`research/volatility_premium/`](research/volatility_premium/) — Volatility risk premium analysis
-- [`research/iron_condor/`](research/iron_condor/) — Iron condor strategy backtests
-- [`research/strategies/`](research/strategies/) — Options strategy comparison
+- [`fx_carry_real.md`](research/fx_carry_hedged/fx_carry_real.md) — AUD/JPY carry with dual-leg hedge (AUD puts + JPY calls)
+- [`multi_asset_carry.md`](research/fx_carry_hedged/multi_asset_carry.md) — 7 FX pairs vs JPY with monthly OTM puts
+- [`carry_portfolio.md`](research/fx_carry_hedged/carry_portfolio.md) — Portfolio construction: equal-weight, risk-parity, min-variance, max-Sharpe
+- [`leverage_analysis.md`](research/fx_carry_hedged/leverage_analysis.md) — Kelly-optimal leverage, blow-up frontier, put budget sensitivity
 
-### Portfolio Construction
+### [`cross_asset_spitznagel/`](research/cross_asset_spitznagel/) — Spitznagel Structure Across Asset Classes
 
-- [`research/leverage_analysis/`](research/leverage_analysis/) — Kelly-optimal leverage analysis
-- [`research/ivy_portfolio/`](research/ivy_portfolio/) — Ivy portfolio replication
-- [`research/findings/`](research/findings/) — Summary of key empirical findings
-- [`research/results/`](research/results/) — Consolidated results and tables
+Applies the leveraged + OTM puts framework to non-equity asset classes using CME futures from Databento.
 
-### Exploration and Tooling
-
-- [`research/exploration/`](research/exploration/) — Convexity scanner exploration
-- [`research/quickstart/`](research/quickstart/) — Quick demo of the backtester
-- [`research/comparison_with_bt/`](research/comparison_with_bt/) — Comparison with the `bt` library
-
-### Cross-Asset Research Notes
-
-- [`research/research.md`](research/research.md) — Detailed notes on the Spitznagel structure across asset classes: rates, FX carry, credit, commodities, EM debt, VIX. Includes data sourcing guide and cost breakdown.
+- [`equity_spitznagel.md`](research/cross_asset_spitznagel/equity_spitznagel.md) — ES futures + puts (1x-10x leverage)
+- [`treasury_spitznagel.md`](research/cross_asset_spitznagel/treasury_spitznagel.md) — ZN/ZB Treasury futures + puts
+- [`bond_carry_usuk.md`](research/cross_asset_spitznagel/bond_carry_usuk.md) — US-UK bond carry (ZN vs Gilt) + OZN options
+- [`commodity_carry.md`](research/cross_asset_spitznagel/commodity_carry.md) — Gold, crude, copper, natgas carry + puts
+- [`combined_portfolio.md`](research/cross_asset_spitznagel/combined_portfolio.md) — Capstone: ES + FX Carry + Bond Carry combined
 
 ## Scripts
 
@@ -105,40 +97,20 @@ Parameter sweeps, verification, and analysis scripts in `scripts/`:
 ## Structure
 
 ```
-research/               Research writeups (markdown + code + images)
-  spitznagel/           Core tail hedge analysis (SPY + OTM puts)
-  equity_spitznagel/    ES futures + puts (CME data)
-  beyond_spitznagel/    Pure vol barbell test
-  paper_comparison/     Academic paper comparison
-  multi_asset_carry/    FX carry with tail hedging
-  fx_carry/             Real FX options backtests
-  commodity_carry/      Commodity carry strategies
-  bond_carry/           US/UK bond carry
-  treasury_spitznagel/  Treasury futures + tail hedging
-  carry_portfolio/      Combined carry portfolio
-  combined_portfolio/   Multi-asset aggregation
-  leverage_analysis/    Kelly-optimal leverage
-  volatility_premium/   VRP analysis
-  iron_condor/          Iron condor backtests
-  strategies/           Options strategy comparison
-  ivy_portfolio/        Ivy portfolio replication
-  gold_sp500/           Gold/equity analysis
-  findings/             Key empirical findings
-  results/              Consolidated results
-  exploration/          Convexity scanner exploration
-  quickstart/           Backtester demo
-  comparison_with_bt/   bt library comparison
-  trade_analysis/       Trade-level analysis
-  research.md           Cross-asset research notes
-scripts/                Backtesting scripts, sweeps, and verification
+research/
+  spitznagel_spy/           Core tail hedge thesis (SPY, Tiingo data 2008-2025)
+  spy_options_strategies/   Options strategy analysis (SPY, same data)
+  fx_carry_hedged/          FX carry + tail hedge (Databento CME data 2010-2026)
+  cross_asset_spitznagel/   Spitznagel structure on futures (Databento CME data)
+scripts/                    Backtesting scripts, sweeps, and verification
 data/
-  databento/            CME futures and options data (Databento parquets)
-  processed/            Processed CSVs (options.csv, stocks.csv, signals.csv)
-  raw/                  Raw OptionsDX downloads
-  fetch_data.py         Fetch stock data from Tiingo
-  fetch_signals.py      Fetch VIX/signal data
-  convert_optionsdx.py  Convert OptionsDX raw to processed CSVs
-REFERENCES.md           Annotated literature review (~50 papers)
+  databento/                CME futures and options data (Databento parquets)
+  processed/                Processed CSVs (options.csv, stocks.csv, signals.csv)
+  raw/                      Raw OptionsDX downloads
+  fetch_data.py             Fetch stock data from Tiingo
+  fetch_signals.py          Fetch VIX/signal data
+  convert_optionsdx.py      Convert OptionsDX raw to processed CSVs
+REFERENCES.md               Annotated literature review (~50 papers)
 ```
 
 ## Future Work: Deepening the Spitznagel Research
