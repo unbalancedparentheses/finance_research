@@ -1,25 +1,24 @@
 # Finance Research
 
-Research notebooks and scripts for options backtesting, tail hedging, and multi-asset carry strategies.
+Empirical research on tail hedging, volatility risk premium, and multi-asset carry strategies. The central question: does Spitznagel's approach to tail hedging actually work, and if so, why does AQR's research say otherwise?
+
+Published writeup: [The Tail Hedge Debate: Spitznagel Is Right, AQR Is Answering the Wrong Question](https://federicocarrone.com/series/leptokurtic/the-tail-hedge-debate-spitznagel-is-right/)
 
 Built on the [options_portfolio_backtester](https://github.com/unbalancedparentheses/options_backtester) library.
 
 ## Setup
 
 ```bash
-# Install the backtester library (editable)
 pip install -e ../options_backtester
-
-# Install research dependencies
 pip install -r requirements.txt
 ```
 
 ## Data
 
-Data files are gitignored due to size. To populate:
+Data files are gitignored due to size.
 
 ```bash
-# Fetch SPY/options data (OptionsDX)
+# SPY/options data (OptionsDX)
 python data/fetch_data.py
 python data/fetch_signals.py
 
@@ -27,40 +26,124 @@ python data/fetch_signals.py
 # Parquets go in data/databento/
 ```
 
+See [`data/README.md`](data/README.md) for details on data sources and formats.
+
+## Research
+
+Each topic lives in its own folder under `research/` with markdown writeups, code, and images.
+
+### Tail Hedging (Spitznagel vs AQR)
+
+- [`research/spitznagel/`](research/spitznagel/) — Core analysis: SPY + deep OTM puts ([summary](research/spitznagel/summary.md), [full analysis](research/spitznagel/spitznagel_case_rerun.md))
+- [`research/equity_spitznagel/`](research/equity_spitznagel/) — Same analysis on ES futures + puts (CME data)
+- [`research/beyond_spitznagel/`](research/beyond_spitznagel/) — Can you profit from pure vol selling + tail protection without equity? (No)
+- [`research/paper_comparison/`](research/paper_comparison/) — Direct comparison with AQR/Israelov published numbers
+- [`research/trade_analysis/`](research/trade_analysis/) — Individual trade-level analysis
+
+### Multi-Asset Carry
+
+- [`research/multi_asset_carry/`](research/multi_asset_carry/) — FX carry with tail hedging (6 pairs, base + executed)
+- [`research/fx_carry/`](research/fx_carry/) — FX carry with realistic transaction costs (AUD/USD, AUD/JPY, dual-leg hedge)
+- [`research/commodity_carry/`](research/commodity_carry/) — Gold, crude, copper, natgas carry
+- [`research/bond_carry/`](research/bond_carry/) — US/UK bond carry strategies
+- [`research/carry_portfolio/`](research/carry_portfolio/) — Combined carry portfolio construction
+- [`research/combined_portfolio/`](research/combined_portfolio/) — Multi-asset portfolio aggregation
+
+### Treasury and Fixed Income
+
+- [`research/treasury_spitznagel/`](research/treasury_spitznagel/) — Treasury futures with tail hedging
+- [`research/gold_sp500/`](research/gold_sp500/) — Gold/S&P500 relationship analysis
+
+### Volatility and Options
+
+- [`research/volatility_premium/`](research/volatility_premium/) — Volatility risk premium analysis
+- [`research/iron_condor/`](research/iron_condor/) — Iron condor strategy backtests
+- [`research/strategies/`](research/strategies/) — Options strategy comparison
+
+### Portfolio Construction
+
+- [`research/leverage_analysis/`](research/leverage_analysis/) — Kelly-optimal leverage analysis
+- [`research/ivy_portfolio/`](research/ivy_portfolio/) — Ivy portfolio replication
+- [`research/findings/`](research/findings/) — Summary of key empirical findings
+- [`research/results/`](research/results/) — Consolidated results and tables
+
+### Exploration and Tooling
+
+- [`research/exploration/`](research/exploration/) — Convexity scanner exploration
+- [`research/quickstart/`](research/quickstart/) — Quick demo of the backtester
+- [`research/comparison_with_bt/`](research/comparison_with_bt/) — Comparison with the `bt` library
+
+### Cross-Asset Research Notes
+
+- [`research/research.md`](research/research.md) — Detailed notes on the Spitznagel structure across asset classes: rates, FX carry, credit, commodities, EM debt, VIX. Includes data sourcing guide and cost breakdown.
+
+## Scripts
+
+Parameter sweeps, verification, and analysis scripts in `scripts/`:
+
+| Script | Purpose |
+|--------|---------|
+| `spitznagel_sweep.py` | Full parameter sweep across delta, DTE, allocation |
+| `sweep_otm.py` | OTM depth sweep |
+| `sweep_volatility.py` | Volatility regime sweep |
+| `sweep_leverage.py` | Leverage level sweep |
+| `sweep_iv_signal.py` | IV-based signal sweep |
+| `sweep_allocation.py` | Allocation percentage sweep |
+| `sweep_beat_spy.py` | Configurations that beat SPY |
+| `sweep_comprehensive.py` | All-parameter combinatorial sweep |
+| `walk_forward_report.py` | Walk-forward out-of-sample validation |
+| `verify_blog_numbers.py` | Verify published article numbers |
+| `verify_aqr_numbers.py` | Reproduce AQR's published results |
+| `verify_atm_vs_otm.py` | ATM vs OTM direct comparison |
+| `calm_period_experiment.py` | Performance during calm markets |
+| `generate_blog_tables.py` | Generate tables for the published article |
+| `benchmark_rust_vs_python.py` | Backtester engine performance comparison |
+| `parallel_sweep.py` | Parallelized parameter sweep |
+| `nb_style.py` | Shared FT-inspired matplotlib styling |
+| `export_fx_results.py` | Export FX carry results to CSV |
+
 ## Structure
 
-- `notebooks/` — Jupyter notebooks for analysis and research
-- `scripts/` — Backtesting scripts, parameter sweeps, and benchmarks
-- `research/` — Research notes and figures
-- `data/databento/` — CME futures and options data (Databento parquets)
-- `data/processed/` — Processed CSVs (options.csv, stocks.csv, signals.csv)
-- `data/raw/` — Raw OptionsDX downloads
-- `data/fetch_data.py` — Fetch stock data from Tiingo
-- `data/fetch_signals.py` — Fetch VIX/signal data
-- `data/convert_optionsdx.py` — Convert OptionsDX raw data to processed CSVs
-
-## Running
-
-```bash
-# Start Jupyter
-jupyter notebook notebooks/
-
-# Run a script
-python scripts/calm_period_experiment.py
 ```
-
-## Key Notebooks
-
-- `spitznagel_case.ipynb` — Spitznagel tail-hedging analysis (SPY + OTM puts)
-- `equity_spitznagel.ipynb` — ES futures + puts (CME data)
-- `multi_asset_carry.ipynb` — FX carry with tail hedging (6 pairs)
-- `commodity_carry.ipynb` — Gold, crude, copper, natgas carry
-- `treasury_spitznagel.ipynb` — Treasury futures with tail hedging
-- `leverage_analysis.ipynb` — Kelly-optimal leverage analysis
+research/               Research writeups (markdown + code + images)
+  spitznagel/           Core tail hedge analysis (SPY + OTM puts)
+  equity_spitznagel/    ES futures + puts (CME data)
+  beyond_spitznagel/    Pure vol barbell test
+  paper_comparison/     Academic paper comparison
+  multi_asset_carry/    FX carry with tail hedging
+  fx_carry/             Real FX options backtests
+  commodity_carry/      Commodity carry strategies
+  bond_carry/           US/UK bond carry
+  treasury_spitznagel/  Treasury futures + tail hedging
+  carry_portfolio/      Combined carry portfolio
+  combined_portfolio/   Multi-asset aggregation
+  leverage_analysis/    Kelly-optimal leverage
+  volatility_premium/   VRP analysis
+  iron_condor/          Iron condor backtests
+  strategies/           Options strategy comparison
+  ivy_portfolio/        Ivy portfolio replication
+  gold_sp500/           Gold/equity analysis
+  findings/             Key empirical findings
+  results/              Consolidated results
+  exploration/          Convexity scanner exploration
+  quickstart/           Backtester demo
+  comparison_with_bt/   bt library comparison
+  trade_analysis/       Trade-level analysis
+  research.md           Cross-asset research notes
+scripts/                Backtesting scripts, sweeps, and verification
+data/
+  databento/            CME futures and options data (Databento parquets)
+  processed/            Processed CSVs (options.csv, stocks.csv, signals.csv)
+  raw/                  Raw OptionsDX downloads
+  fetch_data.py         Fetch stock data from Tiingo
+  fetch_signals.py      Fetch VIX/signal data
+  convert_optionsdx.py  Convert OptionsDX raw to processed CSVs
+REFERENCES.md           Annotated literature review (~50 papers)
+```
 
 ## Future Work: Deepening the Spitznagel Research
 
-The current Spitznagel analysis is compelling but needs a higher standard of proof, tighter claim discipline, and more adversarial testing to move from a strong argument to great research.
+The current analysis is compelling but needs a higher standard of proof, tighter claim discipline, and more adversarial testing to move from a strong argument to great research.
 
 ### Broader Validation
 
@@ -93,7 +176,7 @@ A few lines currently blur "shown" and "inferred." For each claim:
 There is no clean public primary source where Taleb or Universa state a single exact recommended delta. What is publicly verifiable:
 
 - **Confirmed**: Taleb/Universa use very far OTM puts, small premium budget, constant protection. Patterson describes Universa as "constantly" buying far OTM puts aimed at roughly a 20% S&P decline in one month, but no exact delta is given ([Tim Ferriss transcript, 2023](https://tim.blog/2023/09/08/nassim-nicholas-taleb-scott-patterson-transcript/)).
-- **Secondary inference**: A widely cited writeup estimates Universa uses roughly 0.01-delta puts, 70–90 DTE, around 30–35% OTM, but presents this as inference, not official specification ([Grey Enlightenment, 2016](https://greyenlightenment.com/2016/10/04/tail-hedging-part-2/)).
+- **Secondary inference**: A widely cited writeup estimates Universa uses roughly 0.01-delta puts, 70-90 DTE, around 30-35% OTM, but presents this as inference, not official specification ([Grey Enlightenment, 2016](https://greyenlightenment.com/2016/10/04/tail-hedging-part-2/)).
 - **Qualitative only**: Spitznagel's own book discussions describe puts as "extremely far out of the money" with ~0.5% monthly spend, without a verified delta ([Founders podcast transcript](https://podscripts.co/podcasts/founders/70-mark-spitznagel-the-dao-of-capital)).
 
 The article's test range of -0.10 to -0.02 delta should be presented as our chosen test range, not as a precise published Taleb/Spitznagel rule. If keeping a numeric range, frame it as: "we test across this spectrum" rather than "Taleb recommends X." Secondary commentary often pegs Universa even more extreme (~0.01 delta), which is beyond our current test range and worth exploring.
@@ -105,47 +188,16 @@ The article's test range of -0.10 to -0.02 delta should be presented as our chos
 - Show robustness under less favorable crash assumptions
 - Include a benchmark that accounts for the external capital source in the overlay framing
 
-## Recommended Reading
+## References
 
-For complete novices in finance and economics, this [post](https://notamonadtutorial.com/how-to-earn-your-macroeconomics-and-finance-white-belt-as-a-software-developer-136e7454866f) gives a comprehensive introduction.
+See [`REFERENCES.md`](REFERENCES.md) for an annotated literature review covering protective put overlays, covered calls, volatility strategies, tail hedging, carry, ergodicity economics, and backtesting methodology.
 
-### Books
+For a general introduction to finance and economics for programmers, see this [post](https://notamonadtutorial.com/how-to-earn-your-macroeconomics-and-finance-white-belt-as-a-software-developer-136e7454866f).
 
-**Introductory**
-- Option Volatility and Pricing 2nd Ed. - Natemberg, 2014
-- Options, Futures, and Other Derivatives 10th Ed. - Hull 2017
-- Trading Options Greeks 2nd Ed. - Passarelli 2012
+### Key Books
 
-**Intermediate**
-- Trading Volatility - Bennet 2014
-- Volatility Trading 2nd Ed. - Sinclair 2013
+**Introductory** — Option Volatility and Pricing (Natenberg), Options, Futures, and Other Derivatives (Hull), Trading Options Greeks (Passarelli)
 
-**Advanced**
-- Dynamic Hedging - Taleb 1997
-- The Volatility Surface: A Practitioner's Guide - Gatheral 2006
-- The Volatility Smile - Derman & Miller 2016
+**Intermediate** — Trading Volatility (Bennett), Volatility Trading (Sinclair)
 
-### Papers
-
-- [Volatility: A New Return Driver?](http://static.squarespace.com/static/53974e3ae4b0039937edb698/t/53da6400e4b0d5d5360f4918/1406821376095/Directional%20Volatility%20Research.pdf)
-- [Easy Volatility Investing](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2255327)
-- [Everybody's Doing It: Short Volatility Strategies and Shadow Financial Insurers](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3071457)
-- [Volatility-of-Volatility Risk](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2497759)
-- [The Distribution of Returns](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2828744)
-- [Safe Haven Investing Part I - Not all risk mitigation is created equal](https://www.universa.net/UniversaResearch_SafeHavenPart1_RiskMitigation.pdf)
-- [Safe Haven Investing Part II - Not all risk is created equal](https://www.universa.net/UniversaResearch_SafeHavenPart2_NotAllRisk.pdf)
-- [Safe Haven Investing Part III - Those wonderful tenbaggers](https://www.universa.net/UniversaResearch_SafeHavenPart3_Tenbaggers.pdf)
-- [Insurance makes wealth grow faster](https://arxiv.org/abs/1507.04655)
-- [Ergodicity economics](https://ergodicityeconomics.files.wordpress.com/2018/06/ergodicity_economics.pdf)
-- [The Rate of Return on Everything, 1870-2015](https://economics.harvard.edu/files/economics/files/ms28533.pdf)
-- [Volatility and the Alchemy of Risk](https://static1.squarespace.com/static/5581f17ee4b01f59c2b1513a/t/59ea16dbbe42d6ff1cae589f/1508513505640/Artemis_Volatility+and+the+Alchemy+of+Risk_2017.pdf)
-- [Variance Risk Premia - Carr & Wu, 2009](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=577222)
-- [Portfolio Selection - Markowitz, 1952](https://www.jstor.org/stable/2975974)
-- [The Kelly Criterion in Blackjack, Sports Betting, and the Stock Market - Thorp, 2006](https://www.edwardothorp.com/wp-content/uploads/2016/11/TheKellyCriterionAndTheStockMarket.pdf)
-- [Tail Risk Hedging: Creating Robust Portfolios for Volatile Markets - Bhansali, 2014](https://www.amazon.com/Tail-Risk-Hedging-Creating-Portfolios/dp/0071791760)
-
-### Backtesting Methodology
-
-- [The Backtest Overfitting Problem - Bailey et al., 2017](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2326253)
-- [Pseudo-Mathematics and Financial Charlatanism - Bailey et al., 2014](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2308659)
-- [Advances in Financial Machine Learning - de Prado, 2018](https://www.amazon.com/Advances-Financial-Machine-Learning-Marcos/dp/1119482089) (chapters on backtesting, cross-validation, bet sizing)
+**Advanced** — Dynamic Hedging (Taleb), The Volatility Surface (Gatheral), The Volatility Smile (Derman & Miller)
