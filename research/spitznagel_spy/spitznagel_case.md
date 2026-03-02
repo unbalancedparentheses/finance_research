@@ -97,7 +97,7 @@ print(f'Peak drain during GFC: {rolling_drain.max()*100:.1f}%/yr')
 
 
     
-![png](spitznagel_case_rerun_files/spitznagel_case_rerun_4_0.png)
+![png](spitznagel_case_files/spitznagel_case_4_0.png)
     
 
 
@@ -744,7 +744,7 @@ plt.show()
 
 
     
-![png](spitznagel_case_rerun_files/spitznagel_case_rerun_13_0.png)
+![png](spitznagel_case_files/spitznagel_case_13_0.png)
     
 
 
@@ -817,7 +817,7 @@ plt.show()
 
 
     
-![png](spitznagel_case_rerun_files/spitznagel_case_rerun_16_0.png)
+![png](spitznagel_case_files/spitznagel_case_16_0.png)
     
 
 
@@ -949,7 +949,7 @@ if len(trades_df) > 0:
 
 
     
-![png](spitznagel_case_rerun_files/spitznagel_case_rerun_19_0.png)
+![png](spitznagel_case_files/spitznagel_case_19_0.png)
     
 
 
@@ -1681,7 +1681,7 @@ plt.show()
 
 
     
-![png](spitznagel_case_rerun_files/spitznagel_case_rerun_26_0.png)
+![png](spitznagel_case_files/spitznagel_case_26_0.png)
     
 
 
@@ -1946,7 +1946,7 @@ plt.show()
 
 
     
-![png](spitznagel_case_rerun_files/spitznagel_case_rerun_28_0.png)
+![png](spitznagel_case_files/spitznagel_case_28_0.png)
     
 
 
@@ -2018,7 +2018,7 @@ for r in all_lev:
 
 
     
-![png](spitznagel_case_rerun_files/spitznagel_case_rerun_30_0.png)
+![png](spitznagel_case_files/spitznagel_case_30_0.png)
     
 
 
@@ -3344,7 +3344,7 @@ plt.show()
 
 
     
-![png](spitznagel_case_rerun_files/spitznagel_case_rerun_43_0.png)
+![png](spitznagel_case_files/spitznagel_case_43_0.png)
     
 
 

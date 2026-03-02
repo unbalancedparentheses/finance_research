@@ -35,8 +35,7 @@ See [`data/README.md`](data/README.md) for details on data sources and formats.
 The core research thread. Tests whether deep OTM puts improve geometric compounding via variance drain reduction. Uses SPY options data 2008-2025 from Tiingo/OptionsDX.
 
 - [`summary.md`](research/spitznagel_spy/summary.md) — Hand-written findings with full data tables
-- [`spitznagel_case_rerun.md`](research/spitznagel_spy/spitznagel_case_rerun.md) — Authoritative analysis: AQR framing vs Spitznagel overlay, parameter sweeps, out-of-sample, calm periods
-- [`beyond_spitznagel.md`](research/spitznagel_spy/beyond_spitznagel.md) — Can a pure options barbell work without equity? (No)
+- [`spitznagel_case.md`](research/spitznagel_spy/spitznagel_case.md) — Authoritative analysis: AQR framing vs Spitznagel overlay, parameter sweeps, out-of-sample, calm periods
 - [`cross_asset_notes.md`](research/spitznagel_spy/cross_asset_notes.md) — Detailed notes on applying the structure to rates, FX, credit, commodities, EM debt. Includes data sourcing guide.
 
 ### [`spy_options_strategies/`](research/spy_options_strategies/) — SPY Options Strategy Analysis

@@ -1,7 +1,7 @@
 # The Tail Hedge Debate: Spitznagel vs AQR
 
 **Data:** SPY options 2008-2025 (17.9 years, ~24.7M rows)
-**Source notebooks:** `spitznagel_case.ipynb`, `spitznagel_case_rerun.ipynb`
+**Source:** `spitznagel_case.md`
 
 ---
 
@@ -223,7 +223,7 @@ The strategy beats SPY in **both** halves of the sample. The edge is not front-l
 | COVID + after (2020-2022) | ~3 | — | — | — | — | — |
 | Recent (2023-2025) | ~2 | — | — | — | — | — |
 
-*(The GFC, COVID, and Recent subperiod numbers are available in the styled HTML output of the notebook but not in the text output. See `spitznagel_case_rerun.ipynb` Cell 47 for the full table.)*
+*(The GFC, COVID, and Recent subperiod numbers are available in `spitznagel_case.md`.)*
 
 ## 13. Calm Period Deep Dive
 
@@ -248,7 +248,7 @@ The small crashes that occurred (2011 EU debt, 2015 China, 2018 Q4) were enough 
 
 ### 2012-2018 (Tightest Calm Window)
 
-All 7 key configurations (3 Spitznagel leveraged, 3 no-leverage, SPY baseline) were tested on the calmest subperiod. The Spitznagel framing still outperforms SPY. The no-leverage framing underperforms in this window, confirming AQR is right within their framing. See `spitznagel_case_rerun.ipynb` Cell 50 for the full table.
+All 7 key configurations (3 Spitznagel leveraged, 3 no-leverage, SPY baseline) were tested on the calmest subperiod. The Spitznagel framing still outperforms SPY. The no-leverage framing underperforms in this window, confirming AQR is right within their framing. See `spitznagel_case.md` for the full table.
 
 ## 14. Diminishing Returns at Higher Budgets
 
@@ -281,4 +281,4 @@ At 3.3%, the drag in a no-crash decade would be ~33% — painful enough to aband
 
 ---
 
-*The authoritative notebook is `spitznagel_case_rerun.ipynb`, which corrects the no-leverage claims from the original and adds extended risk metrics, calm-period analysis, and the diminishing returns discussion.*
+*The authoritative analysis is `spitznagel_case.md`, which corrects the no-leverage claims from the original and adds extended risk metrics, calm-period analysis, and the diminishing returns discussion.*
