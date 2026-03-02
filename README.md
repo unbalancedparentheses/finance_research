@@ -48,7 +48,6 @@ Tests specific options structures on SPY against academic claims. Same backteste
 - [`volatility_premium.md`](research/spy_options_strategies/volatility_premium.md) — Variance risk premium analysis
 - [`strategies.md`](research/spy_options_strategies/strategies.md) — 4-strategy showcase (OTM put hedge, call momentum, straddle, strangle)
 - [`trade_analysis.md`](research/spy_options_strategies/trade_analysis.md) — Trade-level P&L, greeks at entry, crash breakdown
-- [`iron_condor.md`](research/spy_options_strategies/iron_condor.md) — Iron condor backtests
 
 ### [`fx_carry_hedged/`](research/fx_carry_hedged/) — FX Carry + Tail Hedge
 
