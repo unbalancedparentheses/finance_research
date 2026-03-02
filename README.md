@@ -44,8 +44,6 @@ Tests specific options structures on SPY against academic claims. Same backteste
 
 - [`findings.md`](research/spy_options_strategies/findings.md) — Comprehensive findings: puts as hedge, calls for momentum, macro signal timing
 - [`paper_comparison.md`](research/spy_options_strategies/paper_comparison.md) — 10 strategies tested against Carr & Wu, Whaley, Israelov, etc.
-- [`volatility_premium.md`](research/spy_options_strategies/volatility_premium.md) — Variance risk premium analysis
-- [`strategies.md`](research/spy_options_strategies/strategies.md) — 4-strategy showcase (OTM put hedge, call momentum, straddle, strangle)
 - [`trade_analysis.md`](research/spy_options_strategies/trade_analysis.md) — Trade-level P&L, greeks at entry, crash breakdown
 
 ### [`fx_carry_hedged/`](research/fx_carry_hedged/) — FX Carry + Tail Hedge
