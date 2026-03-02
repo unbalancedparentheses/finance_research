@@ -61,7 +61,6 @@ print(f"Gilt: {len(gilt_all):,} rows, {gilt_all['symbol'].nunique()} contracts")
     Gilt: 5,282 rows, 32 contracts
 
 
-
 ```python
 # Front month = highest volume each day
 zn_front = zn_all.loc[zn_all.groupby(zn_all.index)['volume'].idxmax()]
@@ -96,7 +95,6 @@ print(f"Gilt close: {df['gilt_close'].min():.1f} to {df['gilt_close'].max():.1f}
     Gilt close: 89.0 to 138.8
 
 
-
 ```python
 fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(14, 8), sharex=True)
 
@@ -120,7 +118,6 @@ print(f"Correlation: {df['zn_ret'].corr(df['gilt_ret']):.3f}")
 ```
 
     Correlation: 0.301
-
 
 
 ```python
@@ -208,7 +205,6 @@ for name, col in [('Long ZN / Short Gilt', 'long_zn'),
       Dynamic Carry                   CAGR=-2.3%  Vol=5.8%  Sharpe=-0.392  Total=0.85x
 
 
-
 ```python
 import re
 
@@ -261,7 +257,6 @@ print(f"OZN calls in overlap: {len(ozn_calls):,} rows, strike {ozn_calls['strike
 
 
     OZN calls in overlap: 129,603 rows, strike 80.5-260.0
-
 
 
 ```python
@@ -527,7 +522,6 @@ print(f"  {len(otm_levels)} OTM levels × {len(leverages)} leverages × {len(opt
       6 OTM levels × 3 leverages × 4 budgets
 
 
-
 ```python
 print("=" * 120)
 print("LONG ZN / SHORT GILT -- OTM LEVEL × LEVERAGE × BUDGET")
@@ -655,7 +649,6 @@ for lev in leverages:
     
 
 
-
 ```python
 print("BEST HEDGED CONFIGS vs UNHEDGED BASELINE")
 print("=" * 100)
@@ -712,7 +705,6 @@ for lev in leverages:
           Beats unhedged? YES
         Best CAGR:   Sharpe=+0.537  CAGR=+21.0%  MaxDD=-34.5%
           Config: 4% OTM + 1.0% budget
-
 
 
 ```python
@@ -867,7 +859,6 @@ for otm_name in ['25% OTM', '30% OTM']:
         2025-10  OZNH6 P0890                K=89.0  spot=112.8  entry=0.0070  settle=0.0070  P&L=+0.0x
 
 
-
 ```python
 print("YEAR-BY-YEAR RETURNS -- 5x LEVERAGE: UNHEDGED vs DEEP OTM PUTS")
 print("=" * 120)
@@ -911,7 +902,6 @@ for yr in sorted(monthly.index.year.unique()):
       2024     +18.6%     +16.0%     +18.6%     +18.6%     +18.6%     +18.6%
       2025      +1.4%      -2.6%      +1.4%      +1.4%      +1.4%      +1.4%
       2026      -5.0%      -5.4%      -5.0%      -5.0%      -5.0%      -5.0%
-
 
 
 ```python
@@ -982,7 +972,6 @@ for otm_name in otm_levels.keys():
          30% OTM  no data
 
 
-
 ```python
 print("=" * 100)
 print("BEST OTM LEVEL PER LEVERAGE (by Sharpe)")
@@ -1037,7 +1026,6 @@ for lev in leverages:
            20% OTM + 1.0%: Sharpe=+0.513  CAGR=+14.8%  MaxDD=-31.0%  ***
            25% OTM + 0.3%: Sharpe=+0.505  CAGR=+14.4%  MaxDD=-31.0%
            30% OTM + 0.3%: Sharpe=+0.505  CAGR=+14.4%  MaxDD=-31.0%
-
 
 
 ```python

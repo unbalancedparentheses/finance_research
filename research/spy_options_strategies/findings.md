@@ -35,7 +35,6 @@ from backtest_runner import (
 )
 
 sns.set_theme(style='whitegrid', palette='muted')
-%matplotlib inline
 plt.rcParams['figure.figsize'] = (16, 6)
 plt.rcParams['figure.dpi'] = 110
 
@@ -62,7 +61,6 @@ print('Setup done.')
 ```
 
     Setup done.
-
 
 
 ```python
@@ -157,48 +155,7 @@ for s_pct, o_pct in SPLITS[1:]:
 
 print(f'Ran {len(puts_results)} put configs + {len(calls_results)} call configs.')
 ```
-
-    Warning: No valid output stream.
-
-
-    Warning: No valid output stream.
-
-
-    Warning: No valid output stream.
-
-
-    Warning: No valid output stream.
-
-
-    Warning: No valid output stream.
-
-
-    Warning: No valid output stream.
-
-
-    Warning: No valid output stream.
-
-
-    Warning: No valid output stream.
-
-
-    Warning: No valid output stream.
-
-
-    Warning: No valid output stream.
-
-
-    Warning: No valid output stream.
-
-
-    Warning: No valid output stream.
-
-
-    Warning: No valid output stream.
-
-
     Ran 7 put configs + 6 call configs.
-
 
 
 ```python
@@ -226,182 +183,23 @@ df_table = pd.DataFrame(rows)
 )
 ```
 
+**Allocation Sweep: No Leverage (stocks + options = 100%)**
 
-
-
-<style type="text/css">
-#T_18a92_row0_col7, #T_18a92_row7_col7, #T_18a92_row8_col7, #T_18a92_row9_col7, #T_18a92_row10_col7, #T_18a92_row11_col7, #T_18a92_row12_col7 {
-  color: green;
-  font-weight: bold;
-}
-#T_18a92_row2_col7, #T_18a92_row3_col7, #T_18a92_row4_col7, #T_18a92_row5_col7, #T_18a92_row6_col7 {
-  color: red;
-}
-</style>
-<table id="T_18a92">
-  <caption>Allocation Sweep: No Leverage (stocks + options = 100%)</caption>
-  <thead>
-    <tr>
-      <th class="blank level0" >&nbsp;</th>
-      <th id="T_18a92_level0_col0" class="col_heading level0 col0" >Strategy</th>
-      <th id="T_18a92_level0_col1" class="col_heading level0 col1" >Stocks %</th>
-      <th id="T_18a92_level0_col2" class="col_heading level0 col2" >Options %</th>
-      <th id="T_18a92_level0_col3" class="col_heading level0 col3" >Annual Return %</th>
-      <th id="T_18a92_level0_col4" class="col_heading level0 col4" >Total Return %</th>
-      <th id="T_18a92_level0_col5" class="col_heading level0 col5" >Max Drawdown %</th>
-      <th id="T_18a92_level0_col6" class="col_heading level0 col6" >Trades</th>
-      <th id="T_18a92_level0_col7" class="col_heading level0 col7" >Excess vs SPY %/yr</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th id="T_18a92_level0_row0" class="row_heading level0 row0" >0</th>
-      <td id="T_18a92_row0_col0" class="data row0 col0" >Pure SPY</td>
-      <td id="T_18a92_row0_col1" class="data row0 col1" >100.0</td>
-      <td id="T_18a92_row0_col2" class="data row0 col2" >0.0</td>
-      <td id="T_18a92_row0_col3" class="data row0 col3" >11.11</td>
-      <td id="T_18a92_row0_col4" class="data row0 col4" >562.6</td>
-      <td id="T_18a92_row0_col5" class="data row0 col5" >-51.9</td>
-      <td id="T_18a92_row0_col6" class="data row0 col6" >0</td>
-      <td id="T_18a92_row0_col7" class="data row0 col7" >+0.07</td>
-    </tr>
-    <tr>
-      <th id="T_18a92_level0_row1" class="row_heading level0 row1" >1</th>
-      <td id="T_18a92_row1_col0" class="data row1 col0" >0.1% puts</td>
-      <td id="T_18a92_row1_col1" class="data row1 col1" >99.9</td>
-      <td id="T_18a92_row1_col2" class="data row1 col2" >0.1</td>
-      <td id="T_18a92_row1_col3" class="data row1 col3" >10.77</td>
-      <td id="T_18a92_row1_col4" class="data row1 col4" >526.8</td>
-      <td id="T_18a92_row1_col5" class="data row1 col5" >-51.6</td>
-      <td id="T_18a92_row1_col6" class="data row1 col6" >370</td>
-      <td id="T_18a92_row1_col7" class="data row1 col7" >-0.28</td>
-    </tr>
-    <tr>
-      <th id="T_18a92_level0_row2" class="row_heading level0 row2" >2</th>
-      <td id="T_18a92_row2_col0" class="data row2 col0" >0.2% puts</td>
-      <td id="T_18a92_row2_col1" class="data row2 col1" >99.8</td>
-      <td id="T_18a92_row2_col2" class="data row2 col2" >0.2</td>
-      <td id="T_18a92_row2_col3" class="data row2 col3" >10.44</td>
-      <td id="T_18a92_row2_col4" class="data row2 col4" >494.5</td>
-      <td id="T_18a92_row2_col5" class="data row2 col5" >-51.4</td>
-      <td id="T_18a92_row2_col6" class="data row2 col6" >378</td>
-      <td id="T_18a92_row2_col7" class="data row2 col7" >-0.60</td>
-    </tr>
-    <tr>
-      <th id="T_18a92_level0_row3" class="row_heading level0 row3" >3</th>
-      <td id="T_18a92_row3_col0" class="data row3 col0" >0.5% puts</td>
-      <td id="T_18a92_row3_col1" class="data row3 col1" >99.5</td>
-      <td id="T_18a92_row3_col2" class="data row3 col2" >0.5</td>
-      <td id="T_18a92_row3_col3" class="data row3 col3" >9.38</td>
-      <td id="T_18a92_row3_col4" class="data row3 col4" >399.7</td>
-      <td id="T_18a92_row3_col5" class="data row3 col5" >-50.6</td>
-      <td id="T_18a92_row3_col6" class="data row3 col6" >381</td>
-      <td id="T_18a92_row3_col7" class="data row3 col7" >-1.67</td>
-    </tr>
-    <tr>
-      <th id="T_18a92_level0_row4" class="row_heading level0 row4" >4</th>
-      <td id="T_18a92_row4_col0" class="data row4 col0" >1.0% puts</td>
-      <td id="T_18a92_row4_col1" class="data row4 col1" >99.0</td>
-      <td id="T_18a92_row4_col2" class="data row4 col2" >1.0</td>
-      <td id="T_18a92_row4_col3" class="data row4 col3" >7.62</td>
-      <td id="T_18a92_row4_col4" class="data row4 col4" >273.8</td>
-      <td id="T_18a92_row4_col5" class="data row4 col5" >-49.3</td>
-      <td id="T_18a92_row4_col6" class="data row4 col6" >381</td>
-      <td id="T_18a92_row4_col7" class="data row4 col7" >-3.42</td>
-    </tr>
-    <tr>
-      <th id="T_18a92_level0_row5" class="row_heading level0 row5" >5</th>
-      <td id="T_18a92_row5_col0" class="data row5 col0" >2.0% puts</td>
-      <td id="T_18a92_row5_col1" class="data row5 col1" >98.0</td>
-      <td id="T_18a92_row5_col2" class="data row5 col2" >2.0</td>
-      <td id="T_18a92_row5_col3" class="data row5 col3" >4.10</td>
-      <td id="T_18a92_row5_col4" class="data row5 col4" >105.7</td>
-      <td id="T_18a92_row5_col5" class="data row5 col5" >-46.5</td>
-      <td id="T_18a92_row5_col6" class="data row5 col6" >381</td>
-      <td id="T_18a92_row5_col7" class="data row5 col7" >-6.95</td>
-    </tr>
-    <tr>
-      <th id="T_18a92_level0_row6" class="row_heading level0 row6" >6</th>
-      <td id="T_18a92_row6_col0" class="data row6 col0" >5.0% puts</td>
-      <td id="T_18a92_row6_col1" class="data row6 col1" >95.0</td>
-      <td id="T_18a92_row6_col2" class="data row6 col2" >5.0</td>
-      <td id="T_18a92_row6_col3" class="data row6 col3" >-6.52</td>
-      <td id="T_18a92_row6_col4" class="data row6 col4" >-70.2</td>
-      <td id="T_18a92_row6_col5" class="data row6 col5" >-70.7</td>
-      <td id="T_18a92_row6_col6" class="data row6 col6" >381</td>
-      <td id="T_18a92_row6_col7" class="data row6 col7" >-17.57</td>
-    </tr>
-    <tr>
-      <th id="T_18a92_level0_row7" class="row_heading level0 row7" >7</th>
-      <td id="T_18a92_row7_col0" class="data row7 col0" >0.1% calls</td>
-      <td id="T_18a92_row7_col1" class="data row7 col1" >99.9</td>
-      <td id="T_18a92_row7_col2" class="data row7 col2" >0.1</td>
-      <td id="T_18a92_row7_col3" class="data row7 col3" >11.19</td>
-      <td id="T_18a92_row7_col4" class="data row7 col4" >571.2</td>
-      <td id="T_18a92_row7_col5" class="data row7 col5" >-52.1</td>
-      <td id="T_18a92_row7_col6" class="data row7 col6" >356</td>
-      <td id="T_18a92_row7_col7" class="data row7 col7" >+0.15</td>
-    </tr>
-    <tr>
-      <th id="T_18a92_level0_row8" class="row_heading level0 row8" >8</th>
-      <td id="T_18a92_row8_col0" class="data row8 col0" >0.2% calls</td>
-      <td id="T_18a92_row8_col1" class="data row8 col1" >99.8</td>
-      <td id="T_18a92_row8_col2" class="data row8 col2" >0.2</td>
-      <td id="T_18a92_row8_col3" class="data row8 col3" >11.29</td>
-      <td id="T_18a92_row8_col4" class="data row8 col4" >581.6</td>
-      <td id="T_18a92_row8_col5" class="data row8 col5" >-52.5</td>
-      <td id="T_18a92_row8_col6" class="data row8 col6" >362</td>
-      <td id="T_18a92_row8_col7" class="data row8 col7" >+0.24</td>
-    </tr>
-    <tr>
-      <th id="T_18a92_level0_row9" class="row_heading level0 row9" >9</th>
-      <td id="T_18a92_row9_col0" class="data row9 col0" >0.5% calls</td>
-      <td id="T_18a92_row9_col1" class="data row9 col1" >99.5</td>
-      <td id="T_18a92_row9_col2" class="data row9 col2" >0.5</td>
-      <td id="T_18a92_row9_col3" class="data row9 col3" >11.53</td>
-      <td id="T_18a92_row9_col4" class="data row9 col4" >608.1</td>
-      <td id="T_18a92_row9_col5" class="data row9 col5" >-53.5</td>
-      <td id="T_18a92_row9_col6" class="data row9 col6" >363</td>
-      <td id="T_18a92_row9_col7" class="data row9 col7" >+0.48</td>
-    </tr>
-    <tr>
-      <th id="T_18a92_level0_row10" class="row_heading level0 row10" >10</th>
-      <td id="T_18a92_row10_col0" class="data row10 col0" >1.0% calls</td>
-      <td id="T_18a92_row10_col1" class="data row10 col1" >99.0</td>
-      <td id="T_18a92_row10_col2" class="data row10 col2" >1.0</td>
-      <td id="T_18a92_row10_col3" class="data row10 col3" >11.88</td>
-      <td id="T_18a92_row10_col4" class="data row10 col4" >649.1</td>
-      <td id="T_18a92_row10_col5" class="data row10 col5" >-55.2</td>
-      <td id="T_18a92_row10_col6" class="data row10 col6" >365</td>
-      <td id="T_18a92_row10_col7" class="data row10 col7" >+0.83</td>
-    </tr>
-    <tr>
-      <th id="T_18a92_level0_row11" class="row_heading level0 row11" >11</th>
-      <td id="T_18a92_row11_col0" class="data row11 col0" >2.0% calls</td>
-      <td id="T_18a92_row11_col1" class="data row11 col1" >98.0</td>
-      <td id="T_18a92_row11_col2" class="data row11 col2" >2.0</td>
-      <td id="T_18a92_row11_col3" class="data row11 col3" >12.44</td>
-      <td id="T_18a92_row11_col4" class="data row11 col4" >720.3</td>
-      <td id="T_18a92_row11_col5" class="data row11 col5" >-58.5</td>
-      <td id="T_18a92_row11_col6" class="data row11 col6" >367</td>
-      <td id="T_18a92_row11_col7" class="data row11 col7" >+1.40</td>
-    </tr>
-    <tr>
-      <th id="T_18a92_level0_row12" class="row_heading level0 row12" >12</th>
-      <td id="T_18a92_row12_col0" class="data row12 col0" >5.0% calls</td>
-      <td id="T_18a92_row12_col1" class="data row12 col1" >95.0</td>
-      <td id="T_18a92_row12_col2" class="data row12 col2" >5.0</td>
-      <td id="T_18a92_row12_col3" class="data row12 col3" >13.09</td>
-      <td id="T_18a92_row12_col4" class="data row12 col4" >808.7</td>
-      <td id="T_18a92_row12_col5" class="data row12 col5" >-66.9</td>
-      <td id="T_18a92_row12_col6" class="data row12 col6" >370</td>
-      <td id="T_18a92_row12_col7" class="data row12 col7" >+2.04</td>
-    </tr>
-  </tbody>
-</table>
-
-
-
+| Strategy | Stocks % | Options % | Annual Return % | Total Return % | Max Drawdown % | Trades | Excess vs SPY %/yr |
+|---|---|---|---|---|---|---|---|
+| Pure SPY | 100.0 | 0.0 | 11.11 | 562.6 | -51.9 | 0 | +0.07 |
+| 0.1% puts | 99.9 | 0.1 | 10.77 | 526.8 | -51.6 | 370 | -0.28 |
+| 0.2% puts | 99.8 | 0.2 | 10.44 | 494.5 | -51.4 | 378 | -0.60 |
+| 0.5% puts | 99.5 | 0.5 | 9.38 | 399.7 | -50.6 | 381 | -1.67 |
+| 1.0% puts | 99.0 | 1.0 | 7.62 | 273.8 | -49.3 | 381 | -3.42 |
+| 2.0% puts | 98.0 | 2.0 | 4.10 | 105.7 | -46.5 | 381 | -6.95 |
+| 5.0% puts | 95.0 | 5.0 | -6.52 | -70.2 | -70.7 | 381 | -17.57 |
+| 0.1% calls | 99.9 | 0.1 | 11.19 | 571.2 | -52.1 | 356 | +0.15 |
+| 0.2% calls | 99.8 | 0.2 | 11.29 | 581.6 | -52.5 | 362 | +0.24 |
+| 0.5% calls | 99.5 | 0.5 | 11.53 | 608.1 | -53.5 | 363 | +0.48 |
+| 1.0% calls | 99.0 | 1.0 | 11.88 | 649.1 | -55.2 | 365 | +0.83 |
+| 2.0% calls | 98.0 | 2.0 | 12.44 | 720.3 | -58.5 | 367 | +1.40 |
+| 5.0% calls | 95.0 | 5.0 | 13.09 | 808.7 | -66.9 | 370 | +2.04 |
 
 ---
 ## 3. Capital Curves: Puts vs Calls vs SPY
@@ -636,73 +434,14 @@ else:
     print('Signals not available.')
 ```
 
-    Warning: No valid output stream.
+**Signal-Filtered Puts at 0.2% Allocation**
 
-
-    Warning: No valid output stream.
-
-
-    Warning: No valid output stream.
-
-
-    Warning: No valid output stream.
-
-
-
-<style type="text/css">
-#T_356ff_row0_col4, #T_356ff_row1_col4, #T_356ff_row2_col4, #T_356ff_row3_col4 {
-  color: red;
-}
-</style>
-<table id="T_356ff">
-  <caption>Signal-Filtered Puts at 0.2% Allocation</caption>
-  <thead>
-    <tr>
-      <th class="blank level0" >&nbsp;</th>
-      <th id="T_356ff_level0_col0" class="col_heading level0 col0" >Strategy</th>
-      <th id="T_356ff_level0_col1" class="col_heading level0 col1" >Annual Return %</th>
-      <th id="T_356ff_level0_col2" class="col_heading level0 col2" >Max Drawdown %</th>
-      <th id="T_356ff_level0_col3" class="col_heading level0 col3" >Trades</th>
-      <th id="T_356ff_level0_col4" class="col_heading level0 col4" >Excess vs SPY %/yr</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th id="T_356ff_level0_row0" class="row_heading level0 row0" >0</th>
-      <td id="T_356ff_row0_col0" class="data row0 col0" >0.2% puts (always)</td>
-      <td id="T_356ff_row0_col1" class="data row0 col1" >10.44</td>
-      <td id="T_356ff_row0_col2" class="data row0 col2" >-51.4</td>
-      <td id="T_356ff_row0_col3" class="data row0 col3" >378</td>
-      <td id="T_356ff_row0_col4" class="data row0 col4" >-0.60</td>
-    </tr>
-    <tr>
-      <th id="T_356ff_level0_row1" class="row_heading level0 row1" >1</th>
-      <td id="T_356ff_row1_col0" class="data row1 col0" >0.2% puts (VIX < median)</td>
-      <td id="T_356ff_row1_col1" class="data row1 col1" >9.57</td>
-      <td id="T_356ff_row1_col2" class="data row1 col2" >-52.6</td>
-      <td id="T_356ff_row1_col3" class="data row1 col3" >259</td>
-      <td id="T_356ff_row1_col4" class="data row1 col4" >-1.47</td>
-    </tr>
-    <tr>
-      <th id="T_356ff_level0_row2" class="row_heading level0 row2" >2</th>
-      <td id="T_356ff_row2_col0" class="data row2 col0" >0.2% puts (Buffett > median)</td>
-      <td id="T_356ff_row2_col1" class="data row2 col1" >9.49</td>
-      <td id="T_356ff_row2_col2" class="data row2 col2" >-53.3</td>
-      <td id="T_356ff_row2_col3" class="data row2 col3" >295</td>
-      <td id="T_356ff_row2_col4" class="data row2 col4" >-1.55</td>
-    </tr>
-    <tr>
-      <th id="T_356ff_level0_row3" class="row_heading level0 row3" >3</th>
-      <td id="T_356ff_row3_col0" class="data row3 col0" >0.2% puts (Tobin Q > median)</td>
-      <td id="T_356ff_row3_col1" class="data row3 col1" >9.50</td>
-      <td id="T_356ff_row3_col2" class="data row3 col2" >-51.4</td>
-      <td id="T_356ff_row3_col3" class="data row3 col3" >136</td>
-      <td id="T_356ff_row3_col4" class="data row3 col4" >-1.55</td>
-    </tr>
-  </tbody>
-</table>
-
-
+| Strategy | Annual Return % | Max Drawdown % | Trades | Excess vs SPY %/yr |
+|---|---|---|---|---|
+| 0.2% puts (always) | 10.44 | -51.4 | 378 | -0.60 |
+| 0.2% puts (VIX < median) | 9.57 | -52.6 | 259 | -1.47 |
+| 0.2% puts (Buffett > median) | 9.49 | -53.3 | 295 | -1.55 |
+| 0.2% puts (Tobin Q > median) | 9.50 | -51.4 | 136 | -1.55 |
 
 ---
 ## 8. Conclusions

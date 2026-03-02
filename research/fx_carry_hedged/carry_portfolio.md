@@ -29,7 +29,7 @@ CARRY_PAIRS = ['AUD', 'GBP', 'CAD', 'EUR', 'CHF', 'MXN']
 
 ## 1. Data Loading
 
-Copy all helper functions from multi_asset_carry.ipynb and run backtests for all 6 pairs at 1x and 3x, hedged and unhedged.
+Copy all helper functions from multi_asset_carry.md and run backtests for all 6 pairs at 1x and 3x, hedged and unhedged.
 
 
 ```python
@@ -136,7 +136,6 @@ for ccy, filename in pairs_files.items():
       4880 days, 2010-06-06 to 2026-02-27
 
 
-
 ```python
 # Build cross rates vs JPY
 jpy = fx_futures['JPY']
@@ -166,7 +165,6 @@ for ccy in CARRY_PAIRS:
     EUR/JPY: 4880 days, spot CAGR 3.38%
     CHF/JPY: 4880 days, spot CAGR 6.20%
     MXN/JPY: 4877 days, spot CAGR 1.65%
-
 
 
 ```python
@@ -241,7 +239,6 @@ for ccy in CARRY_PAIRS:
     EUR/JPY:      0.99%   0.05%   0.00%   4.00%   2.65%
     CHF/JPY:     -0.14%  -0.75%  -0.75%   1.50%   0.00%
     MXN/JPY:      6.39%   3.25%   5.00%  11.25%   9.00%
-
 
 
 ```python
@@ -376,7 +373,6 @@ for ccy in CARRY_PAIRS:
       7,576 total (puts: 3,955), 2013-01-22 to 2026-02-27
 
 
-
 ```python
 def select_monthly_options(opts, front_prices, opt_type='P', otm_target=0.92):
     filtered = opts[opts['opt_type'] == opt_type].copy()
@@ -449,7 +445,6 @@ for ccy in CARRY_PAIRS:
     EUR puts: 185 months, 2010-06-06 to 2026-02-01, avg moneyness 0.959
     CHF puts: 81 months, 2010-06-07 to 2017-06-02, avg moneyness 0.974
     MXN puts: 121 months, 2013-02-05 to 2026-02-02, avg moneyness 0.968
-
 
 
 ```python
@@ -612,7 +607,6 @@ print(f'\nTotal backtests: {len(all_results)}')
     Running MXN/JPY 3x hedged...
     
     Total backtests: 24
-
 
 
 ```python
@@ -791,7 +785,6 @@ print(f'Correlation reduction from hedging: {(avg_corr_u - avg_corr_h):.3f}')
     Correlation reduction from hedging: 0.186
 
 
-
 ```python
 # Correlation heatmaps side by side
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(16, 6))
@@ -817,7 +810,6 @@ plt.show()
     
 ![png](carry_portfolio_files/carry_portfolio_15_0.png)
     
-
 
 
 ```python
@@ -872,7 +864,6 @@ for c1, c2 in key_pairs:
          MXN-CHF    0.425    0.173   -0.048    0.811
 
 
-
 ```python
 # 3c. Crisis-conditional correlations
 # Define "drawdown" as periods when the equal-weight carry portfolio is in >5% drawdown
@@ -922,7 +913,6 @@ for idx in corr_crisis.index:
          EUR    0.691    0.732    0.702    1.000    0.744    0.569
          CHF    0.495    0.562    0.546    0.744    1.000    0.397
          MXN    0.705    0.580    0.722    0.569    0.397    1.000
-
 
 
 ```python
@@ -1023,7 +1013,6 @@ print(f'Built {len(ew_results)} equal-weight portfolio variants')
     Built 16 equal-weight portfolio variants
 
 
-
 ```python
 # Stats table for all EW portfolios
 print('=' * 140)
@@ -1063,7 +1052,6 @@ for tag in sorted(ew_results.keys()):
                  High-Carry (AUD+MXN) 1x U   10.21%  11.4%   0.893    1.185   0.365  -28.0%    1569  -0.36    3.2    4.6x
                  High-Carry (AUD+MXN) 3x H   39.94%  41.5%   0.961    1.534   0.631  -63.3%    1304   6.65  173.9  197.5x
                  High-Carry (AUD+MXN) 3x U   27.52%  34.3%   0.802    1.064   0.412  -66.8%    1987  -0.36    3.2   45.8x
-
 
 
 ```python
@@ -1194,7 +1182,6 @@ print(f'Built {len(rp_results)} risk-parity portfolios')
     Built 8 risk-parity portfolios
 
 
-
 ```python
 # Risk-parity stats
 print('=' * 140)
@@ -1255,7 +1242,6 @@ for hedge_label in ['H', 'U']:
       RP:  CAGR 16.39%, Sharpe 0.646, MaxDD -62.8%
 
 
-
 ```python
 # Plot risk-parity weights over time
 for tag in ['RP All-6 3x H', 'RP All-6 3x U']:
@@ -1276,7 +1262,6 @@ for tag in ['RP All-6 3x H', 'RP All-6 3x U']:
     
 ![png](carry_portfolio_files/carry_portfolio_26_0.png)
     
-
 
 
     
@@ -1398,7 +1383,6 @@ print(f'Built {len(mv_results)} min-variance portfolios')
     Built 4 min-variance portfolios
 
 
-
 ```python
 # Min-variance stats
 print('=' * 140)
@@ -1428,7 +1412,6 @@ for tag in sorted(mv_results.keys()):
                  MinVar All-6 3x U   14.34%  24.4%   0.588    0.787   0.234  -61.3%    2414  -0.36    6.1    7.8x
 
 
-
 ```python
 # Plot min-variance weights evolution
 for tag in ['MinVar All-6 3x H', 'MinVar All-6 3x U']:
@@ -1449,7 +1432,6 @@ for tag in ['MinVar All-6 3x H', 'MinVar All-6 3x U']:
     
 ![png](carry_portfolio_files/carry_portfolio_30_0.png)
     
-
 
 
     
@@ -1580,7 +1562,6 @@ print(f'Built {len(ms_results)} max-Sharpe portfolios')
     Built 4 max-Sharpe portfolios
 
 
-
 ```python
 # Max-Sharpe stats
 print('=' * 140)
@@ -1610,7 +1591,6 @@ for tag in sorted(ms_results.keys()):
                    MaxSharpe All-6 3x U   24.19%  30.6%   0.791    0.995   0.390  -62.1%    1397  -0.62    5.9   27.7x
 
 
-
 ```python
 # Plot max-Sharpe weights evolution
 for tag in ['MaxSharpe All-6 3x H', 'MaxSharpe All-6 3x U']:
@@ -1631,7 +1611,6 @@ for tag in ['MaxSharpe All-6 3x H', 'MaxSharpe All-6 3x U']:
     
 ![png](carry_portfolio_files/carry_portfolio_34_0.png)
     
-
 
 
     
@@ -1686,11 +1665,9 @@ plt.show()
     Risk-off days: 1619 (33.2%)
 
 
-
     
 ![png](carry_portfolio_files/carry_portfolio_36_1.png)
     
-
 
 
 ```python
@@ -1861,7 +1838,6 @@ for tag in sorted(list(ew_results.keys()) + list(rp_results.keys()) +
                               RP Core 1x U   -26.7%       2278    -9.2%     -21.1%         3d
                               RP Core 3x H   -61.1%       2135   -22.4%     -49.9%         4d
                               RP Core 3x U   -66.9%       2632   -28.1%     -57.5%         3d
-
 
 
 ```python
@@ -2105,7 +2081,6 @@ print(row)
        Avg         14.4%         10.5%         46.6%         11.6%         33.8%         22.3%
        Med         12.8%         10.7%         36.1%         11.3%         32.7%         16.3%
       Win%           88%           88%           81%           88%           81%           75%
-
 
 
 ```python

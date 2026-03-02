@@ -144,7 +144,6 @@ for ccy, filename in pairs.items():
       4880 days, 2010-06-06 to 2026-02-27, close: 0.006417
 
 
-
 ```python
 # Build cross rates vs JPY for each high-yielder
 # Cross = CCY/USD futures price / JPY/USD futures price = JPY per unit of CCY
@@ -427,7 +426,6 @@ for ccy in ['AUD', 'GBP', 'CAD', 'EUR', 'CHF', 'MXN']:
       47,067 total (puts: 22,974, calls: 24,093), 2010-06-07 to 2017-06-09
     Loading MXN options...
       7,576 total (puts: 3,955, calls: 3,621), 2013-01-22 to 2026-02-27
-
 
 
 ```python
@@ -1055,7 +1053,6 @@ print('Saved to research/multi_asset_carry_curves.png')
     Saved to research/multi_asset_carry_curves.png
 
 
-
 ```python
 # Focused comparison: hedged strategies only, 3x leverage
 fig, ax = plt.subplots(1, 1, figsize=(14, 7))
@@ -1157,7 +1154,6 @@ for lev in [1, 3]:
             2018 trade war    -27.2%     12.8%    -21.7%    -23.2%    -24.3%     11.1%    -22.8%    -33.6%    -14.9%    -14.9%     36.4%     51.7%
                 2020 COVID    -25.2%    -26.4%    -17.7%     24.5%    -23.7%    -24.8%    -11.4%     35.4%     -4.9%     -4.9%    -52.8%    -52.8%
            2022 rate hikes     14.0%     11.1%     21.8%     21.8%     43.3%     53.3%     25.7%     18.5%     37.1%     37.1%    127.7%    127.7%
-
 
 
 ```python
@@ -1294,7 +1290,6 @@ for tag in sorted(port_results.keys()):
                   core 3x unhedged   13.10%  26.7%   0.490    0.665  -64.5%  -0.31    5.2    6.9x
 
 
-
 ```python
 # Plot portfolio equity curves
 fig, ax = plt.subplots(1, 1, figsize=(14, 7))
@@ -1373,7 +1368,6 @@ print(f'\nAverage pairwise correlation: {corr.where(np.triu(np.ones(corr.shape),
        MXN/JPY     0.690     0.607     0.723     0.596     0.391     1.000
     
     Average pairwise correlation: 0.633
-
 
 
 ```python

@@ -31,7 +31,6 @@ from options_portfolio_backtester import Order
 from backtest_runner import load_data, make_puts_strategy, run_backtest, INITIAL_CAPITAL
 
 sns.set_theme(style='whitegrid', palette='muted')
-%matplotlib inline
 plt.rcParams['figure.figsize'] = (16, 6)
 plt.rcParams['figure.dpi'] = 110
 
@@ -53,7 +52,6 @@ print('Setup done.')
     Setup done.
 
 
-
 ```python
 data = load_data()
 schema = data['schema']
@@ -72,11 +70,6 @@ print(f"Total trade log rows: {len(trade_log)}")
     SPY B&H: 555.5% total, 11.05% annual, -51.9% max DD
     
     Loaded macro signals: ['gdp', 'vix', 'hy_spread', 'yield_curve_10y2y', 'nfc_equity_mv', 'nfc_net_worth', 'dollar_index', 'buffett_indicator', 'tobin_q']
-
-
-    Warning: No valid output stream.
-
-
     Total trade log rows: 378
 
 
@@ -319,76 +312,14 @@ period_stats['win_rate'] = (period_stats['win_rate'] * 100).round(1)
 )
 ```
 
+**Performance by Market Period**
 
-
-
-<style type="text/css">
-</style>
-<table id="T_bdb9f">
-  <caption>Performance by Market Period</caption>
-  <thead>
-    <tr>
-      <th class="blank level0" >&nbsp;</th>
-      <th id="T_bdb9f_level0_col0" class="col_heading level0 col0" >trades</th>
-      <th id="T_bdb9f_level0_col1" class="col_heading level0 col1" >total_pnl</th>
-      <th id="T_bdb9f_level0_col2" class="col_heading level0 col2" >avg_pnl</th>
-      <th id="T_bdb9f_level0_col3" class="col_heading level0 col3" >win_rate</th>
-      <th id="T_bdb9f_level0_col4" class="col_heading level0 col4" >best_trade</th>
-      <th id="T_bdb9f_level0_col5" class="col_heading level0 col5" >worst_trade</th>
-    </tr>
-    <tr>
-      <th class="index_name level0" >period</th>
-      <th class="blank col0" >&nbsp;</th>
-      <th class="blank col1" >&nbsp;</th>
-      <th class="blank col2" >&nbsp;</th>
-      <th class="blank col3" >&nbsp;</th>
-      <th class="blank col4" >&nbsp;</th>
-      <th class="blank col5" >&nbsp;</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th id="T_bdb9f_level0_row0" class="row_heading level0 row0" >2008 GFC</th>
-      <td id="T_bdb9f_row0_col0" class="data row0 col0" >10</td>
-      <td id="T_bdb9f_row0_col1" class="data row0 col1" >$-680</td>
-      <td id="T_bdb9f_row0_col2" class="data row0 col2" >$-68</td>
-      <td id="T_bdb9f_row0_col3" class="data row0 col3" >40.0%</td>
-      <td id="T_bdb9f_row0_col4" class="data row0 col4" >$3,085</td>
-      <td id="T_bdb9f_row0_col5" class="data row0 col5" >$-1,649</td>
-    </tr>
-    <tr>
-      <th id="T_bdb9f_level0_row1" class="row_heading level0 row1" >2020 COVID</th>
-      <td id="T_bdb9f_row1_col0" class="data row1 col0" >1</td>
-      <td id="T_bdb9f_row1_col1" class="data row1 col1" >$3,431</td>
-      <td id="T_bdb9f_row1_col2" class="data row1 col2" >$3,431</td>
-      <td id="T_bdb9f_row1_col3" class="data row1 col3" >100.0%</td>
-      <td id="T_bdb9f_row1_col4" class="data row1 col4" >$3,431</td>
-      <td id="T_bdb9f_row1_col5" class="data row1 col5" >$3,431</td>
-    </tr>
-    <tr>
-      <th id="T_bdb9f_level0_row2" class="row_heading level0 row2" >2022 Bear</th>
-      <td id="T_bdb9f_row2_col0" class="data row2 col0" >6</td>
-      <td id="T_bdb9f_row2_col1" class="data row2 col1" >$-20,117</td>
-      <td id="T_bdb9f_row2_col2" class="data row2 col2" >$-3,353</td>
-      <td id="T_bdb9f_row2_col3" class="data row2 col3" >17.0%</td>
-      <td id="T_bdb9f_row2_col4" class="data row2 col4" >$870</td>
-      <td id="T_bdb9f_row2_col5" class="data row2 col5" >$-6,308</td>
-    </tr>
-    <tr>
-      <th id="T_bdb9f_level0_row3" class="row_heading level0 row3" >Calm</th>
-      <td id="T_bdb9f_row3_col0" class="data row3 col0" >154</td>
-      <td id="T_bdb9f_row3_col1" class="data row3 col1" >$-328,687</td>
-      <td id="T_bdb9f_row3_col2" class="data row3 col2" >$-2,134</td>
-      <td id="T_bdb9f_row3_col3" class="data row3 col3" >8.0%</td>
-      <td id="T_bdb9f_row3_col4" class="data row3 col4" >$29,848</td>
-      <td id="T_bdb9f_row3_col5" class="data row3 col5" >$-9,548</td>
-    </tr>
-  </tbody>
-</table>
-
-
-
-
+| trades | total_pnl | avg_pnl | win_rate | best_trade | worst_trade | period |
+|---|---|---|---|---|---|---|
+| 10 | $-680 | $-68 | 40.0% | $3,085 | $-1,649 |  |
+| 1 | $3,431 | $3,431 | 100.0% | $3,431 | $3,431 |  |
+| 6 | $-20,117 | $-3,353 | 17.0% | $870 | $-6,308 |  |
+| 154 | $-328,687 | $-2,134 | 8.0% | $29,848 | $-9,548 |  |
 
 ```python
 # Box plot by period
@@ -449,56 +380,16 @@ comparison = pd.DataFrame({
 )
 ```
 
+**Winners vs Losers Breakdown**
 
-
-
-<style type="text/css">
-</style>
-<table id="T_ab952">
-  <caption>Winners vs Losers Breakdown</caption>
-  <thead>
-    <tr>
-      <th class="blank level0" >&nbsp;</th>
-      <th id="T_ab952_level0_col0" class="col_heading level0 col0" >Winners</th>
-      <th id="T_ab952_level0_col1" class="col_heading level0 col1" >Losers</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th id="T_ab952_level0_row0" class="row_heading level0 row0" >Count</th>
-      <td id="T_ab952_row0_col0" class="data row0 col0" >18.0</td>
-      <td id="T_ab952_row0_col1" class="data row0 col1" >153.0</td>
-    </tr>
-    <tr>
-      <th id="T_ab952_level0_row1" class="row_heading level0 row1" >Avg P&L</th>
-      <td id="T_ab952_row1_col0" class="data row1 col0" >4,068.4</td>
-      <td id="T_ab952_row1_col1" class="data row1 col1" >-2,740.4</td>
-    </tr>
-    <tr>
-      <th id="T_ab952_level0_row2" class="row_heading level0 row2" >Total P&L</th>
-      <td id="T_ab952_row2_col0" class="data row2 col0" >73,232.0</td>
-      <td id="T_ab952_row2_col1" class="data row2 col1" >-419,285.0</td>
-    </tr>
-    <tr>
-      <th id="T_ab952_level0_row3" class="row_heading level0 row3" >Avg Hold Days</th>
-      <td id="T_ab952_row3_col0" class="data row3 col0" >47.0</td>
-      <td id="T_ab952_row3_col1" class="data row3 col1" >68.2</td>
-    </tr>
-    <tr>
-      <th id="T_ab952_level0_row4" class="row_heading level0 row4" >Avg SPY 12m Ret %</th>
-      <td id="T_ab952_row4_col0" class="data row4 col0" >15.3</td>
-      <td id="T_ab952_row4_col1" class="data row4 col1" >14.9</td>
-    </tr>
-    <tr>
-      <th id="T_ab952_level0_row5" class="row_heading level0 row5" >Avg Realized Vol %</th>
-      <td id="T_ab952_row5_col0" class="data row5 col0" >15.7</td>
-      <td id="T_ab952_row5_col1" class="data row5 col1" >13.4</td>
-    </tr>
-  </tbody>
-</table>
-
-
-
+| Winners | Losers |
+|---|---|
+| 18.0 | 153.0 |
+| 4,068.4 | -2,740.4 |
+| 73,232.0 | -419,285.0 |
+| 47.0 | 68.2 |
+| 15.3 | 14.9 |
+| 15.7 | 13.4 |
 
 ---
 ## 8. Key Insights

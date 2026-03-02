@@ -41,7 +41,7 @@ plt.rcParams.update({
 
 ## 1. Data Loading
 
-Reuse `load_front_month()` from multi_asset_carry.ipynb. Load all FX futures and build cross rates vs JPY.
+Reuse `load_front_month()` from multi_asset_carry.md. Load all FX futures and build cross rates vs JPY.
 
 
 ```python
@@ -187,7 +187,7 @@ for ccy in ['AUD', 'GBP', 'CAD', 'EUR', 'CHF', 'MXN', 'NZD']:
 
 ## 2. Carry Rates
 
-Same policy rate series as multi_asset_carry.ipynb for all central banks.
+Same policy rate series as multi_asset_carry.md for all central banks.
 
 
 ```python
@@ -503,7 +503,7 @@ for ccy in ANALYSIS_PAIRS:
 
 ## 3. Backtest Engine
 
-Same engine as multi_asset_carry.ipynb with settlement pre-computation.
+Same engine as multi_asset_carry.md with settlement pre-computation.
 
 
 ```python
@@ -723,7 +723,6 @@ for ccy in ANALYSIS_PAIRS:
 
     EUR: pre-computed 185 put settlements
     MXN: pre-computed 121 put settlements
-
 
 
 ```python
@@ -1331,7 +1330,6 @@ plt.show()
        MXN/JPY     hedged        never        10x
 
 
-
     
 ![png](leverage_analysis_files/leverage_analysis_22_1.png)
     
@@ -1398,7 +1396,6 @@ for _, row in port_stats_df.sort_values(['leverage', 'hedged']).iterrows():
                 10x hedged   44.02%  108.6%   0.405    0.627  -98.4%   3.46   71.6   310.3x
 
 
-
 ```python
 # Portfolio equity curves at various leverage levels
 fig, axes = plt.subplots(1, 2, figsize=(18, 7))
@@ -1432,7 +1429,6 @@ plt.show()
     
 ![png](leverage_analysis_files/leverage_analysis_25_0.png)
     
-
 
 
 ```python
@@ -1565,7 +1561,6 @@ print('\nDone.')
     Done.
 
 
-
 ```python
 # Plot put budget sensitivity
 fig, axes = plt.subplots(1, 3, figsize=(18, 6))
@@ -1629,7 +1624,6 @@ plt.show()
 
     AUD/JPY: optimal Sharpe at put budget = 0.3% (Sharpe = 0.682)
     MXN/JPY: optimal Sharpe at put budget = 0.3% (Sharpe = 0.858)
-
 
 
     

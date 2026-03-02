@@ -148,7 +148,6 @@ else:
     Sample option symbols: ['ESM0 C1080', 'ESM0 C1100', 'ESM0 C1105', 'ESM0 C1140', 'ESM0 C1150', 'ESM0 C1230', 'ESM0 P0850', 'ESM0 P0960', 'ESM0 P0975', 'ESM0 P1000']
 
 
-
 ```python
 def parse_es_option(symbol, trade_date=None):
     # Parse ES option: 'ESM5 P4200', 'EW1M5 P4200' etc.
@@ -950,7 +949,6 @@ for budget in [0] + put_budgets:
          1.0% puts: 3x -> CAGR 18.7%, Sharpe 0.318, MaxDD -77.2%
 
 
-
 ```python
 fig, axes = plt.subplots(1, 3, figsize=(18, 5))
 
@@ -1091,7 +1089,6 @@ else:
       2022-04  ESM2 P4190                 K=4190  entry=70.00  settle=412.25  P&L=+4.9x
 
 
-
     
 ![png](equity_spitznagel_files/equity_spitznagel_27_1.png)
     
@@ -1149,7 +1146,6 @@ print('  Crude 1x hedged:                          Sharpe  0.11, CAGR  4.6%')
       FX Carry AUD/JPY 3x dual hedge:          Sharpe ~0.71, CAGR ~29.6%
       Gold 1x hedged:                           Sharpe  0.17, CAGR  3.6%
       Crude 1x hedged:                          Sharpe  0.11, CAGR  4.6%
-
 
 
 ```python

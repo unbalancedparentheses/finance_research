@@ -427,7 +427,6 @@ print(f'Price range: {es_daily["close"].min():.0f} to {es_daily["close"].max():.
     Price range: 1008 to 7015
 
 
-
 ```python
 opt_file = f'{DATA}/ES_OPT_ohlcv1d.parquet'
 has_es_opts = os.path.exists(opt_file)
@@ -510,7 +509,6 @@ else:
     Selected 180 monthly puts (25% OTM target)
       Win rate: 6.7%
       Avg P&L: -0.49x, Best: 27.6x
-
 
 
 ```python
@@ -669,7 +667,6 @@ for ccy in FX_PAIRS:
         CHF/JPY carry: -0.1% p.a.
 
 
-
 ```python
 FX_LEVERAGE = 1
 FX_PUT_BUDGET = 0.005  # 0.5%
@@ -728,7 +725,6 @@ for ccy in FX_PAIRS:
       CHF/JPY 1x hedged (81 puts): Sharpe=0.507, CAGR=10.2%, MaxDD=-30.2%
 
 
-
 ```python
 # EW portfolio: average daily returns of individual pair capital series
 daily_rets = {}
@@ -764,7 +760,7 @@ OZN puts protect the long ZN leg.
 
 
 ```python
-# Load raw data (matching bond_carry_usuk.ipynb inline approach)
+# Load raw data (matching bond_carry_usuk.md inline approach)
 zn_raw = pd.read_parquet(f'{DATA}/ZN_FUT_ohlcv1d.parquet')
 gilt_raw = pd.read_parquet(f'{DATA}/R_FUT_ohlcv1d.parquet')
 zn_raw.index = zn_raw.index.tz_localize(None) if zn_raw.index.tz else zn_raw.index
@@ -813,7 +809,6 @@ print(f'Avg monthly spread: {monthly["long_zn"].mean()*12:.2%} (annualised)')
     Bond carry data: 1,809 daily, 87 monthly
     Date range: 2018-12-27 to 2026-02-27
     Avg monthly spread: 2.73% (annualised)
-
 
 
 ```python
@@ -902,12 +897,11 @@ if len(ozn_put_map) > 0:
       Win rate: 11.8%, Avg P&L: 0.66x
 
 
-
 ```python
 BOND_LEVERAGE = 3
 BOND_PUT_BUDGET = 0.003  # 0.3%
 
-# Backtest on monthly returns (matching bond_carry_usuk.ipynb)
+# Backtest on monthly returns (matching bond_carry_usuk.md)
 capital_list = [1.0]
 for date, row in monthly['long_zn'].items():
     spread_ret = row * BOND_LEVERAGE
@@ -1064,7 +1058,6 @@ plt.show()
     Bond Carry          0.0539       0.0600      0.3008
 
 
-
 ```python
 pairs = [(0, 1), (0, 2), (1, 2)]
 fig, axes = plt.subplots(1, 3, figsize=(18, 5))
@@ -1157,7 +1150,6 @@ print('Portfolio solvers defined.')
 ```
 
     Portfolio solvers defined.
-
 
 
 ```python

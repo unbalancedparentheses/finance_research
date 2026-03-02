@@ -52,7 +52,6 @@ from backtest_runner import (
 from nb_style import apply_style, shade_crashes, color_excess, style_returns_table, CRASH_PERIODS, FT_BG, FT_BLUE, FT_RED, FT_GREEN, FT_DARK, FT_GREY
 
 apply_style()
-%matplotlib inline
 
 # Crash periods for local use
 CRASHES = [(label, start, end) for label, start, end, _ in CRASH_PERIODS]
@@ -61,7 +60,6 @@ print('Setup done.')
 ```
 
     Setup done.
-
 
 
 ```python
@@ -112,56 +110,23 @@ print('\nDone.')
 ```
 
     1. Covered Call (BXM)... 
-
-    Warning: No valid output stream.
-
-
     annual +66.09%, excess +55.04%, DD -43.7%
     2. Cash-Secured Puts (PUT)... 
-
-    Warning: No valid output stream.
-
-
     annual +43.19%, excess +32.14%, DD -85.2%
     3. OTM Put Hedge... 
-
-    Warning: No valid output stream.
-
-
     annual +7.62%, excess -3.42%, DD -49.3%
     4. OTM Call Momentum... 
-
-    Warning: No valid output stream.
-
-
     annual +11.88%, excess +0.83%, DD -55.2%
     5. Short Strangle... 
-
-    Warning: No valid output stream.
-
-
     annual +47.18%, excess +36.14%, DD -340.5%
     6. Long Straddle... 
-
-    Warning: No valid output stream.
-
-
     annual +10.67%, excess -0.37%, DD -51.1%
     7. Collar... 
-
-    Warning: No valid output stream.
-
-
     annual +nan%, excess +nan%, DD -386.0%
     8. Deep OTM Tail Hedge... 
-
-    Warning: No valid output stream.
-
-
     annual +8.69%, excess -2.36%, DD -51.9%
     
     Done.
-
 
 
 ```python
@@ -216,22 +181,10 @@ print(f'\nTotal strategies: {len(results)}')
 ```
 
     9. VIX-Timed Puts... 
-
-    Warning: No valid output stream.
-
-
     annual +2.26%, excess -8.79%
     10a. SMA Calls (bull)... 
-
-    Warning: No valid output stream.
-
-
     annual +8.52%
     10b. SMA Puts (bear)... 
-
-    Warning: No valid output stream.
-
-
     annual +0.08%
     
     Total strategies: 11
@@ -317,158 +270,21 @@ def style_confirmed(val):
 )
 ```
 
+**All Strategies vs Academic Claims  |  SPY B&H: 11.05%/yr**
 
-
-
-<style type="text/css">
-#T_a2711_row0_col2, #T_a2711_row1_col2, #T_a2711_row3_col2, #T_a2711_row4_col2 {
-  color: #09814A;
-  font-weight: bold;
-}
-#T_a2711_row0_col6, #T_a2711_row1_col6, #T_a2711_row6_col6, #T_a2711_row8_col6, #T_a2711_row10_col6 {
-  background-color: #f8d7da;
-}
-#T_a2711_row2_col2, #T_a2711_row5_col2, #T_a2711_row7_col2, #T_a2711_row8_col2, #T_a2711_row9_col2, #T_a2711_row10_col2 {
-  color: #CC0000;
-}
-#T_a2711_row2_col6, #T_a2711_row3_col6, #T_a2711_row4_col6, #T_a2711_row5_col6 {
-  background-color: #d4edda;
-  font-weight: bold;
-}
-#T_a2711_row7_col6, #T_a2711_row9_col6 {
-  background-color: #fff3cd;
-}
-</style>
-<table id="T_a2711">
-  <caption>All Strategies vs Academic Claims  |  SPY B&H: 11.05%/yr</caption>
-  <thead>
-    <tr>
-      <th class="blank level0" >&nbsp;</th>
-      <th id="T_a2711_level0_col0" class="col_heading level0 col0" >Strategy</th>
-      <th id="T_a2711_level0_col1" class="col_heading level0 col1" >Annual %</th>
-      <th id="T_a2711_level0_col2" class="col_heading level0 col2" >Excess vs SPY %</th>
-      <th id="T_a2711_level0_col3" class="col_heading level0 col3" >Max DD %</th>
-      <th id="T_a2711_level0_col4" class="col_heading level0 col4" >Trades</th>
-      <th id="T_a2711_level0_col5" class="col_heading level0 col5" >Paper Claim</th>
-      <th id="T_a2711_level0_col6" class="col_heading level0 col6" >Confirmed?</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th id="T_a2711_level0_row0" class="row_heading level0 row0" >0</th>
-      <td id="T_a2711_row0_col0" class="data row0 col0" >1. Covered Call (BXM)</td>
-      <td id="T_a2711_row0_col1" class="data row0 col1" >66.09</td>
-      <td id="T_a2711_row0_col2" class="data row0 col2" >+55.04</td>
-      <td id="T_a2711_row0_col3" class="data row0 col3" >-43.7</td>
-      <td id="T_a2711_row0_col4" class="data row0 col4" >406</td>
-      <td id="T_a2711_row0_col5" class="data row0 col5" >Comparable return, 2/3 vol (Whaley 2002)</td>
-      <td id="T_a2711_row0_col6" class="data row0 col6" >NO</td>
-    </tr>
-    <tr>
-      <th id="T_a2711_level0_row1" class="row_heading level0 row1" >1</th>
-      <td id="T_a2711_row1_col0" class="data row1 col0" >2. Cash-Secured Puts (PUT)</td>
-      <td id="T_a2711_row1_col1" class="data row1 col1" >43.19</td>
-      <td id="T_a2711_row1_col2" class="data row1 col2" >+32.14</td>
-      <td id="T_a2711_row1_col3" class="data row1 col3" >-85.2</td>
-      <td id="T_a2711_row1_col4" class="data row1 col4" >402</td>
-      <td id="T_a2711_row1_col5" class="data row1 col5" >Beats BXM by ~1%/yr (Neuberger Berman)</td>
-      <td id="T_a2711_row1_col6" class="data row1 col6" >NO</td>
-    </tr>
-    <tr>
-      <th id="T_a2711_level0_row2" class="row_heading level0 row2" >2</th>
-      <td id="T_a2711_row2_col0" class="data row2 col0" >3. OTM Put Hedge</td>
-      <td id="T_a2711_row2_col1" class="data row2 col1" >7.62</td>
-      <td id="T_a2711_row2_col2" class="data row2 col2" >-3.42</td>
-      <td id="T_a2711_row2_col3" class="data row2 col3" >-49.3</td>
-      <td id="T_a2711_row2_col4" class="data row2 col4" >381</td>
-      <td id="T_a2711_row2_col5" class="data row2 col5" >Pure drag, erodes returns (Israelov 2017)</td>
-      <td id="T_a2711_row2_col6" class="data row2 col6" >YES</td>
-    </tr>
-    <tr>
-      <th id="T_a2711_level0_row3" class="row_heading level0 row3" >3</th>
-      <td id="T_a2711_row3_col0" class="data row3 col0" >4. OTM Call Momentum</td>
-      <td id="T_a2711_row3_col1" class="data row3 col1" >11.88</td>
-      <td id="T_a2711_row3_col2" class="data row3 col2" >+0.83</td>
-      <td id="T_a2711_row3_col3" class="data row3 col3" >-55.2</td>
-      <td id="T_a2711_row3_col4" class="data row3 col4" >365</td>
-      <td id="T_a2711_row3_col5" class="data row3 col5" >OTM calls predict +returns (Kang 2016)</td>
-      <td id="T_a2711_row3_col6" class="data row3 col6" >YES</td>
-    </tr>
-    <tr>
-      <th id="T_a2711_level0_row4" class="row_heading level0 row4" >4</th>
-      <td id="T_a2711_row4_col0" class="data row4 col0" >5. Short Strangle</td>
-      <td id="T_a2711_row4_col1" class="data row4 col1" >47.18</td>
-      <td id="T_a2711_row4_col2" class="data row4 col2" >+36.14</td>
-      <td id="T_a2711_row4_col3" class="data row4 col3" >-340.5</td>
-      <td id="T_a2711_row4_col4" class="data row4 col4" >396</td>
-      <td id="T_a2711_row4_col5" class="data row4 col5" >15.2% vs 9.9% SPX (Berman 2014)</td>
-      <td id="T_a2711_row4_col6" class="data row4 col6" >YES</td>
-    </tr>
-    <tr>
-      <th id="T_a2711_level0_row5" class="row_heading level0 row5" >5</th>
-      <td id="T_a2711_row5_col0" class="data row5 col0" >6. Long Straddle</td>
-      <td id="T_a2711_row5_col1" class="data row5 col1" >10.67</td>
-      <td id="T_a2711_row5_col2" class="data row5 col2" >-0.37</td>
-      <td id="T_a2711_row5_col3" class="data row5 col3" >-51.1</td>
-      <td id="T_a2711_row5_col4" class="data row5 col4" >390</td>
-      <td id="T_a2711_row5_col5" class="data row5 col5" >Negative VRP = vol buying loses (Carr & Wu 2009)</td>
-      <td id="T_a2711_row5_col6" class="data row5 col6" >YES</td>
-    </tr>
-    <tr>
-      <th id="T_a2711_level0_row6" class="row_heading level0 row6" >6</th>
-      <td id="T_a2711_row6_col0" class="data row6 col0" >7. Collar</td>
-      <td id="T_a2711_row6_col1" class="data row6 col1" >nan</td>
-      <td id="T_a2711_row6_col2" class="data row6 col2" >+nan</td>
-      <td id="T_a2711_row6_col3" class="data row6 col3" >-386.0</td>
-      <td id="T_a2711_row6_col4" class="data row6 col4" >44</td>
-      <td id="T_a2711_row6_col5" class="data row6 col5" >Hidden costs, reduces equity premium (Israelov 2015)</td>
-      <td id="T_a2711_row6_col6" class="data row6 col6" >NO</td>
-    </tr>
-    <tr>
-      <th id="T_a2711_level0_row7" class="row_heading level0 row7" >7</th>
-      <td id="T_a2711_row7_col0" class="data row7 col0" >8. Deep OTM Tail Hedge</td>
-      <td id="T_a2711_row7_col1" class="data row7 col1" >8.69</td>
-      <td id="T_a2711_row7_col2" class="data row7 col2" >-2.36</td>
-      <td id="T_a2711_row7_col3" class="data row7 col3" >-51.9</td>
-      <td id="T_a2711_row7_col4" class="data row7 col4" >410</td>
-      <td id="T_a2711_row7_col5" class="data row7 col5" >Debated: 12.3% CAGR (Spitznagel) vs drag (AQR)</td>
-      <td id="T_a2711_row7_col6" class="data row7 col6" >BOTH RIGHT</td>
-    </tr>
-    <tr>
-      <th id="T_a2711_level0_row8" class="row_heading level0 row8" >8</th>
-      <td id="T_a2711_row8_col0" class="data row8 col0" >9. VIX-Timed Puts</td>
-      <td id="T_a2711_row8_col1" class="data row8 col1" >2.26</td>
-      <td id="T_a2711_row8_col2" class="data row8 col2" >-8.79</td>
-      <td id="T_a2711_row8_col3" class="data row8 col3" >-54.2</td>
-      <td id="T_a2711_row8_col4" class="data row8 col4" >202</td>
-      <td id="T_a2711_row8_col5" class="data row8 col5" >VIX has predictive power (Fassas 2019)</td>
-      <td id="T_a2711_row8_col6" class="data row8 col6" >NO</td>
-    </tr>
-    <tr>
-      <th id="T_a2711_level0_row9" class="row_heading level0 row9" >9</th>
-      <td id="T_a2711_row9_col0" class="data row9 col0" >10a. SMA Calls (bull)</td>
-      <td id="T_a2711_row9_col1" class="data row9 col1" >8.52</td>
-      <td id="T_a2711_row9_col2" class="data row9 col2" >-2.53</td>
-      <td id="T_a2711_row9_col3" class="data row9 col3" >-58.5</td>
-      <td id="T_a2711_row9_col4" class="data row9 col4" >311</td>
-      <td id="T_a2711_row9_col5" class="data row9 col5" >Trend-following adds value (Antonacci 2013)</td>
-      <td id="T_a2711_row9_col6" class="data row9 col6" >MIXED</td>
-    </tr>
-    <tr>
-      <th id="T_a2711_level0_row10" class="row_heading level0 row10" >10</th>
-      <td id="T_a2711_row10_col0" class="data row10 col0" >10b. SMA Puts (bear)</td>
-      <td id="T_a2711_row10_col1" class="data row10 col1" >0.08</td>
-      <td id="T_a2711_row10_col2" class="data row10 col2" >-10.96</td>
-      <td id="T_a2711_row10_col3" class="data row10 col3" >-51.3</td>
-      <td id="T_a2711_row10_col4" class="data row10 col4" >78</td>
-      <td id="T_a2711_row10_col5" class="data row10 col5" >Trend-following for downside (Antonacci 2013)</td>
-      <td id="T_a2711_row10_col6" class="data row10 col6" >NO</td>
-    </tr>
-  </tbody>
-</table>
-
-
-
+| Strategy | Annual % | Excess vs SPY % | Max DD % | Trades | Paper Claim | Confirmed? |
+|---|---|---|---|---|---|---|
+| 1. Covered Call (BXM) | 66.09 | +55.04 | -43.7 | 406 | Comparable return, 2/3 vol (Whaley 2002) | NO |
+| 2. Cash-Secured Puts (PUT) | 43.19 | +32.14 | -85.2 | 402 | Beats BXM by ~1%/yr (Neuberger Berman) | NO |
+| 3. OTM Put Hedge | 7.62 | -3.42 | -49.3 | 381 | Pure drag, erodes returns (Israelov 2017) | YES |
+| 4. OTM Call Momentum | 11.88 | +0.83 | -55.2 | 365 | OTM calls predict +returns (Kang 2016) | YES |
+| 5. Short Strangle | 47.18 | +36.14 | -340.5 | 396 | 15.2% vs 9.9% SPX (Berman 2014) | YES |
+| 6. Long Straddle | 10.67 | -0.37 | -51.1 | 390 | Negative VRP = vol buying loses (Carr & Wu 2009) | YES |
+| 7. Collar | nan | +nan | -386.0 | 44 | Hidden costs, reduces equity premium (Israelov 2015) | NO |
+| 8. Deep OTM Tail Hedge | 8.69 | -2.36 | -51.9 | 410 | Debated: 12.3% CAGR (Spitznagel) vs drag (AQR) | BOTH RIGHT |
+| 9. VIX-Timed Puts | 2.26 | -8.79 | -54.2 | 202 | VIX has predictive power (Fassas 2019) | NO |
+| 10a. SMA Calls (bull) | 8.52 | -2.53 | -58.5 | 311 | Trend-following adds value (Antonacci 2013) | MIXED |
+| 10b. SMA Puts (bear) | 0.08 | -10.96 | -51.3 | 78 | Trend-following for downside (Antonacci 2013) | NO |
 
 ---
 ## Capital Curves: All Strategies
@@ -663,225 +479,22 @@ crash_pivot.loc['SPY B&H'] = spy_crashes
 )
 ```
 
+**Max Drawdown During Crash Periods**
 
-
-
-<style type="text/css">
-#T_3426e_row0_col0 {
-  background-color: #ee613e;
-  color: #f1f1f1;
-}
-#T_3426e_row0_col1, #T_3426e_row5_col2 {
-  background-color: #d22b27;
-  color: #f1f1f1;
-}
-#T_3426e_row0_col2 {
-  background-color: #a50026;
-  color: #f1f1f1;
-}
-#T_3426e_row1_col0 {
-  background-color: #fcaa5f;
-  color: #000000;
-}
-#T_3426e_row1_col1, #T_3426e_row5_col1 {
-  background-color: #e34933;
-  color: #f1f1f1;
-}
-#T_3426e_row1_col2 {
-  background-color: #d93429;
-  color: #f1f1f1;
-}
-#T_3426e_row2_col0, #T_3426e_row7_col0 {
-  background-color: #f88950;
-  color: #f1f1f1;
-}
-#T_3426e_row2_col1 {
-  background-color: #ef633f;
-  color: #f1f1f1;
-}
-#T_3426e_row2_col2 {
-  background-color: #ce2827;
-  color: #f1f1f1;
-}
-#T_3426e_row3_col0 {
-  background-color: #f99355;
-  color: #000000;
-}
-#T_3426e_row3_col1 {
-  background-color: #fff8b4;
-  color: #000000;
-}
-#T_3426e_row3_col2 {
-  background-color: #e24731;
-  color: #f1f1f1;
-}
-#T_3426e_row4_col0 {
-  background-color: #f7814c;
-  color: #f1f1f1;
-}
-#T_3426e_row4_col1 {
-  background-color: #b71126;
-  color: #f1f1f1;
-}
-#T_3426e_row4_col2 {
-  background-color: #c01a27;
-  color: #f1f1f1;
-}
-#T_3426e_row5_col0 {
-  background-color: #fa9b58;
-  color: #000000;
-}
-#T_3426e_row6_col0, #T_3426e_row8_col0 {
-  background-color: #f67c4a;
-  color: #f1f1f1;
-}
-#T_3426e_row6_col1 {
-  background-color: #006837;
-  color: #f1f1f1;
-}
-#T_3426e_row6_col2 {
-  background-color: #b50f26;
-  color: #f1f1f1;
-}
-#T_3426e_row7_col1 {
-  background-color: #d62f27;
-  color: #f1f1f1;
-}
-#T_3426e_row7_col2, #T_3426e_row9_col2 {
-  background-color: #c41e27;
-  color: #f1f1f1;
-}
-#T_3426e_row8_col1 {
-  background-color: #5ab760;
-  color: #f1f1f1;
-}
-#T_3426e_row8_col2 {
-  background-color: #148e4b;
-  color: #f1f1f1;
-}
-#T_3426e_row9_col0, #T_3426e_row11_col0 {
-  background-color: #f88c51;
-  color: #f1f1f1;
-}
-#T_3426e_row9_col1 {
-  background-color: #ca2427;
-  color: #f1f1f1;
-}
-#T_3426e_row10_col0 {
-  background-color: #fa9656;
-  color: #000000;
-}
-#T_3426e_row10_col1 {
-  background-color: #b91326;
-  color: #f1f1f1;
-}
-#T_3426e_row10_col2 {
-  background-color: #c62027;
-  color: #f1f1f1;
-}
-#T_3426e_row11_col1 {
-  background-color: #dd3d2d;
-  color: #f1f1f1;
-}
-#T_3426e_row11_col2 {
-  background-color: #c21c27;
-  color: #f1f1f1;
-}
-</style>
-<table id="T_3426e">
-  <caption>Max Drawdown During Crash Periods</caption>
-  <thead>
-    <tr>
-      <th class="index_name level0" >Crash</th>
-      <th id="T_3426e_level0_col0" class="col_heading level0 col0" >2008 GFC</th>
-      <th id="T_3426e_level0_col1" class="col_heading level0 col1" >2020 COVID</th>
-      <th id="T_3426e_level0_col2" class="col_heading level0 col2" >2022 Bear</th>
-    </tr>
-    <tr>
-      <th class="index_name level0" >Strategy</th>
-      <th class="blank col0" >&nbsp;</th>
-      <th class="blank col1" >&nbsp;</th>
-      <th class="blank col2" >&nbsp;</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th id="T_3426e_level0_row0" class="row_heading level0 row0" >1. Covered Call (BXM)</th>
-      <td id="T_3426e_row0_col0" class="data row0 col0" >-42.1%</td>
-      <td id="T_3426e_row0_col1" class="data row0 col1" >-29.3%</td>
-      <td id="T_3426e_row0_col2" class="data row0 col2" >-15.8%</td>
-    </tr>
-    <tr>
-      <th id="T_3426e_level0_row1" class="row_heading level0 row1" >10a. SMA Calls (bull)</th>
-      <td id="T_3426e_row1_col0" class="data row1 col0" >-58.5%</td>
-      <td id="T_3426e_row1_col1" class="data row1 col1" >-36.6%</td>
-      <td id="T_3426e_row1_col2" class="data row1 col2" >-31.7%</td>
-    </tr>
-    <tr>
-      <th id="T_3426e_level0_row2" class="row_heading level0 row2" >10b. SMA Puts (bear)</th>
-      <td id="T_3426e_row2_col0" class="data row2 col0" >-51.3%</td>
-      <td id="T_3426e_row2_col1" class="data row2 col1" >-42.9%</td>
-      <td id="T_3426e_row2_col2" class="data row2 col2" >-28.0%</td>
-    </tr>
-    <tr>
-      <th id="T_3426e_level0_row3" class="row_heading level0 row3" >2. Cash-Secured Puts (PUT)</th>
-      <td id="T_3426e_row3_col0" class="data row3 col0" >-53.4%</td>
-      <td id="T_3426e_row3_col1" class="data row3 col1" >-85.2%</td>
-      <td id="T_3426e_row3_col2" class="data row3 col2" >-36.1%</td>
-    </tr>
-    <tr>
-      <th id="T_3426e_level0_row4" class="row_heading level0 row4" >3. OTM Put Hedge</th>
-      <td id="T_3426e_row4_col0" class="data row4 col0" >-49.3%</td>
-      <td id="T_3426e_row4_col1" class="data row4 col1" >-21.1%</td>
-      <td id="T_3426e_row4_col2" class="data row4 col2" >-23.9%</td>
-    </tr>
-    <tr>
-      <th id="T_3426e_level0_row5" class="row_heading level0 row5" >4. OTM Call Momentum</th>
-      <td id="T_3426e_row5_col0" class="data row5 col0" >-55.2%</td>
-      <td id="T_3426e_row5_col1" class="data row5 col1" >-36.6%</td>
-      <td id="T_3426e_row5_col2" class="data row5 col2" >-29.0%</td>
-    </tr>
-    <tr>
-      <th id="T_3426e_level0_row6" class="row_heading level0 row6" >5. Short Strangle</th>
-      <td id="T_3426e_row6_col0" class="data row6 col0" >-48.6%</td>
-      <td id="T_3426e_row6_col1" class="data row6 col1" >-160.7%</td>
-      <td id="T_3426e_row6_col2" class="data row6 col2" >-20.6%</td>
-    </tr>
-    <tr>
-      <th id="T_3426e_level0_row7" class="row_heading level0 row7" >6. Long Straddle</th>
-      <td id="T_3426e_row7_col0" class="data row7 col0" >-51.1%</td>
-      <td id="T_3426e_row7_col1" class="data row7 col1" >-30.5%</td>
-      <td id="T_3426e_row7_col2" class="data row7 col2" >-24.9%</td>
-    </tr>
-    <tr>
-      <th id="T_3426e_level0_row8" class="row_heading level0 row8" >7. Collar</th>
-      <td id="T_3426e_row8_col0" class="data row8 col0" >-48.3%</td>
-      <td id="T_3426e_row8_col1" class="data row8 col1" >-133.7%</td>
-      <td id="T_3426e_row8_col2" class="data row8 col2" >-149.0%</td>
-    </tr>
-    <tr>
-      <th id="T_3426e_level0_row9" class="row_heading level0 row9" >8. Deep OTM Tail Hedge</th>
-      <td id="T_3426e_row9_col0" class="data row9 col0" >-51.9%</td>
-      <td id="T_3426e_row9_col1" class="data row9 col1" >-27.0%</td>
-      <td id="T_3426e_row9_col2" class="data row9 col2" >-25.1%</td>
-    </tr>
-    <tr>
-      <th id="T_3426e_level0_row10" class="row_heading level0 row10" >9. VIX-Timed Puts</th>
-      <td id="T_3426e_row10_col0" class="data row10 col0" >-54.2%</td>
-      <td id="T_3426e_row10_col1" class="data row10 col1" >-21.8%</td>
-      <td id="T_3426e_row10_col2" class="data row10 col2" >-25.6%</td>
-    </tr>
-    <tr>
-      <th id="T_3426e_level0_row11" class="row_heading level0 row11" >SPY B&H</th>
-      <td id="T_3426e_row11_col0" class="data row11 col0" >-51.9%</td>
-      <td id="T_3426e_row11_col1" class="data row11 col1" >-33.7%</td>
-      <td id="T_3426e_row11_col2" class="data row11 col2" >-24.5%</td>
-    </tr>
-  </tbody>
-</table>
-
-
-
+| Crash | 2008 GFC | 2020 COVID | 2022 Bear | Strategy |
+|---|---|---|---|---|
+| -42.1% | -29.3% | -15.8% |  |  |
+| -58.5% | -36.6% | -31.7% |  |  |
+| -51.3% | -42.9% | -28.0% |  |  |
+| -53.4% | -85.2% | -36.1% |  |  |
+| -49.3% | -21.1% | -23.9% |  |  |
+| -55.2% | -36.6% | -29.0% |  |  |
+| -48.6% | -160.7% | -20.6% |  |  |
+| -51.1% | -30.5% | -24.9% |  |  |
+| -48.3% | -133.7% | -149.0% |  |  |
+| -51.9% | -27.0% | -25.1% |  |  |
+| -54.2% | -21.8% | -25.6% |  |  |
+| -51.9% | -33.7% | -24.5% |  |  |
 
 ---
 ## Conclusions: Paper Claims vs Our Empirical Results
@@ -920,7 +533,7 @@ $$\text{Spitznagel framing: } 1.0 \cdot R_{\text{SPY}} + w \cdot R_{\text{puts}}
 
 Our Spitznagel notebook shows that 100% SPY + deep OTM puts via budget callable produces **13.8%–28.8%/yr with lower drawdowns**. The framing determines the conclusion: without leverage, AQR is right. With leverage + tail protection, Spitznagel is right.
 
-See [spitznagel_case.ipynb](spitznagel_case.ipynb) for the full analysis.
+See `research/spitznagel_spy/spitznagel_case.md` for the full analysis.
 
 ### Bottom Line
 

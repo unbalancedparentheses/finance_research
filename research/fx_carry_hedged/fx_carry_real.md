@@ -747,7 +747,6 @@ print(f'{"SPY + 0.5% puts":28} {"16.02%":>8} {"17.8%":>6} {"0.901":>7} {"1.150":
     SPY + 0.5% puts                16.02%  17.8%   0.901    1.150   0.340  -47.1%                            
 
 
-
 ```python
 # ── Year-by-year returns ──
 key_strats = ['1x unhedged', '1x AUD puts only', '1x dual hedge',
@@ -832,7 +831,6 @@ print(row)
        Avg          6.0%         14.3%         10.9%         16.2%         31.8%
        Med          7.2%          6.5%          9.5%         21.1%         26.1%
         %+           75%           94%           88%           69%           88%
-
 
 
 ```python

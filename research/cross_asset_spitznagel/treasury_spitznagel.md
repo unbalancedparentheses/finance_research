@@ -206,7 +206,6 @@ ozb_opts_raw = load_treasury_options('OZB_OPT_ohlcv1d.parquet', 'OZB (30yr opts)
       Date range: 2010-06-06 00:00:00+00:00 to 2026-02-27 00:00:00+00:00
 
 
-
 ```python
 def parse_treasury_option(symbol, trade_date=None):
     # Parse treasury option symbols like 'OZNF1 P1290' or 'OZBZ3 C0138'.
@@ -1108,7 +1107,6 @@ for instr in ['ZN', 'ZB']:
       ZB    1.0% puts: 1x -> CAGR -2.7%, Sharpe -0.266, MaxDD -49.7%
 
 
-
 ```python
 fig, axes = plt.subplots(2, 3, figsize=(18, 10))
 
@@ -1314,7 +1312,6 @@ plt.show()
         2012-12  OZBF3 P0144                K=144.0  entry=0.0469  settle=0.0156  P&L=-0.7x
 
 
-
     
 ![png](treasury_spitznagel_files/treasury_spitznagel_27_2.png)
     
@@ -1404,7 +1401,6 @@ else:
       Avg ZB return on crash days: 0.474%
 
 
-
     
 ![png](treasury_spitznagel_files/treasury_spitznagel_29_1.png)
     
@@ -1477,7 +1473,6 @@ else:
     Date range: 2018-05-06 to 2026-02-27
     Rate range: -0.08% to 102.50%
     Current: 3.06%
-
 
 
     

@@ -32,12 +32,10 @@ from options_portfolio_backtester import Order
 from nb_style import apply_style, shade_crashes, color_excess, style_returns_table, FT_GREEN, FT_RED, FT_BLUE
 
 apply_style()
-%matplotlib inline
 print('Ready.')
 ```
 
     Ready.
-
 
 
 ```python
@@ -131,42 +129,17 @@ for name, s, o, fn in no_leverage_configs:
 ```
 
       SPY only... 
-
-    Warning: No valid output stream.
-
-
     annual +11.11%, excess +0.07%, DD -51.9%
       Deep OTM 0.1%... 
-
-    Warning: No valid output stream.
-
-
     annual +10.70%, excess -0.35%, DD -51.8%
       Deep OTM 0.5%... 
-
-    Warning: No valid output stream.
-
-
     annual +9.23%, excess -1.81%, DD -50.3%
       Deep OTM 1.0%... 
-
-    Warning: No valid output stream.
-
-
     annual +7.38%, excess -3.67%, DD -48.4%
       Deep OTM 3.3%... 
-
-    Warning: No valid output stream.
-
-
     annual -1.28%, excess -12.33%, DD -39.6%
       Std OTM 1.0%... 
-
-    Warning: No valid output stream.
-
-
     annual +6.96%, excess -4.09%, DD -50.8%
-
 
 
 ```python
@@ -185,112 +158,16 @@ styled = df.style.format({'Annual %': '{:.2f}', 'Vol %': '{:.1f}', 'Max DD %': '
 style_returns_table(styled).set_caption('AQR framing: reduce equity to fund puts (NO leverage) — always loses')
 ```
 
+**AQR framing: reduce equity to fund puts (NO leverage) — always loses**
 
-
-
-<style type="text/css">
-#T_d253f th {
-  background-color: #0D7680;
-  color: white;
-  font-weight: bold;
-  text-align: center;
-  padding: 8px 12px;
-  border-bottom: 2px solid #33302E;
-}
-#T_d253f td {
-  padding: 6px 12px;
-  border-bottom: 1px solid #F2DFCE;
-}
-#T_d253f tr:hover td {
-  background-color: #F2DFCE;
-}
-#T_d253f caption {
-  font-size: 14px;
-  font-weight: bold;
-  color: #33302E;
-  padding: 10px 0;
-}
-#T_d253f  {
-  border-collapse: collapse;
-  font-family: Georgia, serif;
-}
-#T_d253f_row1_col4, #T_d253f_row2_col4, #T_d253f_row3_col4, #T_d253f_row4_col4, #T_d253f_row5_col4 {
-  color: #CC0000;
-}
-</style>
-<table id="T_d253f">
-  <caption>AQR framing: reduce equity to fund puts (NO leverage) — always loses</caption>
-  <thead>
-    <tr>
-      <th class="blank level0" >&nbsp;</th>
-      <th id="T_d253f_level0_col0" class="col_heading level0 col0" >Strategy</th>
-      <th id="T_d253f_level0_col1" class="col_heading level0 col1" >Annual %</th>
-      <th id="T_d253f_level0_col2" class="col_heading level0 col2" >Vol %</th>
-      <th id="T_d253f_level0_col3" class="col_heading level0 col3" >Max DD %</th>
-      <th id="T_d253f_level0_col4" class="col_heading level0 col4" >Excess %</th>
-      <th id="T_d253f_level0_col5" class="col_heading level0 col5" >Trades</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th id="T_d253f_level0_row0" class="row_heading level0 row0" >0</th>
-      <td id="T_d253f_row0_col0" class="data row0 col0" >SPY only</td>
-      <td id="T_d253f_row0_col1" class="data row0 col1" >11.11</td>
-      <td id="T_d253f_row0_col2" class="data row0 col2" >20.0</td>
-      <td id="T_d253f_row0_col3" class="data row0 col3" >-51.9</td>
-      <td id="T_d253f_row0_col4" class="data row0 col4" >+0.07</td>
-      <td id="T_d253f_row0_col5" class="data row0 col5" >0</td>
-    </tr>
-    <tr>
-      <th id="T_d253f_level0_row1" class="row_heading level0 row1" >1</th>
-      <td id="T_d253f_row1_col0" class="data row1 col0" >Deep OTM 0.1%</td>
-      <td id="T_d253f_row1_col1" class="data row1 col1" >10.70</td>
-      <td id="T_d253f_row1_col2" class="data row1 col2" >19.4</td>
-      <td id="T_d253f_row1_col3" class="data row1 col3" >-51.8</td>
-      <td id="T_d253f_row1_col4" class="data row1 col4" >-0.35</td>
-      <td id="T_d253f_row1_col5" class="data row1 col5" >364</td>
-    </tr>
-    <tr>
-      <th id="T_d253f_level0_row2" class="row_heading level0 row2" >2</th>
-      <td id="T_d253f_row2_col0" class="data row2 col0" >Deep OTM 0.5%</td>
-      <td id="T_d253f_row2_col1" class="data row2 col1" >9.23</td>
-      <td id="T_d253f_row2_col2" class="data row2 col2" >17.6</td>
-      <td id="T_d253f_row2_col3" class="data row2 col3" >-50.3</td>
-      <td id="T_d253f_row2_col4" class="data row2 col4" >-1.81</td>
-      <td id="T_d253f_row2_col5" class="data row2 col5" >381</td>
-    </tr>
-    <tr>
-      <th id="T_d253f_level0_row3" class="row_heading level0 row3" >3</th>
-      <td id="T_d253f_row3_col0" class="data row3 col0" >Deep OTM 1.0%</td>
-      <td id="T_d253f_row3_col1" class="data row3 col1" >7.38</td>
-      <td id="T_d253f_row3_col2" class="data row3 col2" >16.3</td>
-      <td id="T_d253f_row3_col3" class="data row3 col3" >-48.4</td>
-      <td id="T_d253f_row3_col4" class="data row3 col4" >-3.67</td>
-      <td id="T_d253f_row3_col5" class="data row3 col5" >389</td>
-    </tr>
-    <tr>
-      <th id="T_d253f_level0_row4" class="row_heading level0 row4" >4</th>
-      <td id="T_d253f_row4_col0" class="data row4 col0" >Deep OTM 3.3%</td>
-      <td id="T_d253f_row4_col1" class="data row4 col1" >-1.28</td>
-      <td id="T_d253f_row4_col2" class="data row4 col2" >20.3</td>
-      <td id="T_d253f_row4_col3" class="data row4 col3" >-39.6</td>
-      <td id="T_d253f_row4_col4" class="data row4 col4" >-12.33</td>
-      <td id="T_d253f_row4_col5" class="data row4 col5" >386</td>
-    </tr>
-    <tr>
-      <th id="T_d253f_level0_row5" class="row_heading level0 row5" >5</th>
-      <td id="T_d253f_row5_col0" class="data row5 col0" >Std OTM 1.0%</td>
-      <td id="T_d253f_row5_col1" class="data row5 col1" >6.96</td>
-      <td id="T_d253f_row5_col2" class="data row5 col2" >15.7</td>
-      <td id="T_d253f_row5_col3" class="data row5 col3" >-50.8</td>
-      <td id="T_d253f_row5_col4" class="data row5 col4" >-4.09</td>
-      <td id="T_d253f_row5_col5" class="data row5 col5" >375</td>
-    </tr>
-  </tbody>
-</table>
-
-
-
+| Strategy | Annual % | Vol % | Max DD % | Excess % | Trades |
+|---|---|---|---|---|---|
+| SPY only | 11.11 | 20.0 | -51.9 | +0.07 | 0 |
+| Deep OTM 0.1% | 10.70 | 19.4 | -51.8 | -0.35 | 364 |
+| Deep OTM 0.5% | 9.23 | 17.6 | -50.3 | -1.81 | 381 |
+| Deep OTM 1.0% | 7.38 | 16.3 | -48.4 | -3.67 | 389 |
+| Deep OTM 3.3% | -1.28 | 20.3 | -39.6 | -12.33 | 386 |
+| Std OTM 1.0% | 6.96 | 15.7 | -50.8 | -4.09 | 375 |
 
 AQR is right *in this framing*: every put allocation underperforms SPY.
 
@@ -328,54 +205,21 @@ for name, budget_pct in leverage_configs:
 ```
 
       100% SPY (baseline)... 
-
-    Warning: No valid output stream.
-
-
     annual +11.11%, excess +0.07%, DD -51.9%
       + 0.05% deep OTM puts... 
-
-    Warning: No valid output stream.
-
-
     annual +11.53%, excess +0.49%, DD -51.8%
       + 0.1% deep OTM puts... 
-
-    Warning: No valid output stream.
-
-
     annual +12.05%, excess +1.00%, DD -51.2%
       + 0.2% deep OTM puts... 
-
-    Warning: No valid output stream.
-
-
     annual +13.02%, excess +1.98%, DD -50.0%
       + 0.5% deep OTM puts... 
-
-    Warning: No valid output stream.
-
-
     annual +16.02%, excess +4.97%, DD -47.1%
       + 1.0% deep OTM puts... 
-
-    Warning: No valid output stream.
-
-
     annual +21.08%, excess +10.03%, DD -42.4%
       + 2.0% deep OTM puts... 
-
-    Warning: No valid output stream.
-
-
     annual +31.73%, excess +20.69%, DD -32.0%
       + 3.3% deep OTM puts... 
-
-    Warning: No valid output stream.
-
-
     annual +46.60%, excess +35.55%, DD -29.2%
-
 
 
 ```python
@@ -394,132 +238,18 @@ styled = df_lev.style.format({'Annual %': '{:.2f}', 'Vol %': '{:.1f}', 'Max DD %
 style_returns_table(styled).set_caption('Spitznagel framing: 100% SPY + puts on top (WITH leverage)')
 ```
 
+**Spitznagel framing: 100% SPY + puts on top (WITH leverage)**
 
-
-
-<style type="text/css">
-#T_f1fda th {
-  background-color: #0D7680;
-  color: white;
-  font-weight: bold;
-  text-align: center;
-  padding: 8px 12px;
-  border-bottom: 2px solid #33302E;
-}
-#T_f1fda td {
-  padding: 6px 12px;
-  border-bottom: 1px solid #F2DFCE;
-}
-#T_f1fda tr:hover td {
-  background-color: #F2DFCE;
-}
-#T_f1fda caption {
-  font-size: 14px;
-  font-weight: bold;
-  color: #33302E;
-  padding: 10px 0;
-}
-#T_f1fda  {
-  border-collapse: collapse;
-  font-family: Georgia, serif;
-}
-#T_f1fda_row1_col4, #T_f1fda_row2_col4, #T_f1fda_row3_col4, #T_f1fda_row4_col4, #T_f1fda_row5_col4, #T_f1fda_row6_col4, #T_f1fda_row7_col4 {
-  color: #09814A;
-  font-weight: bold;
-}
-</style>
-<table id="T_f1fda">
-  <caption>Spitznagel framing: 100% SPY + puts on top (WITH leverage)</caption>
-  <thead>
-    <tr>
-      <th class="blank level0" >&nbsp;</th>
-      <th id="T_f1fda_level0_col0" class="col_heading level0 col0" >Strategy</th>
-      <th id="T_f1fda_level0_col1" class="col_heading level0 col1" >Annual %</th>
-      <th id="T_f1fda_level0_col2" class="col_heading level0 col2" >Vol %</th>
-      <th id="T_f1fda_level0_col3" class="col_heading level0 col3" >Max DD %</th>
-      <th id="T_f1fda_level0_col4" class="col_heading level0 col4" >Excess %</th>
-      <th id="T_f1fda_level0_col5" class="col_heading level0 col5" >Trades</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th id="T_f1fda_level0_row0" class="row_heading level0 row0" >0</th>
-      <td id="T_f1fda_row0_col0" class="data row0 col0" >100% SPY (baseline)</td>
-      <td id="T_f1fda_row0_col1" class="data row0 col1" >11.11</td>
-      <td id="T_f1fda_row0_col2" class="data row0 col2" >20.0</td>
-      <td id="T_f1fda_row0_col3" class="data row0 col3" >-51.9</td>
-      <td id="T_f1fda_row0_col4" class="data row0 col4" >+0.07</td>
-      <td id="T_f1fda_row0_col5" class="data row0 col5" >0</td>
-    </tr>
-    <tr>
-      <th id="T_f1fda_level0_row1" class="row_heading level0 row1" >1</th>
-      <td id="T_f1fda_row1_col0" class="data row1 col0" >+ 0.05% deep OTM puts</td>
-      <td id="T_f1fda_row1_col1" class="data row1 col1" >11.53</td>
-      <td id="T_f1fda_row1_col2" class="data row1 col2" >19.7</td>
-      <td id="T_f1fda_row1_col3" class="data row1 col3" >-51.8</td>
-      <td id="T_f1fda_row1_col4" class="data row1 col4" >+0.49</td>
-      <td id="T_f1fda_row1_col5" class="data row1 col5" >350</td>
-    </tr>
-    <tr>
-      <th id="T_f1fda_level0_row2" class="row_heading level0 row2" >2</th>
-      <td id="T_f1fda_row2_col0" class="data row2 col0" >+ 0.1% deep OTM puts</td>
-      <td id="T_f1fda_row2_col1" class="data row2 col1" >12.05</td>
-      <td id="T_f1fda_row2_col2" class="data row2 col2" >19.4</td>
-      <td id="T_f1fda_row2_col3" class="data row2 col3" >-51.2</td>
-      <td id="T_f1fda_row2_col4" class="data row2 col4" >+1.00</td>
-      <td id="T_f1fda_row2_col5" class="data row2 col5" >363</td>
-    </tr>
-    <tr>
-      <th id="T_f1fda_level0_row3" class="row_heading level0 row3" >3</th>
-      <td id="T_f1fda_row3_col0" class="data row3 col0" >+ 0.2% deep OTM puts</td>
-      <td id="T_f1fda_row3_col1" class="data row3 col1" >13.02</td>
-      <td id="T_f1fda_row3_col2" class="data row3 col2" >19.0</td>
-      <td id="T_f1fda_row3_col3" class="data row3 col3" >-50.0</td>
-      <td id="T_f1fda_row3_col4" class="data row3 col4" >+1.98</td>
-      <td id="T_f1fda_row3_col5" class="data row3 col5" >373</td>
-    </tr>
-    <tr>
-      <th id="T_f1fda_level0_row4" class="row_heading level0 row4" >4</th>
-      <td id="T_f1fda_row4_col0" class="data row4 col0" >+ 0.5% deep OTM puts</td>
-      <td id="T_f1fda_row4_col1" class="data row4 col1" >16.02</td>
-      <td id="T_f1fda_row4_col2" class="data row4 col2" >17.8</td>
-      <td id="T_f1fda_row4_col3" class="data row4 col3" >-47.1</td>
-      <td id="T_f1fda_row4_col4" class="data row4 col4" >+4.97</td>
-      <td id="T_f1fda_row4_col5" class="data row4 col5" >380</td>
-    </tr>
-    <tr>
-      <th id="T_f1fda_level0_row5" class="row_heading level0 row5" >5</th>
-      <td id="T_f1fda_row5_col0" class="data row5 col0" >+ 1.0% deep OTM puts</td>
-      <td id="T_f1fda_row5_col1" class="data row5 col1" >21.08</td>
-      <td id="T_f1fda_row5_col2" class="data row5 col2" >16.7</td>
-      <td id="T_f1fda_row5_col3" class="data row5 col3" >-42.4</td>
-      <td id="T_f1fda_row5_col4" class="data row5 col4" >+10.03</td>
-      <td id="T_f1fda_row5_col5" class="data row5 col5" >389</td>
-    </tr>
-    <tr>
-      <th id="T_f1fda_level0_row6" class="row_heading level0 row6" >6</th>
-      <td id="T_f1fda_row6_col0" class="data row6 col0" >+ 2.0% deep OTM puts</td>
-      <td id="T_f1fda_row6_col1" class="data row6 col1" >31.73</td>
-      <td id="T_f1fda_row6_col2" class="data row6 col2" >17.7</td>
-      <td id="T_f1fda_row6_col3" class="data row6 col3" >-32.0</td>
-      <td id="T_f1fda_row6_col4" class="data row6 col4" >+20.69</td>
-      <td id="T_f1fda_row6_col5" class="data row6 col5" >391</td>
-    </tr>
-    <tr>
-      <th id="T_f1fda_level0_row7" class="row_heading level0 row7" >7</th>
-      <td id="T_f1fda_row7_col0" class="data row7 col0" >+ 3.3% deep OTM puts</td>
-      <td id="T_f1fda_row7_col1" class="data row7 col1" >46.60</td>
-      <td id="T_f1fda_row7_col2" class="data row7 col2" >22.7</td>
-      <td id="T_f1fda_row7_col3" class="data row7 col3" >-29.2</td>
-      <td id="T_f1fda_row7_col4" class="data row7 col4" >+35.55</td>
-      <td id="T_f1fda_row7_col5" class="data row7 col5" >392</td>
-    </tr>
-  </tbody>
-</table>
-
-
-
-
+| Strategy | Annual % | Vol % | Max DD % | Excess % | Trades |
+|---|---|---|---|---|---|
+| 100% SPY (baseline) | 11.11 | 20.0 | -51.9 | +0.07 | 0 |
+| + 0.05% deep OTM puts | 11.53 | 19.7 | -51.8 | +0.49 | 350 |
+| + 0.1% deep OTM puts | 12.05 | 19.4 | -51.2 | +1.00 | 363 |
+| + 0.2% deep OTM puts | 13.02 | 19.0 | -50.0 | +1.98 | 373 |
+| + 0.5% deep OTM puts | 16.02 | 17.8 | -47.1 | +4.97 | 380 |
+| + 1.0% deep OTM puts | 21.08 | 16.7 | -42.4 | +10.03 | 389 |
+| + 2.0% deep OTM puts | 31.73 | 17.7 | -32.0 | +20.69 | 391 |
+| + 3.3% deep OTM puts | 46.60 | 22.7 | -29.2 | +35.55 | 392 |
 
 ```python
 # Leverage breakdown: how much leverage produces how much return?
@@ -560,149 +290,18 @@ style_returns_table(styled_lev).set_caption(
 )
 ```
 
+**Leverage Breakdown: Tiny Leverage, Massive Convex Payoff**
 
-
-
-<style type="text/css">
-#T_3e7ad th {
-  background-color: #0D7680;
-  color: white;
-  font-weight: bold;
-  text-align: center;
-  padding: 8px 12px;
-  border-bottom: 2px solid #33302E;
-}
-#T_3e7ad td {
-  padding: 6px 12px;
-  border-bottom: 1px solid #F2DFCE;
-}
-#T_3e7ad tr:hover td {
-  background-color: #F2DFCE;
-}
-#T_3e7ad caption {
-  font-size: 14px;
-  font-weight: bold;
-  color: #33302E;
-  padding: 10px 0;
-}
-#T_3e7ad  {
-  border-collapse: collapse;
-  font-family: Georgia, serif;
-}
-#T_3e7ad_row1_col4, #T_3e7ad_row2_col4, #T_3e7ad_row3_col4, #T_3e7ad_row4_col4, #T_3e7ad_row5_col4, #T_3e7ad_row6_col4, #T_3e7ad_row7_col4 {
-  color: #09814A;
-  font-weight: bold;
-}
-</style>
-<table id="T_3e7ad">
-  <caption>Leverage Breakdown: Tiny Leverage, Massive Convex Payoff</caption>
-  <thead>
-    <tr>
-      <th class="blank level0" >&nbsp;</th>
-      <th id="T_3e7ad_level0_col0" class="col_heading level0 col0" >Strategy</th>
-      <th id="T_3e7ad_level0_col1" class="col_heading level0 col1" >Put Budget %/yr</th>
-      <th id="T_3e7ad_level0_col2" class="col_heading level0 col2" >Total Leverage</th>
-      <th id="T_3e7ad_level0_col3" class="col_heading level0 col3" >Annual Return %</th>
-      <th id="T_3e7ad_level0_col4" class="col_heading level0 col4" >Excess vs SPY %</th>
-      <th id="T_3e7ad_level0_col5" class="col_heading level0 col5" >Return per 1% Budget</th>
-      <th id="T_3e7ad_level0_col6" class="col_heading level0 col6" >Max DD %</th>
-      <th id="T_3e7ad_level0_col7" class="col_heading level0 col7" >Vol %</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th id="T_3e7ad_level0_row0" class="row_heading level0 row0" >0</th>
-      <td id="T_3e7ad_row0_col0" class="data row0 col0" >100% SPY (baseline)</td>
-      <td id="T_3e7ad_row0_col1" class="data row0 col1" >0.00</td>
-      <td id="T_3e7ad_row0_col2" class="data row0 col2" >1.0000x</td>
-      <td id="T_3e7ad_row0_col3" class="data row0 col3" >11.11</td>
-      <td id="T_3e7ad_row0_col4" class="data row0 col4" >+0.07</td>
-      <td id="T_3e7ad_row0_col5" class="data row0 col5" >0.0</td>
-      <td id="T_3e7ad_row0_col6" class="data row0 col6" >-51.9</td>
-      <td id="T_3e7ad_row0_col7" class="data row0 col7" >20.0</td>
-    </tr>
-    <tr>
-      <th id="T_3e7ad_level0_row1" class="row_heading level0 row1" >1</th>
-      <td id="T_3e7ad_row1_col0" class="data row1 col0" >+ 0.05% deep OTM puts</td>
-      <td id="T_3e7ad_row1_col1" class="data row1 col1" >0.05</td>
-      <td id="T_3e7ad_row1_col2" class="data row1 col2" >1.0005x</td>
-      <td id="T_3e7ad_row1_col3" class="data row1 col3" >11.53</td>
-      <td id="T_3e7ad_row1_col4" class="data row1 col4" >+0.49</td>
-      <td id="T_3e7ad_row1_col5" class="data row1 col5" >9.8</td>
-      <td id="T_3e7ad_row1_col6" class="data row1 col6" >-51.8</td>
-      <td id="T_3e7ad_row1_col7" class="data row1 col7" >19.7</td>
-    </tr>
-    <tr>
-      <th id="T_3e7ad_level0_row2" class="row_heading level0 row2" >2</th>
-      <td id="T_3e7ad_row2_col0" class="data row2 col0" >+ 0.1% deep OTM puts</td>
-      <td id="T_3e7ad_row2_col1" class="data row2 col1" >0.10</td>
-      <td id="T_3e7ad_row2_col2" class="data row2 col2" >1.0010x</td>
-      <td id="T_3e7ad_row2_col3" class="data row2 col3" >12.05</td>
-      <td id="T_3e7ad_row2_col4" class="data row2 col4" >+1.00</td>
-      <td id="T_3e7ad_row2_col5" class="data row2 col5" >10.0</td>
-      <td id="T_3e7ad_row2_col6" class="data row2 col6" >-51.2</td>
-      <td id="T_3e7ad_row2_col7" class="data row2 col7" >19.4</td>
-    </tr>
-    <tr>
-      <th id="T_3e7ad_level0_row3" class="row_heading level0 row3" >3</th>
-      <td id="T_3e7ad_row3_col0" class="data row3 col0" >+ 0.2% deep OTM puts</td>
-      <td id="T_3e7ad_row3_col1" class="data row3 col1" >0.20</td>
-      <td id="T_3e7ad_row3_col2" class="data row3 col2" >1.0020x</td>
-      <td id="T_3e7ad_row3_col3" class="data row3 col3" >13.02</td>
-      <td id="T_3e7ad_row3_col4" class="data row3 col4" >+1.98</td>
-      <td id="T_3e7ad_row3_col5" class="data row3 col5" >9.9</td>
-      <td id="T_3e7ad_row3_col6" class="data row3 col6" >-50.0</td>
-      <td id="T_3e7ad_row3_col7" class="data row3 col7" >19.0</td>
-    </tr>
-    <tr>
-      <th id="T_3e7ad_level0_row4" class="row_heading level0 row4" >4</th>
-      <td id="T_3e7ad_row4_col0" class="data row4 col0" >+ 0.5% deep OTM puts</td>
-      <td id="T_3e7ad_row4_col1" class="data row4 col1" >0.50</td>
-      <td id="T_3e7ad_row4_col2" class="data row4 col2" >1.0050x</td>
-      <td id="T_3e7ad_row4_col3" class="data row4 col3" >16.02</td>
-      <td id="T_3e7ad_row4_col4" class="data row4 col4" >+4.97</td>
-      <td id="T_3e7ad_row4_col5" class="data row4 col5" >9.9</td>
-      <td id="T_3e7ad_row4_col6" class="data row4 col6" >-47.1</td>
-      <td id="T_3e7ad_row4_col7" class="data row4 col7" >17.8</td>
-    </tr>
-    <tr>
-      <th id="T_3e7ad_level0_row5" class="row_heading level0 row5" >5</th>
-      <td id="T_3e7ad_row5_col0" class="data row5 col0" >+ 1.0% deep OTM puts</td>
-      <td id="T_3e7ad_row5_col1" class="data row5 col1" >1.00</td>
-      <td id="T_3e7ad_row5_col2" class="data row5 col2" >1.0100x</td>
-      <td id="T_3e7ad_row5_col3" class="data row5 col3" >21.08</td>
-      <td id="T_3e7ad_row5_col4" class="data row5 col4" >+10.03</td>
-      <td id="T_3e7ad_row5_col5" class="data row5 col5" >10.0</td>
-      <td id="T_3e7ad_row5_col6" class="data row5 col6" >-42.4</td>
-      <td id="T_3e7ad_row5_col7" class="data row5 col7" >16.7</td>
-    </tr>
-    <tr>
-      <th id="T_3e7ad_level0_row6" class="row_heading level0 row6" >6</th>
-      <td id="T_3e7ad_row6_col0" class="data row6 col0" >+ 2.0% deep OTM puts</td>
-      <td id="T_3e7ad_row6_col1" class="data row6 col1" >2.00</td>
-      <td id="T_3e7ad_row6_col2" class="data row6 col2" >1.0200x</td>
-      <td id="T_3e7ad_row6_col3" class="data row6 col3" >31.73</td>
-      <td id="T_3e7ad_row6_col4" class="data row6 col4" >+20.69</td>
-      <td id="T_3e7ad_row6_col5" class="data row6 col5" >10.3</td>
-      <td id="T_3e7ad_row6_col6" class="data row6 col6" >-32.0</td>
-      <td id="T_3e7ad_row6_col7" class="data row6 col7" >17.7</td>
-    </tr>
-    <tr>
-      <th id="T_3e7ad_level0_row7" class="row_heading level0 row7" >7</th>
-      <td id="T_3e7ad_row7_col0" class="data row7 col0" >+ 3.3% deep OTM puts</td>
-      <td id="T_3e7ad_row7_col1" class="data row7 col1" >3.30</td>
-      <td id="T_3e7ad_row7_col2" class="data row7 col2" >1.0330x</td>
-      <td id="T_3e7ad_row7_col3" class="data row7 col3" >46.60</td>
-      <td id="T_3e7ad_row7_col4" class="data row7 col4" >+35.55</td>
-      <td id="T_3e7ad_row7_col5" class="data row7 col5" >10.8</td>
-      <td id="T_3e7ad_row7_col6" class="data row7 col6" >-29.2</td>
-      <td id="T_3e7ad_row7_col7" class="data row7 col7" >22.7</td>
-    </tr>
-  </tbody>
-</table>
-
-
-
+| Strategy | Put Budget %/yr | Total Leverage | Annual Return % | Excess vs SPY % | Return per 1% Budget | Max DD % | Vol % |
+|---|---|---|---|---|---|---|---|
+| 100% SPY (baseline) | 0.00 | 1.0000x | 11.11 | +0.07 | 0.0 | -51.9 | 20.0 |
+| + 0.05% deep OTM puts | 0.05 | 1.0005x | 11.53 | +0.49 | 9.8 | -51.8 | 19.7 |
+| + 0.1% deep OTM puts | 0.10 | 1.0010x | 12.05 | +1.00 | 10.0 | -51.2 | 19.4 |
+| + 0.2% deep OTM puts | 0.20 | 1.0020x | 13.02 | +1.98 | 9.9 | -50.0 | 19.0 |
+| + 0.5% deep OTM puts | 0.50 | 1.0050x | 16.02 | +4.97 | 9.9 | -47.1 | 17.8 |
+| + 1.0% deep OTM puts | 1.00 | 1.0100x | 21.08 | +10.03 | 10.0 | -42.4 | 16.7 |
+| + 2.0% deep OTM puts | 2.00 | 1.0200x | 31.73 | +20.69 | 10.3 | -32.0 | 17.7 |
+| + 3.3% deep OTM puts | 3.30 | 1.0330x | 46.60 | +35.55 | 10.8 | -29.2 | 22.7 |
 
 ---
 ## 4. Capital Curves: AQR Framing vs Spitznagel Framing
@@ -772,24 +371,11 @@ for name, budget_pct in std_lev_configs:
 ```
 
       + 0.1% std OTM puts... 
-
-    Warning: No valid output stream.
-
-
     annual +12.04%, excess +0.99%, DD -51.1%
       + 0.5% std OTM puts... 
-
-    Warning: No valid output stream.
-
-
     annual +15.80%, excess +4.75%, DD -47.8%
       + 1.0% std OTM puts... 
-
-    Warning: No valid output stream.
-
-
     annual +20.60%, excess +9.56%, DD -43.6%
-
 
 
 ```python
@@ -892,11 +478,6 @@ if len(trade_log) > 0:
 else:
     print('No trades executed.')
 ```
-
-    Warning: No valid output stream.
-
-
-
 ```python
 if len(trades_df) > 0:
     # Per-trade P&L bar chart colored by period
@@ -994,198 +575,18 @@ styled = crash_compare.style.format('{:.1f}%').background_gradient(cmap='RdYlGn_
 style_returns_table(styled).set_caption('Drawdown During Crashes: SPY vs Leveraged Deep OTM Puts')
 ```
 
+**Drawdown During Crashes: SPY vs Leveraged Deep OTM Puts**
 
-
-
-<style type="text/css">
-#T_ea3fc th {
-  background-color: #0D7680;
-  color: white;
-  font-weight: bold;
-  text-align: center;
-  padding: 8px 12px;
-  border-bottom: 2px solid #33302E;
-}
-#T_ea3fc td {
-  padding: 6px 12px;
-  border-bottom: 1px solid #F2DFCE;
-}
-#T_ea3fc tr:hover td {
-  background-color: #F2DFCE;
-}
-#T_ea3fc caption {
-  font-size: 14px;
-  font-weight: bold;
-  color: #33302E;
-  padding: 10px 0;
-}
-#T_ea3fc  {
-  border-collapse: collapse;
-  font-family: Georgia, serif;
-}
-#T_ea3fc_row0_col0, #T_ea3fc_row7_col0 {
-  background-color: #006837;
-  color: #f1f1f1;
-}
-#T_ea3fc_row0_col1 {
-  background-color: #ecf7a6;
-  color: #000000;
-}
-#T_ea3fc_row0_col2 {
-  background-color: #fec877;
-  color: #000000;
-}
-#T_ea3fc_row1_col0 {
-  background-color: #04703b;
-  color: #f1f1f1;
-}
-#T_ea3fc_row1_col1 {
-  background-color: #f5fbb2;
-  color: #000000;
-}
-#T_ea3fc_row1_col2 {
-  background-color: #fdc776;
-  color: #000000;
-}
-#T_ea3fc_row2_col0 {
-  background-color: #0b7d42;
-  color: #f1f1f1;
-}
-#T_ea3fc_row2_col1 {
-  background-color: #fff6b0;
-  color: #000000;
-}
-#T_ea3fc_row2_col2 {
-  background-color: #fdbf6f;
-  color: #000000;
-}
-#T_ea3fc_row3_col0 {
-  background-color: #219c52;
-  color: #f1f1f1;
-}
-#T_ea3fc_row3_col1 {
-  background-color: #fdb365;
-  color: #000000;
-}
-#T_ea3fc_row3_col2 {
-  background-color: #fdad60;
-  color: #000000;
-}
-#T_ea3fc_row4_col0 {
-  background-color: #73c264;
-  color: #000000;
-}
-#T_ea3fc_row4_col1 {
-  background-color: #c82227;
-  color: #f1f1f1;
-}
-#T_ea3fc_row4_col2 {
-  background-color: #f7844e;
-  color: #f1f1f1;
-}
-#T_ea3fc_row5_col0 {
-  background-color: #f1f9ac;
-  color: #000000;
-}
-#T_ea3fc_row5_col1 {
-  background-color: #a50026;
-  color: #f1f1f1;
-}
-#T_ea3fc_row5_col2 {
-  background-color: #de402e;
-  color: #f1f1f1;
-}
-#T_ea3fc_row6_col0 {
-  background-color: #fedc88;
-  color: #000000;
-}
-#T_ea3fc_row6_col1 {
-  background-color: #e65036;
-  color: #f1f1f1;
-}
-#T_ea3fc_row6_col2 {
-  background-color: #be1827;
-  color: #f1f1f1;
-}
-#T_ea3fc_row7_col1 {
-  background-color: #e2f397;
-  color: #000000;
-}
-#T_ea3fc_row7_col2 {
-  background-color: #fecc7b;
-  color: #000000;
-}
-</style>
-<table id="T_ea3fc">
-  <caption>Drawdown During Crashes: SPY vs Leveraged Deep OTM Puts</caption>
-  <thead>
-    <tr>
-      <th class="index_name level0" >Crash</th>
-      <th id="T_ea3fc_level0_col0" class="col_heading level0 col0" >2008 GFC</th>
-      <th id="T_ea3fc_level0_col1" class="col_heading level0 col1" >2020 COVID</th>
-      <th id="T_ea3fc_level0_col2" class="col_heading level0 col2" >2022 Bear</th>
-    </tr>
-    <tr>
-      <th class="index_name level0" >Strategy</th>
-      <th class="blank col0" >&nbsp;</th>
-      <th class="blank col1" >&nbsp;</th>
-      <th class="blank col2" >&nbsp;</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th id="T_ea3fc_level0_row0" class="row_heading level0 row0" >+ 0.05% deep OTM puts</th>
-      <td id="T_ea3fc_row0_col0" class="data row0 col0" >-51.8%</td>
-      <td id="T_ea3fc_row0_col1" class="data row0 col1" >-32.6%</td>
-      <td id="T_ea3fc_row0_col2" class="data row0 col2" >-24.2%</td>
-    </tr>
-    <tr>
-      <th id="T_ea3fc_level0_row1" class="row_heading level0 row1" >+ 0.1% deep OTM puts</th>
-      <td id="T_ea3fc_row1_col0" class="data row1 col0" >-51.2%</td>
-      <td id="T_ea3fc_row1_col1" class="data row1 col1" >-31.5%</td>
-      <td id="T_ea3fc_row1_col2" class="data row1 col2" >-23.9%</td>
-    </tr>
-    <tr>
-      <th id="T_ea3fc_level0_row2" class="row_heading level0 row2" >+ 0.2% deep OTM puts</th>
-      <td id="T_ea3fc_row2_col0" class="data row2 col0" >-50.0%</td>
-      <td id="T_ea3fc_row2_col1" class="data row2 col1" >-29.2%</td>
-      <td id="T_ea3fc_row2_col2" class="data row2 col2" >-23.4%</td>
-    </tr>
-    <tr>
-      <th id="T_ea3fc_level0_row3" class="row_heading level0 row3" >+ 0.5% deep OTM puts</th>
-      <td id="T_ea3fc_row3_col0" class="data row3 col0" >-47.1%</td>
-      <td id="T_ea3fc_row3_col1" class="data row3 col1" >-22.3%</td>
-      <td id="T_ea3fc_row3_col2" class="data row3 col2" >-21.8%</td>
-    </tr>
-    <tr>
-      <th id="T_ea3fc_level0_row4" class="row_heading level0 row4" >+ 1.0% deep OTM puts</th>
-      <td id="T_ea3fc_row4_col0" class="data row4 col0" >-42.4%</td>
-      <td id="T_ea3fc_row4_col1" class="data row4 col1" >-12.1%</td>
-      <td id="T_ea3fc_row4_col2" class="data row4 col2" >-19.1%</td>
-    </tr>
-    <tr>
-      <th id="T_ea3fc_level0_row5" class="row_heading level0 row5" >+ 2.0% deep OTM puts</th>
-      <td id="T_ea3fc_row5_col0" class="data row5 col0" >-32.0%</td>
-      <td id="T_ea3fc_row5_col1" class="data row5 col1" >-9.0%</td>
-      <td id="T_ea3fc_row5_col2" class="data row5 col2" >-14.4%</td>
-    </tr>
-    <tr>
-      <th id="T_ea3fc_level0_row6" class="row_heading level0 row6" >+ 3.3% deep OTM puts</th>
-      <td id="T_ea3fc_row6_col0" class="data row6 col0" >-25.9%</td>
-      <td id="T_ea3fc_row6_col1" class="data row6 col1" >-15.6%</td>
-      <td id="T_ea3fc_row6_col2" class="data row6 col2" >-11.2%</td>
-    </tr>
-    <tr>
-      <th id="T_ea3fc_level0_row7" class="row_heading level0 row7" >SPY B&H</th>
-      <td id="T_ea3fc_row7_col0" class="data row7 col0" >-51.9%</td>
-      <td id="T_ea3fc_row7_col1" class="data row7 col1" >-33.7%</td>
-      <td id="T_ea3fc_row7_col2" class="data row7 col2" >-24.5%</td>
-    </tr>
-  </tbody>
-</table>
-
-
-
+| Crash | 2008 GFC | 2020 COVID | 2022 Bear | Strategy |
+|---|---|---|---|---|
+| -51.8% | -32.6% | -24.2% |  |  |
+| -51.2% | -31.5% | -23.9% |  |  |
+| -50.0% | -29.2% | -23.4% |  |  |
+| -47.1% | -22.3% | -21.8% |  |  |
+| -42.4% | -12.1% | -19.1% |  |  |
+| -32.0% | -9.0% | -14.4% |  |  |
+| -25.9% | -15.6% | -11.2% |  |  |
+| -51.9% | -33.7% | -24.5% |  |  |
 
 ---
 ## 8. Summary: Sharpe Ratio Comparison
@@ -1218,223 +619,26 @@ styled = (df_all.style
 style_returns_table(styled).set_caption('Full Comparison: No Leverage (AQR) vs Leverage (Spitznagel)')
 ```
 
+**Full Comparison: No Leverage (AQR) vs Leverage (Spitznagel)**
 
-
-
-<style type="text/css">
-#T_3c48a th {
-  background-color: #0D7680;
-  color: white;
-  font-weight: bold;
-  text-align: center;
-  padding: 8px 12px;
-  border-bottom: 2px solid #33302E;
-}
-#T_3c48a td {
-  padding: 6px 12px;
-  border-bottom: 1px solid #F2DFCE;
-}
-#T_3c48a tr:hover td {
-  background-color: #F2DFCE;
-}
-#T_3c48a caption {
-  font-size: 14px;
-  font-weight: bold;
-  color: #33302E;
-  padding: 10px 0;
-}
-#T_3c48a  {
-  border-collapse: collapse;
-  font-family: Georgia, serif;
-}
-#T_3c48a_row1_col6, #T_3c48a_row2_col6, #T_3c48a_row3_col6, #T_3c48a_row4_col6, #T_3c48a_row5_col6 {
-  color: #CC0000;
-}
-#T_3c48a_row6_col6, #T_3c48a_row7_col6, #T_3c48a_row8_col6, #T_3c48a_row9_col6, #T_3c48a_row10_col6, #T_3c48a_row11_col6, #T_3c48a_row12_col6, #T_3c48a_row13_col6, #T_3c48a_row14_col6, #T_3c48a_row15_col6 {
-  color: #09814A;
-  font-weight: bold;
-}
-</style>
-<table id="T_3c48a">
-  <caption>Full Comparison: No Leverage (AQR) vs Leverage (Spitznagel)</caption>
-  <thead>
-    <tr>
-      <th class="blank level0" >&nbsp;</th>
-      <th id="T_3c48a_level0_col0" class="col_heading level0 col0" >Framing</th>
-      <th id="T_3c48a_level0_col1" class="col_heading level0 col1" >Strategy</th>
-      <th id="T_3c48a_level0_col2" class="col_heading level0 col2" >Annual %</th>
-      <th id="T_3c48a_level0_col3" class="col_heading level0 col3" >Vol %</th>
-      <th id="T_3c48a_level0_col4" class="col_heading level0 col4" >Max DD %</th>
-      <th id="T_3c48a_level0_col5" class="col_heading level0 col5" >Sharpe</th>
-      <th id="T_3c48a_level0_col6" class="col_heading level0 col6" >Excess %</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th id="T_3c48a_level0_row0" class="row_heading level0 row0" >0</th>
-      <td id="T_3c48a_row0_col0" class="data row0 col0" >No leverage</td>
-      <td id="T_3c48a_row0_col1" class="data row0 col1" >SPY only</td>
-      <td id="T_3c48a_row0_col2" class="data row0 col2" >11.11</td>
-      <td id="T_3c48a_row0_col3" class="data row0 col3" >20.0</td>
-      <td id="T_3c48a_row0_col4" class="data row0 col4" >-51.9</td>
-      <td id="T_3c48a_row0_col5" class="data row0 col5" >0.556</td>
-      <td id="T_3c48a_row0_col6" class="data row0 col6" >+0.07</td>
-    </tr>
-    <tr>
-      <th id="T_3c48a_level0_row1" class="row_heading level0 row1" >1</th>
-      <td id="T_3c48a_row1_col0" class="data row1 col0" >No leverage</td>
-      <td id="T_3c48a_row1_col1" class="data row1 col1" >Deep OTM 0.1%</td>
-      <td id="T_3c48a_row1_col2" class="data row1 col2" >10.70</td>
-      <td id="T_3c48a_row1_col3" class="data row1 col3" >19.4</td>
-      <td id="T_3c48a_row1_col4" class="data row1 col4" >-51.8</td>
-      <td id="T_3c48a_row1_col5" class="data row1 col5" >0.551</td>
-      <td id="T_3c48a_row1_col6" class="data row1 col6" >-0.35</td>
-    </tr>
-    <tr>
-      <th id="T_3c48a_level0_row2" class="row_heading level0 row2" >2</th>
-      <td id="T_3c48a_row2_col0" class="data row2 col0" >No leverage</td>
-      <td id="T_3c48a_row2_col1" class="data row2 col1" >Deep OTM 0.5%</td>
-      <td id="T_3c48a_row2_col2" class="data row2 col2" >9.23</td>
-      <td id="T_3c48a_row2_col3" class="data row2 col3" >17.6</td>
-      <td id="T_3c48a_row2_col4" class="data row2 col4" >-50.3</td>
-      <td id="T_3c48a_row2_col5" class="data row2 col5" >0.524</td>
-      <td id="T_3c48a_row2_col6" class="data row2 col6" >-1.81</td>
-    </tr>
-    <tr>
-      <th id="T_3c48a_level0_row3" class="row_heading level0 row3" >3</th>
-      <td id="T_3c48a_row3_col0" class="data row3 col0" >No leverage</td>
-      <td id="T_3c48a_row3_col1" class="data row3 col1" >Deep OTM 1.0%</td>
-      <td id="T_3c48a_row3_col2" class="data row3 col2" >7.38</td>
-      <td id="T_3c48a_row3_col3" class="data row3 col3" >16.3</td>
-      <td id="T_3c48a_row3_col4" class="data row3 col4" >-48.4</td>
-      <td id="T_3c48a_row3_col5" class="data row3 col5" >0.452</td>
-      <td id="T_3c48a_row3_col6" class="data row3 col6" >-3.67</td>
-    </tr>
-    <tr>
-      <th id="T_3c48a_level0_row4" class="row_heading level0 row4" >4</th>
-      <td id="T_3c48a_row4_col0" class="data row4 col0" >No leverage</td>
-      <td id="T_3c48a_row4_col1" class="data row4 col1" >Deep OTM 3.3%</td>
-      <td id="T_3c48a_row4_col2" class="data row4 col2" >-1.28</td>
-      <td id="T_3c48a_row4_col3" class="data row4 col3" >20.3</td>
-      <td id="T_3c48a_row4_col4" class="data row4 col4" >-39.6</td>
-      <td id="T_3c48a_row4_col5" class="data row4 col5" >-0.063</td>
-      <td id="T_3c48a_row4_col6" class="data row4 col6" >-12.33</td>
-    </tr>
-    <tr>
-      <th id="T_3c48a_level0_row5" class="row_heading level0 row5" >5</th>
-      <td id="T_3c48a_row5_col0" class="data row5 col0" >No leverage</td>
-      <td id="T_3c48a_row5_col1" class="data row5 col1" >Std OTM 1.0%</td>
-      <td id="T_3c48a_row5_col2" class="data row5 col2" >6.96</td>
-      <td id="T_3c48a_row5_col3" class="data row5 col3" >15.7</td>
-      <td id="T_3c48a_row5_col4" class="data row5 col4" >-50.8</td>
-      <td id="T_3c48a_row5_col5" class="data row5 col5" >0.443</td>
-      <td id="T_3c48a_row5_col6" class="data row5 col6" >-4.09</td>
-    </tr>
-    <tr>
-      <th id="T_3c48a_level0_row6" class="row_heading level0 row6" >6</th>
-      <td id="T_3c48a_row6_col0" class="data row6 col0" >Leveraged</td>
-      <td id="T_3c48a_row6_col1" class="data row6 col1" >+ 0.05% deep OTM puts</td>
-      <td id="T_3c48a_row6_col2" class="data row6 col2" >11.53</td>
-      <td id="T_3c48a_row6_col3" class="data row6 col3" >19.7</td>
-      <td id="T_3c48a_row6_col4" class="data row6 col4" >-51.8</td>
-      <td id="T_3c48a_row6_col5" class="data row6 col5" >0.585</td>
-      <td id="T_3c48a_row6_col6" class="data row6 col6" >+0.49</td>
-    </tr>
-    <tr>
-      <th id="T_3c48a_level0_row7" class="row_heading level0 row7" >7</th>
-      <td id="T_3c48a_row7_col0" class="data row7 col0" >Leveraged</td>
-      <td id="T_3c48a_row7_col1" class="data row7 col1" >+ 0.1% deep OTM puts</td>
-      <td id="T_3c48a_row7_col2" class="data row7 col2" >12.05</td>
-      <td id="T_3c48a_row7_col3" class="data row7 col3" >19.4</td>
-      <td id="T_3c48a_row7_col4" class="data row7 col4" >-51.2</td>
-      <td id="T_3c48a_row7_col5" class="data row7 col5" >0.620</td>
-      <td id="T_3c48a_row7_col6" class="data row7 col6" >+1.00</td>
-    </tr>
-    <tr>
-      <th id="T_3c48a_level0_row8" class="row_heading level0 row8" >8</th>
-      <td id="T_3c48a_row8_col0" class="data row8 col0" >Leveraged</td>
-      <td id="T_3c48a_row8_col1" class="data row8 col1" >+ 0.2% deep OTM puts</td>
-      <td id="T_3c48a_row8_col2" class="data row8 col2" >13.02</td>
-      <td id="T_3c48a_row8_col3" class="data row8 col3" >19.0</td>
-      <td id="T_3c48a_row8_col4" class="data row8 col4" >-50.0</td>
-      <td id="T_3c48a_row8_col5" class="data row8 col5" >0.687</td>
-      <td id="T_3c48a_row8_col6" class="data row8 col6" >+1.98</td>
-    </tr>
-    <tr>
-      <th id="T_3c48a_level0_row9" class="row_heading level0 row9" >9</th>
-      <td id="T_3c48a_row9_col0" class="data row9 col0" >Leveraged</td>
-      <td id="T_3c48a_row9_col1" class="data row9 col1" >+ 0.5% deep OTM puts</td>
-      <td id="T_3c48a_row9_col2" class="data row9 col2" >16.02</td>
-      <td id="T_3c48a_row9_col3" class="data row9 col3" >17.8</td>
-      <td id="T_3c48a_row9_col4" class="data row9 col4" >-47.1</td>
-      <td id="T_3c48a_row9_col5" class="data row9 col5" >0.901</td>
-      <td id="T_3c48a_row9_col6" class="data row9 col6" >+4.97</td>
-    </tr>
-    <tr>
-      <th id="T_3c48a_level0_row10" class="row_heading level0 row10" >10</th>
-      <td id="T_3c48a_row10_col0" class="data row10 col0" >Leveraged</td>
-      <td id="T_3c48a_row10_col1" class="data row10 col1" >+ 1.0% deep OTM puts</td>
-      <td id="T_3c48a_row10_col2" class="data row10 col2" >21.08</td>
-      <td id="T_3c48a_row10_col3" class="data row10 col3" >16.7</td>
-      <td id="T_3c48a_row10_col4" class="data row10 col4" >-42.4</td>
-      <td id="T_3c48a_row10_col5" class="data row10 col5" >1.259</td>
-      <td id="T_3c48a_row10_col6" class="data row10 col6" >+10.03</td>
-    </tr>
-    <tr>
-      <th id="T_3c48a_level0_row11" class="row_heading level0 row11" >11</th>
-      <td id="T_3c48a_row11_col0" class="data row11 col0" >Leveraged</td>
-      <td id="T_3c48a_row11_col1" class="data row11 col1" >+ 2.0% deep OTM puts</td>
-      <td id="T_3c48a_row11_col2" class="data row11 col2" >31.73</td>
-      <td id="T_3c48a_row11_col3" class="data row11 col3" >17.7</td>
-      <td id="T_3c48a_row11_col4" class="data row11 col4" >-32.0</td>
-      <td id="T_3c48a_row11_col5" class="data row11 col5" >1.790</td>
-      <td id="T_3c48a_row11_col6" class="data row11 col6" >+20.69</td>
-    </tr>
-    <tr>
-      <th id="T_3c48a_level0_row12" class="row_heading level0 row12" >12</th>
-      <td id="T_3c48a_row12_col0" class="data row12 col0" >Leveraged</td>
-      <td id="T_3c48a_row12_col1" class="data row12 col1" >+ 3.3% deep OTM puts</td>
-      <td id="T_3c48a_row12_col2" class="data row12 col2" >46.60</td>
-      <td id="T_3c48a_row12_col3" class="data row12 col3" >22.7</td>
-      <td id="T_3c48a_row12_col4" class="data row12 col4" >-29.2</td>
-      <td id="T_3c48a_row12_col5" class="data row12 col5" >2.056</td>
-      <td id="T_3c48a_row12_col6" class="data row12 col6" >+35.55</td>
-    </tr>
-    <tr>
-      <th id="T_3c48a_level0_row13" class="row_heading level0 row13" >13</th>
-      <td id="T_3c48a_row13_col0" class="data row13 col0" >Leveraged</td>
-      <td id="T_3c48a_row13_col1" class="data row13 col1" >+ 0.1% std OTM puts</td>
-      <td id="T_3c48a_row13_col2" class="data row13 col2" >12.04</td>
-      <td id="T_3c48a_row13_col3" class="data row13 col3" >19.5</td>
-      <td id="T_3c48a_row13_col4" class="data row13 col4" >-51.1</td>
-      <td id="T_3c48a_row13_col5" class="data row13 col5" >0.618</td>
-      <td id="T_3c48a_row13_col6" class="data row13 col6" >+0.99</td>
-    </tr>
-    <tr>
-      <th id="T_3c48a_level0_row14" class="row_heading level0 row14" >14</th>
-      <td id="T_3c48a_row14_col0" class="data row14 col0" >Leveraged</td>
-      <td id="T_3c48a_row14_col1" class="data row14 col1" >+ 0.5% std OTM puts</td>
-      <td id="T_3c48a_row14_col2" class="data row14 col2" >15.80</td>
-      <td id="T_3c48a_row14_col3" class="data row14 col3" >17.7</td>
-      <td id="T_3c48a_row14_col4" class="data row14 col4" >-47.8</td>
-      <td id="T_3c48a_row14_col5" class="data row14 col5" >0.893</td>
-      <td id="T_3c48a_row14_col6" class="data row14 col6" >+4.75</td>
-    </tr>
-    <tr>
-      <th id="T_3c48a_level0_row15" class="row_heading level0 row15" >15</th>
-      <td id="T_3c48a_row15_col0" class="data row15 col0" >Leveraged</td>
-      <td id="T_3c48a_row15_col1" class="data row15 col1" >+ 1.0% std OTM puts</td>
-      <td id="T_3c48a_row15_col2" class="data row15 col2" >20.60</td>
-      <td id="T_3c48a_row15_col3" class="data row15 col3" >16.1</td>
-      <td id="T_3c48a_row15_col4" class="data row15 col4" >-43.6</td>
-      <td id="T_3c48a_row15_col5" class="data row15 col5" >1.280</td>
-      <td id="T_3c48a_row15_col6" class="data row15 col6" >+9.56</td>
-    </tr>
-  </tbody>
-</table>
-
-
-
+| Framing | Strategy | Annual % | Vol % | Max DD % | Sharpe | Excess % |
+|---|---|---|---|---|---|---|
+| No leverage | SPY only | 11.11 | 20.0 | -51.9 | 0.556 | +0.07 |
+| No leverage | Deep OTM 0.1% | 10.70 | 19.4 | -51.8 | 0.551 | -0.35 |
+| No leverage | Deep OTM 0.5% | 9.23 | 17.6 | -50.3 | 0.524 | -1.81 |
+| No leverage | Deep OTM 1.0% | 7.38 | 16.3 | -48.4 | 0.452 | -3.67 |
+| No leverage | Deep OTM 3.3% | -1.28 | 20.3 | -39.6 | -0.063 | -12.33 |
+| No leverage | Std OTM 1.0% | 6.96 | 15.7 | -50.8 | 0.443 | -4.09 |
+| Leveraged | + 0.05% deep OTM puts | 11.53 | 19.7 | -51.8 | 0.585 | +0.49 |
+| Leveraged | + 0.1% deep OTM puts | 12.05 | 19.4 | -51.2 | 0.620 | +1.00 |
+| Leveraged | + 0.2% deep OTM puts | 13.02 | 19.0 | -50.0 | 0.687 | +1.98 |
+| Leveraged | + 0.5% deep OTM puts | 16.02 | 17.8 | -47.1 | 0.901 | +4.97 |
+| Leveraged | + 1.0% deep OTM puts | 21.08 | 16.7 | -42.4 | 1.259 | +10.03 |
+| Leveraged | + 2.0% deep OTM puts | 31.73 | 17.7 | -32.0 | 1.790 | +20.69 |
+| Leveraged | + 3.3% deep OTM puts | 46.60 | 22.7 | -29.2 | 2.056 | +35.55 |
+| Leveraged | + 0.1% std OTM puts | 12.04 | 19.5 | -51.1 | 0.618 | +0.99 |
+| Leveraged | + 0.5% std OTM puts | 15.80 | 17.7 | -47.8 | 0.893 | +4.75 |
+| Leveraged | + 1.0% std OTM puts | 20.60 | 16.1 | -43.6 | 1.280 | +9.56 |
 
 ## Extended Risk Metrics
 
@@ -1526,132 +730,14 @@ styled = (df_ext.style
 style_returns_table(styled).set_caption('Extended Risk Metrics: Key Strategies')
 ```
 
+**Extended Risk Metrics: Key Strategies**
 
-
-
-<style type="text/css">
-#T_a0fa5 th {
-  background-color: #0D7680;
-  color: white;
-  font-weight: bold;
-  text-align: center;
-  padding: 8px 12px;
-  border-bottom: 2px solid #33302E;
-}
-#T_a0fa5 td {
-  padding: 6px 12px;
-  border-bottom: 1px solid #F2DFCE;
-}
-#T_a0fa5 tr:hover td {
-  background-color: #F2DFCE;
-}
-#T_a0fa5 caption {
-  font-size: 14px;
-  font-weight: bold;
-  color: #33302E;
-  padding: 10px 0;
-}
-#T_a0fa5  {
-  border-collapse: collapse;
-  font-family: Georgia, serif;
-}
-</style>
-<table id="T_a0fa5">
-  <caption>Extended Risk Metrics: Key Strategies</caption>
-  <thead>
-    <tr>
-      <th class="blank level0" >&nbsp;</th>
-      <th id="T_a0fa5_level0_col0" class="col_heading level0 col0" >Strategy</th>
-      <th id="T_a0fa5_level0_col1" class="col_heading level0 col1" >Annual %</th>
-      <th id="T_a0fa5_level0_col2" class="col_heading level0 col2" >Vol %</th>
-      <th id="T_a0fa5_level0_col3" class="col_heading level0 col3" >Sharpe</th>
-      <th id="T_a0fa5_level0_col4" class="col_heading level0 col4" >Sortino</th>
-      <th id="T_a0fa5_level0_col5" class="col_heading level0 col5" >Calmar</th>
-      <th id="T_a0fa5_level0_col6" class="col_heading level0 col6" >Max DD %</th>
-      <th id="T_a0fa5_level0_col7" class="col_heading level0 col7" >Max DD Days</th>
-      <th id="T_a0fa5_level0_col8" class="col_heading level0 col8" >Tail Ratio</th>
-      <th id="T_a0fa5_level0_col9" class="col_heading level0 col9" >Skew</th>
-      <th id="T_a0fa5_level0_col10" class="col_heading level0 col10" >Kurtosis</th>
-      <th id="T_a0fa5_level0_col11" class="col_heading level0 col11" >Pos Months %</th>
-      <th id="T_a0fa5_level0_col12" class="col_heading level0 col12" >Worst Mo %</th>
-      <th id="T_a0fa5_level0_col13" class="col_heading level0 col13" >Best Mo %</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th id="T_a0fa5_level0_row0" class="row_heading level0 row0" >0</th>
-      <td id="T_a0fa5_row0_col0" class="data row0 col0" >SPY only</td>
-      <td id="T_a0fa5_row0_col1" class="data row0 col1" >11.11</td>
-      <td id="T_a0fa5_row0_col2" class="data row0 col2" >20.0</td>
-      <td id="T_a0fa5_row0_col3" class="data row0 col3" >0.556</td>
-      <td id="T_a0fa5_row0_col4" class="data row0 col4" >0.678</td>
-      <td id="T_a0fa5_row0_col5" class="data row0 col5" >0.214</td>
-      <td id="T_a0fa5_row0_col6" class="data row0 col6" >-51.9</td>
-      <td id="T_a0fa5_row0_col7" class="data row0 col7" >834</td>
-      <td id="T_a0fa5_row0_col8" class="data row0 col8" >0.923</td>
-      <td id="T_a0fa5_row0_col9" class="data row0 col9" >0.015</td>
-      <td id="T_a0fa5_row0_col10" class="data row0 col10" >14.67</td>
-      <td id="T_a0fa5_row0_col11" class="data row0 col11" >66.7</td>
-      <td id="T_a0fa5_row0_col12" class="data row0 col12" >-16.5</td>
-      <td id="T_a0fa5_row0_col13" class="data row0 col13" >12.7</td>
-    </tr>
-    <tr>
-      <th id="T_a0fa5_level0_row1" class="row_heading level0 row1" >1</th>
-      <td id="T_a0fa5_row1_col0" class="data row1 col0" >+ 0.5% deep OTM puts</td>
-      <td id="T_a0fa5_row1_col1" class="data row1 col1" >16.02</td>
-      <td id="T_a0fa5_row1_col2" class="data row1 col2" >17.8</td>
-      <td id="T_a0fa5_row1_col3" class="data row1 col3" >0.901</td>
-      <td id="T_a0fa5_row1_col4" class="data row1 col4" >1.150</td>
-      <td id="T_a0fa5_row1_col5" class="data row1 col5" >0.340</td>
-      <td id="T_a0fa5_row1_col6" class="data row1 col6" >-47.1</td>
-      <td id="T_a0fa5_row1_col7" class="data row1 col7" >601</td>
-      <td id="T_a0fa5_row1_col8" class="data row1 col8" >0.992</td>
-      <td id="T_a0fa5_row1_col9" class="data row1 col9" >0.146</td>
-      <td id="T_a0fa5_row1_col10" class="data row1 col10" >12.84</td>
-      <td id="T_a0fa5_row1_col11" class="data row1 col11" >68.1</td>
-      <td id="T_a0fa5_row1_col12" class="data row1 col12" >-14.7</td>
-      <td id="T_a0fa5_row1_col13" class="data row1 col13" >15.2</td>
-    </tr>
-    <tr>
-      <th id="T_a0fa5_level0_row2" class="row_heading level0 row2" >2</th>
-      <td id="T_a0fa5_row2_col0" class="data row2 col0" >+ 1.0% deep OTM puts</td>
-      <td id="T_a0fa5_row2_col1" class="data row2 col1" >21.08</td>
-      <td id="T_a0fa5_row2_col2" class="data row2 col2" >16.7</td>
-      <td id="T_a0fa5_row2_col3" class="data row2 col3" >1.259</td>
-      <td id="T_a0fa5_row2_col4" class="data row2 col4" >1.657</td>
-      <td id="T_a0fa5_row2_col5" class="data row2 col5" >0.497</td>
-      <td id="T_a0fa5_row2_col6" class="data row2 col6" >-42.4</td>
-      <td id="T_a0fa5_row2_col7" class="data row2 col7" >403</td>
-      <td id="T_a0fa5_row2_col8" class="data row2 col8" >1.073</td>
-      <td id="T_a0fa5_row2_col9" class="data row2 col9" >0.203</td>
-      <td id="T_a0fa5_row2_col10" class="data row2 col10" >12.11</td>
-      <td id="T_a0fa5_row2_col11" class="data row2 col11" >70.8</td>
-      <td id="T_a0fa5_row2_col12" class="data row2 col12" >-12.6</td>
-      <td id="T_a0fa5_row2_col13" class="data row2 col13" >17.5</td>
-    </tr>
-    <tr>
-      <th id="T_a0fa5_level0_row3" class="row_heading level0 row3" >3</th>
-      <td id="T_a0fa5_row3_col0" class="data row3 col0" >+ 2.0% deep OTM puts</td>
-      <td id="T_a0fa5_row3_col1" class="data row3 col1" >31.73</td>
-      <td id="T_a0fa5_row3_col2" class="data row3 col2" >17.7</td>
-      <td id="T_a0fa5_row3_col3" class="data row3 col3" >1.790</td>
-      <td id="T_a0fa5_row3_col4" class="data row3 col4" >2.506</td>
-      <td id="T_a0fa5_row3_col5" class="data row3 col5" >0.992</td>
-      <td id="T_a0fa5_row3_col6" class="data row3 col6" >-32.0</td>
-      <td id="T_a0fa5_row3_col7" class="data row3 col7" >227</td>
-      <td id="T_a0fa5_row3_col8" class="data row3 col8" >1.427</td>
-      <td id="T_a0fa5_row3_col9" class="data row3 col9" >0.691</td>
-      <td id="T_a0fa5_row3_col10" class="data row3 col10" >16.79</td>
-      <td id="T_a0fa5_row3_col11" class="data row3 col11" >76.9</td>
-      <td id="T_a0fa5_row3_col12" class="data row3 col12" >-8.4</td>
-      <td id="T_a0fa5_row3_col13" class="data row3 col13" >21.8</td>
-    </tr>
-  </tbody>
-</table>
-
-
-
-
+| Strategy | Annual % | Vol % | Sharpe | Sortino | Calmar | Max DD % | Max DD Days | Tail Ratio | Skew | Kurtosis | Pos Months % | Worst Mo % | Best Mo % |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| SPY only | 11.11 | 20.0 | 0.556 | 0.678 | 0.214 | -51.9 | 834 | 0.923 | 0.015 | 14.67 | 66.7 | -16.5 | 12.7 |
+| + 0.5% deep OTM puts | 16.02 | 17.8 | 0.901 | 1.150 | 0.340 | -47.1 | 601 | 0.992 | 0.146 | 12.84 | 68.1 | -14.7 | 15.2 |
+| + 1.0% deep OTM puts | 21.08 | 16.7 | 1.259 | 1.657 | 0.497 | -42.4 | 403 | 1.073 | 0.203 | 12.11 | 70.8 | -12.6 | 17.5 |
+| + 2.0% deep OTM puts | 31.73 | 17.7 | 1.790 | 2.506 | 0.992 | -32.0 | 227 | 1.427 | 0.691 | 16.79 | 76.9 | -8.4 | 21.8 |
 
 ```python
 # Return distribution comparison: SPY vs SPY + 0.5% puts
@@ -1685,7 +771,6 @@ plt.show()
     
 
 
-
 ```python
 # Year-by-year returns for key strategies
 yearly_rows = []
@@ -1715,208 +800,30 @@ styled = (df_yearly.style
 style_returns_table(styled).set_caption('Calendar Year Returns (%)')
 ```
 
+**Calendar Year Returns (%)**
 
-
-
-<style type="text/css">
-#T_3178c th {
-  background-color: #0D7680;
-  color: white;
-  font-weight: bold;
-  text-align: center;
-  padding: 8px 12px;
-  border-bottom: 2px solid #33302E;
-}
-#T_3178c td {
-  padding: 6px 12px;
-  border-bottom: 1px solid #F2DFCE;
-}
-#T_3178c tr:hover td {
-  background-color: #F2DFCE;
-}
-#T_3178c caption {
-  font-size: 14px;
-  font-weight: bold;
-  color: #33302E;
-  padding: 10px 0;
-}
-#T_3178c  {
-  border-collapse: collapse;
-  font-family: Georgia, serif;
-}
-#T_3178c_row0_col0, #T_3178c_row0_col1, #T_3178c_row0_col2, #T_3178c_row0_col3, #T_3178c_row1_col0, #T_3178c_row1_col1, #T_3178c_row1_col2, #T_3178c_row1_col3, #T_3178c_row2_col0, #T_3178c_row2_col1, #T_3178c_row2_col2, #T_3178c_row2_col3, #T_3178c_row3_col0, #T_3178c_row3_col1, #T_3178c_row3_col2, #T_3178c_row3_col3, #T_3178c_row4_col0, #T_3178c_row4_col1, #T_3178c_row4_col2, #T_3178c_row4_col3, #T_3178c_row5_col0, #T_3178c_row5_col1, #T_3178c_row5_col2, #T_3178c_row5_col3, #T_3178c_row6_col0, #T_3178c_row6_col1, #T_3178c_row6_col2, #T_3178c_row6_col3, #T_3178c_row7_col0, #T_3178c_row7_col1, #T_3178c_row7_col2, #T_3178c_row7_col3, #T_3178c_row8_col0, #T_3178c_row8_col1, #T_3178c_row8_col2, #T_3178c_row8_col3, #T_3178c_row9_col1, #T_3178c_row9_col2, #T_3178c_row9_col3, #T_3178c_row10_col0, #T_3178c_row10_col1, #T_3178c_row10_col2, #T_3178c_row10_col3, #T_3178c_row11_col0, #T_3178c_row11_col1, #T_3178c_row11_col2, #T_3178c_row11_col3, #T_3178c_row12_col0, #T_3178c_row12_col1, #T_3178c_row12_col2, #T_3178c_row12_col3, #T_3178c_row14_col0, #T_3178c_row14_col1, #T_3178c_row14_col2, #T_3178c_row14_col3, #T_3178c_row15_col0, #T_3178c_row15_col1, #T_3178c_row15_col2, #T_3178c_row15_col3, #T_3178c_row16_col0, #T_3178c_row16_col1, #T_3178c_row16_col2, #T_3178c_row16_col3, #T_3178c_row17_col0, #T_3178c_row17_col1, #T_3178c_row17_col2, #T_3178c_row17_col3, #T_3178c_row18_col0, #T_3178c_row18_col1, #T_3178c_row18_col2, #T_3178c_row18_col3, #T_3178c_row19_col0, #T_3178c_row19_col1, #T_3178c_row19_col2, #T_3178c_row19_col3 {
-  color: #09814A;
-  font-weight: bold;
-}
-#T_3178c_row9_col0, #T_3178c_row13_col0, #T_3178c_row13_col1, #T_3178c_row13_col2, #T_3178c_row13_col3 {
-  color: #CC0000;
-}
-</style>
-<table id="T_3178c">
-  <caption>Calendar Year Returns (%)</caption>
-  <thead>
-    <tr>
-      <th class="index_name level0" >Strategy</th>
-      <th id="T_3178c_level0_col0" class="col_heading level0 col0" >SPY only</th>
-      <th id="T_3178c_level0_col1" class="col_heading level0 col1" >+ 0.5% deep OTM puts</th>
-      <th id="T_3178c_level0_col2" class="col_heading level0 col2" >+ 1.0% deep OTM puts</th>
-      <th id="T_3178c_level0_col3" class="col_heading level0 col3" >+ 2.0% deep OTM puts</th>
-    </tr>
-    <tr>
-      <th class="index_name level0" >Year</th>
-      <th class="blank col0" >&nbsp;</th>
-      <th class="blank col1" >&nbsp;</th>
-      <th class="blank col2" >&nbsp;</th>
-      <th class="blank col3" >&nbsp;</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th id="T_3178c_level0_row0" class="row_heading level0 row0" >2009</th>
-      <td id="T_3178c_row0_col0" class="data row0 col0" >26.4</td>
-      <td id="T_3178c_row0_col1" class="data row0 col1" >31.2</td>
-      <td id="T_3178c_row0_col2" class="data row0 col2" >36.5</td>
-      <td id="T_3178c_row0_col3" class="data row0 col3" >47.5</td>
-    </tr>
-    <tr>
-      <th id="T_3178c_level0_row1" class="row_heading level0 row1" >2010</th>
-      <td id="T_3178c_row1_col0" class="data row1 col0" >15.1</td>
-      <td id="T_3178c_row1_col1" class="data row1 col1" >20.7</td>
-      <td id="T_3178c_row1_col2" class="data row1 col2" >26.8</td>
-      <td id="T_3178c_row1_col3" class="data row1 col3" >39.5</td>
-    </tr>
-    <tr>
-      <th id="T_3178c_level0_row2" class="row_heading level0 row2" >2011</th>
-      <td id="T_3178c_row2_col0" class="data row2 col0" >1.9</td>
-      <td id="T_3178c_row2_col1" class="data row2 col1" >6.5</td>
-      <td id="T_3178c_row2_col2" class="data row2 col2" >11.2</td>
-      <td id="T_3178c_row2_col3" class="data row2 col3" >21.1</td>
-    </tr>
-    <tr>
-      <th id="T_3178c_level0_row3" class="row_heading level0 row3" >2012</th>
-      <td id="T_3178c_row3_col0" class="data row3 col0" >16.0</td>
-      <td id="T_3178c_row3_col1" class="data row3 col1" >19.5</td>
-      <td id="T_3178c_row3_col2" class="data row3 col2" >23.1</td>
-      <td id="T_3178c_row3_col3" class="data row3 col3" >30.5</td>
-    </tr>
-    <tr>
-      <th id="T_3178c_level0_row4" class="row_heading level0 row4" >2013</th>
-      <td id="T_3178c_row4_col0" class="data row4 col0" >32.3</td>
-      <td id="T_3178c_row4_col1" class="data row4 col1" >35.2</td>
-      <td id="T_3178c_row4_col2" class="data row4 col2" >38.1</td>
-      <td id="T_3178c_row4_col3" class="data row4 col3" >44.1</td>
-    </tr>
-    <tr>
-      <th id="T_3178c_level0_row5" class="row_heading level0 row5" >2014</th>
-      <td id="T_3178c_row5_col0" class="data row5 col0" >13.5</td>
-      <td id="T_3178c_row5_col1" class="data row5 col1" >17.5</td>
-      <td id="T_3178c_row5_col2" class="data row5 col2" >21.7</td>
-      <td id="T_3178c_row5_col3" class="data row5 col3" >30.3</td>
-    </tr>
-    <tr>
-      <th id="T_3178c_level0_row6" class="row_heading level0 row6" >2015</th>
-      <td id="T_3178c_row6_col0" class="data row6 col0" >1.3</td>
-      <td id="T_3178c_row6_col1" class="data row6 col1" >8.1</td>
-      <td id="T_3178c_row6_col2" class="data row6 col2" >15.2</td>
-      <td id="T_3178c_row6_col3" class="data row6 col3" >30.2</td>
-    </tr>
-    <tr>
-      <th id="T_3178c_level0_row7" class="row_heading level0 row7" >2016</th>
-      <td id="T_3178c_row7_col0" class="data row7 col0" >12.0</td>
-      <td id="T_3178c_row7_col1" class="data row7 col1" >15.0</td>
-      <td id="T_3178c_row7_col2" class="data row7 col2" >18.0</td>
-      <td id="T_3178c_row7_col3" class="data row7 col3" >24.3</td>
-    </tr>
-    <tr>
-      <th id="T_3178c_level0_row8" class="row_heading level0 row8" >2017</th>
-      <td id="T_3178c_row8_col0" class="data row8 col0" >21.7</td>
-      <td id="T_3178c_row8_col1" class="data row8 col1" >25.1</td>
-      <td id="T_3178c_row8_col2" class="data row8 col2" >28.5</td>
-      <td id="T_3178c_row8_col3" class="data row8 col3" >35.7</td>
-    </tr>
-    <tr>
-      <th id="T_3178c_level0_row9" class="row_heading level0 row9" >2018</th>
-      <td id="T_3178c_row9_col0" class="data row9 col0" >-4.6</td>
-      <td id="T_3178c_row9_col1" class="data row9 col1" >0.8</td>
-      <td id="T_3178c_row9_col2" class="data row9 col2" >6.4</td>
-      <td id="T_3178c_row9_col3" class="data row9 col3" >18.4</td>
-    </tr>
-    <tr>
-      <th id="T_3178c_level0_row10" class="row_heading level0 row10" >2019</th>
-      <td id="T_3178c_row10_col0" class="data row10 col0" >31.2</td>
-      <td id="T_3178c_row10_col1" class="data row10 col1" >34.5</td>
-      <td id="T_3178c_row10_col2" class="data row10 col2" >37.8</td>
-      <td id="T_3178c_row10_col3" class="data row10 col3" >44.7</td>
-    </tr>
-    <tr>
-      <th id="T_3178c_level0_row11" class="row_heading level0 row11" >2020</th>
-      <td id="T_3178c_row11_col0" class="data row11 col0" >18.4</td>
-      <td id="T_3178c_row11_col1" class="data row11 col1" >30.1</td>
-      <td id="T_3178c_row11_col2" class="data row11 col2" >42.6</td>
-      <td id="T_3178c_row11_col3" class="data row11 col3" >69.8</td>
-    </tr>
-    <tr>
-      <th id="T_3178c_level0_row12" class="row_heading level0 row12" >2021</th>
-      <td id="T_3178c_row12_col0" class="data row12 col0" >28.7</td>
-      <td id="T_3178c_row12_col1" class="data row12 col1" >33.7</td>
-      <td id="T_3178c_row12_col2" class="data row12 col2" >38.8</td>
-      <td id="T_3178c_row12_col3" class="data row12 col3" >49.6</td>
-    </tr>
-    <tr>
-      <th id="T_3178c_level0_row13" class="row_heading level0 row13" >2022</th>
-      <td id="T_3178c_row13_col0" class="data row13 col0" >-18.2</td>
-      <td id="T_3178c_row13_col1" class="data row13 col1" >-14.7</td>
-      <td id="T_3178c_row13_col2" class="data row13 col2" >-11.2</td>
-      <td id="T_3178c_row13_col3" class="data row13 col3" >-3.6</td>
-    </tr>
-    <tr>
-      <th id="T_3178c_level0_row14" class="row_heading level0 row14" >2023</th>
-      <td id="T_3178c_row14_col0" class="data row14 col0" >26.2</td>
-      <td id="T_3178c_row14_col1" class="data row14 col1" >30.0</td>
-      <td id="T_3178c_row14_col2" class="data row14 col2" >33.9</td>
-      <td id="T_3178c_row14_col3" class="data row14 col3" >42.0</td>
-    </tr>
-    <tr>
-      <th id="T_3178c_level0_row15" class="row_heading level0 row15" >2024</th>
-      <td id="T_3178c_row15_col0" class="data row15 col0" >24.9</td>
-      <td id="T_3178c_row15_col1" class="data row15 col1" >29.5</td>
-      <td id="T_3178c_row15_col2" class="data row15 col2" >34.3</td>
-      <td id="T_3178c_row15_col3" class="data row15 col3" >44.4</td>
-    </tr>
-    <tr>
-      <th id="T_3178c_level0_row16" class="row_heading level0 row16" >2025</th>
-      <td id="T_3178c_row16_col0" class="data row16 col0" >18.6</td>
-      <td id="T_3178c_row16_col1" class="data row16 col1" >22.7</td>
-      <td id="T_3178c_row16_col2" class="data row16 col2" >26.9</td>
-      <td id="T_3178c_row16_col3" class="data row16 col3" >35.7</td>
-    </tr>
-    <tr>
-      <th id="T_3178c_level0_row17" class="row_heading level0 row17" >Average</th>
-      <td id="T_3178c_row17_col0" class="data row17 col0" >15.6</td>
-      <td id="T_3178c_row17_col1" class="data row17 col1" >20.3</td>
-      <td id="T_3178c_row17_col2" class="data row17 col2" >25.2</td>
-      <td id="T_3178c_row17_col3" class="data row17 col3" >35.5</td>
-    </tr>
-    <tr>
-      <th id="T_3178c_level0_row18" class="row_heading level0 row18" >Median</th>
-      <td id="T_3178c_row18_col0" class="data row18 col0" >18.4</td>
-      <td id="T_3178c_row18_col1" class="data row18 col1" >22.7</td>
-      <td id="T_3178c_row18_col2" class="data row18 col2" >26.9</td>
-      <td id="T_3178c_row18_col3" class="data row18 col3" >35.7</td>
-    </tr>
-    <tr>
-      <th id="T_3178c_level0_row19" class="row_heading level0 row19" >% Positive</th>
-      <td id="T_3178c_row19_col0" class="data row19 col0" >88.2</td>
-      <td id="T_3178c_row19_col1" class="data row19 col1" >94.1</td>
-      <td id="T_3178c_row19_col2" class="data row19 col2" >94.1</td>
-      <td id="T_3178c_row19_col3" class="data row19 col3" >94.1</td>
-    </tr>
-  </tbody>
-</table>
-
-
-
-
+| Strategy | SPY only | + 0.5% deep OTM puts | + 1.0% deep OTM puts | + 2.0% deep OTM puts | Year |
+|---|---|---|---|---|---|
+| 26.4 | 31.2 | 36.5 | 47.5 |  |  |
+| 15.1 | 20.7 | 26.8 | 39.5 |  |  |
+| 1.9 | 6.5 | 11.2 | 21.1 |  |  |
+| 16.0 | 19.5 | 23.1 | 30.5 |  |  |
+| 32.3 | 35.2 | 38.1 | 44.1 |  |  |
+| 13.5 | 17.5 | 21.7 | 30.3 |  |  |
+| 1.3 | 8.1 | 15.2 | 30.2 |  |  |
+| 12.0 | 15.0 | 18.0 | 24.3 |  |  |
+| 21.7 | 25.1 | 28.5 | 35.7 |  |  |
+| -4.6 | 0.8 | 6.4 | 18.4 |  |  |
+| 31.2 | 34.5 | 37.8 | 44.7 |  |  |
+| 18.4 | 30.1 | 42.6 | 69.8 |  |  |
+| 28.7 | 33.7 | 38.8 | 49.6 |  |  |
+| -18.2 | -14.7 | -11.2 | -3.6 |  |  |
+| 26.2 | 30.0 | 33.9 | 42.0 |  |  |
+| 24.9 | 29.5 | 34.3 | 44.4 |  |  |
+| 18.6 | 22.7 | 26.9 | 35.7 |  |  |
+| 15.6 | 20.3 | 25.2 | 35.5 |  |  |
+| 18.4 | 22.7 | 26.9 | 35.7 |  |  |
+| 88.2 | 94.1 | 94.1 | 94.1 |  |  |
 
 ```python
 # Rolling 1-year Sharpe comparison
@@ -2094,147 +1001,25 @@ style_returns_table(styled).set_caption('DTE Sweep: 0.5% budget, leveraged, deep
 ```
 
       DTE 30-60... 
-
-    Warning: No valid output stream.
-
-
     annual +13.91%, excess +2.86%, DD -44.7%
       DTE 60-120... 
-
-    Warning: No valid output stream.
-
-
     annual +15.27%, excess +4.22%, DD -46.9%
       DTE 90-180... 
-
-    Warning: No valid output stream.
-
-
     annual +16.02%, excess +4.97%, DD -47.1%
       DTE 120-240... 
-
-    Warning: No valid output stream.
-
-
     annual +16.51%, excess +5.46%, DD -47.5%
       DTE 180-365... 
-
-    Warning: No valid output stream.
-
-
     annual +16.97%, excess +5.92%, DD -48.1%
 
+**DTE Sweep: 0.5% budget, leveraged, deep OTM puts**
 
-
-
-
-<style type="text/css">
-#T_d769b th {
-  background-color: #0D7680;
-  color: white;
-  font-weight: bold;
-  text-align: center;
-  padding: 8px 12px;
-  border-bottom: 2px solid #33302E;
-}
-#T_d769b td {
-  padding: 6px 12px;
-  border-bottom: 1px solid #F2DFCE;
-}
-#T_d769b tr:hover td {
-  background-color: #F2DFCE;
-}
-#T_d769b caption {
-  font-size: 14px;
-  font-weight: bold;
-  color: #33302E;
-  padding: 10px 0;
-}
-#T_d769b  {
-  border-collapse: collapse;
-  font-family: Georgia, serif;
-}
-#T_d769b_row0_col4, #T_d769b_row1_col4, #T_d769b_row2_col4, #T_d769b_row3_col4, #T_d769b_row4_col4 {
-  color: #09814A;
-  font-weight: bold;
-}
-</style>
-<table id="T_d769b">
-  <caption>DTE Sweep: 0.5% budget, leveraged, deep OTM puts</caption>
-  <thead>
-    <tr>
-      <th class="blank level0" >&nbsp;</th>
-      <th id="T_d769b_level0_col0" class="col_heading level0 col0" >DTE Range</th>
-      <th id="T_d769b_level0_col1" class="col_heading level0 col1" >Entry DTE</th>
-      <th id="T_d769b_level0_col2" class="col_heading level0 col2" >Exit DTE</th>
-      <th id="T_d769b_level0_col3" class="col_heading level0 col3" >Annual %</th>
-      <th id="T_d769b_level0_col4" class="col_heading level0 col4" >Excess %</th>
-      <th id="T_d769b_level0_col5" class="col_heading level0 col5" >Max DD %</th>
-      <th id="T_d769b_level0_col6" class="col_heading level0 col6" >Vol %</th>
-      <th id="T_d769b_level0_col7" class="col_heading level0 col7" >Trades</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th id="T_d769b_level0_row0" class="row_heading level0 row0" >0</th>
-      <td id="T_d769b_row0_col0" class="data row0 col0" >DTE 30-60</td>
-      <td id="T_d769b_row0_col1" class="data row0 col1" >30-60</td>
-      <td id="T_d769b_row0_col2" class="data row0 col2" >7</td>
-      <td id="T_d769b_row0_col3" class="data row0 col3" >13.91</td>
-      <td id="T_d769b_row0_col4" class="data row0 col4" >+2.86</td>
-      <td id="T_d769b_row0_col5" class="data row0 col5" >-44.7</td>
-      <td id="T_d769b_row0_col6" class="data row0 col6" >18.2</td>
-      <td id="T_d769b_row0_col7" class="data row0 col7" >417</td>
-    </tr>
-    <tr>
-      <th id="T_d769b_level0_row1" class="row_heading level0 row1" >1</th>
-      <td id="T_d769b_row1_col0" class="data row1 col0" >DTE 60-120</td>
-      <td id="T_d769b_row1_col1" class="data row1 col1" >60-120</td>
-      <td id="T_d769b_row1_col2" class="data row1 col2" >14</td>
-      <td id="T_d769b_row1_col3" class="data row1 col3" >15.27</td>
-      <td id="T_d769b_row1_col4" class="data row1 col4" >+4.22</td>
-      <td id="T_d769b_row1_col5" class="data row1 col5" >-46.9</td>
-      <td id="T_d769b_row1_col6" class="data row1 col6" >17.6</td>
-      <td id="T_d769b_row1_col7" class="data row1 col7" >395</td>
-    </tr>
-    <tr>
-      <th id="T_d769b_level0_row2" class="row_heading level0 row2" >2</th>
-      <td id="T_d769b_row2_col0" class="data row2 col0" >DTE 90-180</td>
-      <td id="T_d769b_row2_col1" class="data row2 col1" >90-180</td>
-      <td id="T_d769b_row2_col2" class="data row2 col2" >14</td>
-      <td id="T_d769b_row2_col3" class="data row2 col3" >16.02</td>
-      <td id="T_d769b_row2_col4" class="data row2 col4" >+4.97</td>
-      <td id="T_d769b_row2_col5" class="data row2 col5" >-47.1</td>
-      <td id="T_d769b_row2_col6" class="data row2 col6" >17.8</td>
-      <td id="T_d769b_row2_col7" class="data row2 col7" >380</td>
-    </tr>
-    <tr>
-      <th id="T_d769b_level0_row3" class="row_heading level0 row3" >3</th>
-      <td id="T_d769b_row3_col0" class="data row3 col0" >DTE 120-240</td>
-      <td id="T_d769b_row3_col1" class="data row3 col1" >120-240</td>
-      <td id="T_d769b_row3_col2" class="data row3 col2" >30</td>
-      <td id="T_d769b_row3_col3" class="data row3 col3" >16.51</td>
-      <td id="T_d769b_row3_col4" class="data row3 col4" >+5.46</td>
-      <td id="T_d769b_row3_col5" class="data row3 col5" >-47.5</td>
-      <td id="T_d769b_row3_col6" class="data row3 col6" >18.1</td>
-      <td id="T_d769b_row3_col7" class="data row3 col7" >382</td>
-    </tr>
-    <tr>
-      <th id="T_d769b_level0_row4" class="row_heading level0 row4" >4</th>
-      <td id="T_d769b_row4_col0" class="data row4 col0" >DTE 180-365</td>
-      <td id="T_d769b_row4_col1" class="data row4 col1" >180-365</td>
-      <td id="T_d769b_row4_col2" class="data row4 col2" >30</td>
-      <td id="T_d769b_row4_col3" class="data row4 col3" >16.97</td>
-      <td id="T_d769b_row4_col4" class="data row4 col4" >+5.92</td>
-      <td id="T_d769b_row4_col5" class="data row4 col5" >-48.1</td>
-      <td id="T_d769b_row4_col6" class="data row4 col6" >18.5</td>
-      <td id="T_d769b_row4_col7" class="data row4 col7" >369</td>
-    </tr>
-  </tbody>
-</table>
-
-
-
+| DTE Range | Entry DTE | Exit DTE | Annual % | Excess % | Max DD % | Vol % | Trades |
+|---|---|---|---|---|---|---|---|
+| DTE 30-60 | 30-60 | 7 | 13.91 | +2.86 | -44.7 | 18.2 | 417 |
+| DTE 60-120 | 60-120 | 14 | 15.27 | +4.22 | -46.9 | 17.6 | 395 |
+| DTE 90-180 | 90-180 | 14 | 16.02 | +4.97 | -47.1 | 17.8 | 380 |
+| DTE 120-240 | 120-240 | 30 | 16.51 | +5.46 | -47.5 | 18.1 | 382 |
+| DTE 180-365 | 180-365 | 30 | 16.97 | +5.92 | -48.1 | 18.5 | 369 |
 
 ### 10b. Rebalance Frequency: Monthly vs Quarterly vs Semi-Annual
 
@@ -2277,125 +1062,22 @@ style_returns_table(styled).set_caption('Rebalance Frequency Sweep: 0.5% budget,
 ```
 
       Monthly (1)... 
-
-    Warning: No valid output stream.
-
-
     annual +16.02%, excess +4.97%, DD -47.1%
       Bimonthly (2)... 
-
-    Warning: No valid output stream.
-
-
     annual +12.63%, excess +1.58%, DD -48.2%
       Quarterly (3)... 
-
-    Warning: No valid output stream.
-
-
     annual +13.07%, excess +2.03%, DD -49.0%
       Semi-annual (6)... 
-
-    Warning: No valid output stream.
-
-
     annual +11.49%, excess +0.44%, DD -48.5%
 
+**Rebalance Frequency Sweep: 0.5% budget, leveraged**
 
-
-
-
-<style type="text/css">
-#T_27063 th {
-  background-color: #0D7680;
-  color: white;
-  font-weight: bold;
-  text-align: center;
-  padding: 8px 12px;
-  border-bottom: 2px solid #33302E;
-}
-#T_27063 td {
-  padding: 6px 12px;
-  border-bottom: 1px solid #F2DFCE;
-}
-#T_27063 tr:hover td {
-  background-color: #F2DFCE;
-}
-#T_27063 caption {
-  font-size: 14px;
-  font-weight: bold;
-  color: #33302E;
-  padding: 10px 0;
-}
-#T_27063  {
-  border-collapse: collapse;
-  font-family: Georgia, serif;
-}
-#T_27063_row0_col3, #T_27063_row1_col3, #T_27063_row2_col3, #T_27063_row3_col3 {
-  color: #09814A;
-  font-weight: bold;
-}
-</style>
-<table id="T_27063">
-  <caption>Rebalance Frequency Sweep: 0.5% budget, leveraged</caption>
-  <thead>
-    <tr>
-      <th class="blank level0" >&nbsp;</th>
-      <th id="T_27063_level0_col0" class="col_heading level0 col0" >Rebalance</th>
-      <th id="T_27063_level0_col1" class="col_heading level0 col1" >Freq (months)</th>
-      <th id="T_27063_level0_col2" class="col_heading level0 col2" >Annual %</th>
-      <th id="T_27063_level0_col3" class="col_heading level0 col3" >Excess %</th>
-      <th id="T_27063_level0_col4" class="col_heading level0 col4" >Max DD %</th>
-      <th id="T_27063_level0_col5" class="col_heading level0 col5" >Vol %</th>
-      <th id="T_27063_level0_col6" class="col_heading level0 col6" >Trades</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th id="T_27063_level0_row0" class="row_heading level0 row0" >0</th>
-      <td id="T_27063_row0_col0" class="data row0 col0" >Monthly (1)</td>
-      <td id="T_27063_row0_col1" class="data row0 col1" >1</td>
-      <td id="T_27063_row0_col2" class="data row0 col2" >16.02</td>
-      <td id="T_27063_row0_col3" class="data row0 col3" >+4.97</td>
-      <td id="T_27063_row0_col4" class="data row0 col4" >-47.1</td>
-      <td id="T_27063_row0_col5" class="data row0 col5" >17.8</td>
-      <td id="T_27063_row0_col6" class="data row0 col6" >380</td>
-    </tr>
-    <tr>
-      <th id="T_27063_level0_row1" class="row_heading level0 row1" >1</th>
-      <td id="T_27063_row1_col0" class="data row1 col0" >Bimonthly (2)</td>
-      <td id="T_27063_row1_col1" class="data row1 col1" >2</td>
-      <td id="T_27063_row1_col2" class="data row1 col2" >12.63</td>
-      <td id="T_27063_row1_col3" class="data row1 col3" >+1.58</td>
-      <td id="T_27063_row1_col4" class="data row1 col4" >-48.2</td>
-      <td id="T_27063_row1_col5" class="data row1 col5" >18.1</td>
-      <td id="T_27063_row1_col6" class="data row1 col6" >199</td>
-    </tr>
-    <tr>
-      <th id="T_27063_level0_row2" class="row_heading level0 row2" >2</th>
-      <td id="T_27063_row2_col0" class="data row2 col0" >Quarterly (3)</td>
-      <td id="T_27063_row2_col1" class="data row2 col1" >3</td>
-      <td id="T_27063_row2_col2" class="data row2 col2" >13.07</td>
-      <td id="T_27063_row2_col3" class="data row2 col3" >+2.03</td>
-      <td id="T_27063_row2_col4" class="data row2 col4" >-49.0</td>
-      <td id="T_27063_row2_col5" class="data row2 col5" >18.0</td>
-      <td id="T_27063_row2_col6" class="data row2 col6" >136</td>
-    </tr>
-    <tr>
-      <th id="T_27063_level0_row3" class="row_heading level0 row3" >3</th>
-      <td id="T_27063_row3_col0" class="data row3 col0" >Semi-annual (6)</td>
-      <td id="T_27063_row3_col1" class="data row3 col1" >6</td>
-      <td id="T_27063_row3_col2" class="data row3 col2" >11.49</td>
-      <td id="T_27063_row3_col3" class="data row3 col3" >+0.44</td>
-      <td id="T_27063_row3_col4" class="data row3 col4" >-48.5</td>
-      <td id="T_27063_row3_col5" class="data row3 col5" >18.6</td>
-      <td id="T_27063_row3_col6" class="data row3 col6" >71</td>
-    </tr>
-  </tbody>
-</table>
-
-
-
+| Rebalance | Freq (months) | Annual % | Excess % | Max DD % | Vol % | Trades |
+|---|---|---|---|---|---|---|
+| Monthly (1) | 1 | 16.02 | +4.97 | -47.1 | 17.8 | 380 |
+| Bimonthly (2) | 2 | 12.63 | +1.58 | -48.2 | 18.1 | 199 |
+| Quarterly (3) | 3 | 13.07 | +2.03 | -49.0 | 18.0 | 136 |
+| Semi-annual (6) | 6 | 11.49 | +0.44 | -48.5 | 18.6 | 71 |
 
 ### 10c. Delta Range: How Deep OTM?
 
@@ -2439,147 +1121,25 @@ style_returns_table(styled).set_caption('Delta Sweep: How deep OTM? (0.5% budget
 ```
 
       Ultra deep: δ -0.05 to -0.01... 
-
-    Warning: No valid output stream.
-
-
     annual +15.84%, excess +4.79%, DD -47.1%
       Deep: δ -0.10 to -0.02... 
-
-    Warning: No valid output stream.
-
-
     annual +16.02%, excess +4.97%, DD -47.1%
       Mid OTM: δ -0.15 to -0.05... 
-
-    Warning: No valid output stream.
-
-
     annual +16.08%, excess +5.03%, DD -47.3%
       Near OTM: δ -0.25 to -0.10... 
-
-    Warning: No valid output stream.
-
-
     annual +16.27%, excess +5.22%, DD -47.0%
       Closer ATM: δ -0.35 to -0.15... 
-
-    Warning: No valid output stream.
-
-
     annual +16.52%, excess +5.47%, DD -47.8%
 
+**Delta Sweep: How deep OTM? (0.5% budget, leveraged)**
 
-
-
-
-<style type="text/css">
-#T_e7d39 th {
-  background-color: #0D7680;
-  color: white;
-  font-weight: bold;
-  text-align: center;
-  padding: 8px 12px;
-  border-bottom: 2px solid #33302E;
-}
-#T_e7d39 td {
-  padding: 6px 12px;
-  border-bottom: 1px solid #F2DFCE;
-}
-#T_e7d39 tr:hover td {
-  background-color: #F2DFCE;
-}
-#T_e7d39 caption {
-  font-size: 14px;
-  font-weight: bold;
-  color: #33302E;
-  padding: 10px 0;
-}
-#T_e7d39  {
-  border-collapse: collapse;
-  font-family: Georgia, serif;
-}
-#T_e7d39_row0_col4, #T_e7d39_row1_col4, #T_e7d39_row2_col4, #T_e7d39_row3_col4, #T_e7d39_row4_col4 {
-  color: #09814A;
-  font-weight: bold;
-}
-</style>
-<table id="T_e7d39">
-  <caption>Delta Sweep: How deep OTM? (0.5% budget, leveraged)</caption>
-  <thead>
-    <tr>
-      <th class="blank level0" >&nbsp;</th>
-      <th id="T_e7d39_level0_col0" class="col_heading level0 col0" >Delta Range</th>
-      <th id="T_e7d39_level0_col1" class="col_heading level0 col1" >δ min</th>
-      <th id="T_e7d39_level0_col2" class="col_heading level0 col2" >δ max</th>
-      <th id="T_e7d39_level0_col3" class="col_heading level0 col3" >Annual %</th>
-      <th id="T_e7d39_level0_col4" class="col_heading level0 col4" >Excess %</th>
-      <th id="T_e7d39_level0_col5" class="col_heading level0 col5" >Max DD %</th>
-      <th id="T_e7d39_level0_col6" class="col_heading level0 col6" >Vol %</th>
-      <th id="T_e7d39_level0_col7" class="col_heading level0 col7" >Trades</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th id="T_e7d39_level0_row0" class="row_heading level0 row0" >0</th>
-      <td id="T_e7d39_row0_col0" class="data row0 col0" >Ultra deep: δ -0.05 to -0.01</td>
-      <td id="T_e7d39_row0_col1" class="data row0 col1" >-0.050000</td>
-      <td id="T_e7d39_row0_col2" class="data row0 col2" >-0.010000</td>
-      <td id="T_e7d39_row0_col3" class="data row0 col3" >15.84</td>
-      <td id="T_e7d39_row0_col4" class="data row0 col4" >+4.79</td>
-      <td id="T_e7d39_row0_col5" class="data row0 col5" >-47.1</td>
-      <td id="T_e7d39_row0_col6" class="data row0 col6" >17.6</td>
-      <td id="T_e7d39_row0_col7" class="data row0 col7" >386</td>
-    </tr>
-    <tr>
-      <th id="T_e7d39_level0_row1" class="row_heading level0 row1" >1</th>
-      <td id="T_e7d39_row1_col0" class="data row1 col0" >Deep: δ -0.10 to -0.02</td>
-      <td id="T_e7d39_row1_col1" class="data row1 col1" >-0.100000</td>
-      <td id="T_e7d39_row1_col2" class="data row1 col2" >-0.020000</td>
-      <td id="T_e7d39_row1_col3" class="data row1 col3" >16.02</td>
-      <td id="T_e7d39_row1_col4" class="data row1 col4" >+4.97</td>
-      <td id="T_e7d39_row1_col5" class="data row1 col5" >-47.1</td>
-      <td id="T_e7d39_row1_col6" class="data row1 col6" >17.8</td>
-      <td id="T_e7d39_row1_col7" class="data row1 col7" >380</td>
-    </tr>
-    <tr>
-      <th id="T_e7d39_level0_row2" class="row_heading level0 row2" >2</th>
-      <td id="T_e7d39_row2_col0" class="data row2 col0" >Mid OTM: δ -0.15 to -0.05</td>
-      <td id="T_e7d39_row2_col1" class="data row2 col1" >-0.150000</td>
-      <td id="T_e7d39_row2_col2" class="data row2 col2" >-0.050000</td>
-      <td id="T_e7d39_row2_col3" class="data row2 col3" >16.08</td>
-      <td id="T_e7d39_row2_col4" class="data row2 col4" >+5.03</td>
-      <td id="T_e7d39_row2_col5" class="data row2 col5" >-47.3</td>
-      <td id="T_e7d39_row2_col6" class="data row2 col6" >17.9</td>
-      <td id="T_e7d39_row2_col7" class="data row2 col7" >377</td>
-    </tr>
-    <tr>
-      <th id="T_e7d39_level0_row3" class="row_heading level0 row3" >3</th>
-      <td id="T_e7d39_row3_col0" class="data row3 col0" >Near OTM: δ -0.25 to -0.10</td>
-      <td id="T_e7d39_row3_col1" class="data row3 col1" >-0.250000</td>
-      <td id="T_e7d39_row3_col2" class="data row3 col2" >-0.100000</td>
-      <td id="T_e7d39_row3_col3" class="data row3 col3" >16.27</td>
-      <td id="T_e7d39_row3_col4" class="data row3 col4" >+5.22</td>
-      <td id="T_e7d39_row3_col5" class="data row3 col5" >-47.0</td>
-      <td id="T_e7d39_row3_col6" class="data row3 col6" >18.2</td>
-      <td id="T_e7d39_row3_col7" class="data row3 col7" >361</td>
-    </tr>
-    <tr>
-      <th id="T_e7d39_level0_row4" class="row_heading level0 row4" >4</th>
-      <td id="T_e7d39_row4_col0" class="data row4 col0" >Closer ATM: δ -0.35 to -0.15</td>
-      <td id="T_e7d39_row4_col1" class="data row4 col1" >-0.350000</td>
-      <td id="T_e7d39_row4_col2" class="data row4 col2" >-0.150000</td>
-      <td id="T_e7d39_row4_col3" class="data row4 col3" >16.52</td>
-      <td id="T_e7d39_row4_col4" class="data row4 col4" >+5.47</td>
-      <td id="T_e7d39_row4_col5" class="data row4 col5" >-47.8</td>
-      <td id="T_e7d39_row4_col6" class="data row4 col6" >18.2</td>
-      <td id="T_e7d39_row4_col7" class="data row4 col7" >359</td>
-    </tr>
-  </tbody>
-</table>
-
-
-
+| Delta Range | δ min | δ max | Annual % | Excess % | Max DD % | Vol % | Trades |
+|---|---|---|---|---|---|---|---|
+| Ultra deep: δ -0.05 to -0.01 | -0.050000 | -0.010000 | 15.84 | +4.79 | -47.1 | 17.6 | 386 |
+| Deep: δ -0.10 to -0.02 | -0.100000 | -0.020000 | 16.02 | +4.97 | -47.1 | 17.8 | 380 |
+| Mid OTM: δ -0.15 to -0.05 | -0.150000 | -0.050000 | 16.08 | +5.03 | -47.3 | 17.9 | 377 |
+| Near OTM: δ -0.25 to -0.10 | -0.250000 | -0.100000 | 16.27 | +5.22 | -47.0 | 18.2 | 361 |
+| Closer ATM: δ -0.35 to -0.15 | -0.350000 | -0.150000 | 16.52 | +5.47 | -47.8 | 18.2 | 359 |
 
 ### 10d. Exit Timing: When to Sell the Puts?
 
@@ -2622,142 +1182,25 @@ style_returns_table(styled).set_caption('Exit Timing Sweep: When to sell? (0.5% 
 ```
 
       Exit at DTE 7 (near expiry)... 
-
-    Warning: No valid output stream.
-
-
     annual +16.02%, excess +4.97%, DD -47.1%
       Exit at DTE 14... 
-
-    Warning: No valid output stream.
-
-
     annual +16.02%, excess +4.97%, DD -47.1%
       Exit at DTE 30... 
-
-    Warning: No valid output stream.
-
-
     annual +16.01%, excess +4.96%, DD -47.5%
       Exit at DTE 45... 
-
-    Warning: No valid output stream.
-
-
     annual +16.03%, excess +4.98%, DD -47.5%
       Exit at DTE 60... 
-
-    Warning: No valid output stream.
-
-
     annual +16.19%, excess +5.14%, DD -47.5%
 
+**Exit Timing Sweep: When to sell? (0.5% budget, leveraged)**
 
-
-
-
-<style type="text/css">
-#T_d4a41 th {
-  background-color: #0D7680;
-  color: white;
-  font-weight: bold;
-  text-align: center;
-  padding: 8px 12px;
-  border-bottom: 2px solid #33302E;
-}
-#T_d4a41 td {
-  padding: 6px 12px;
-  border-bottom: 1px solid #F2DFCE;
-}
-#T_d4a41 tr:hover td {
-  background-color: #F2DFCE;
-}
-#T_d4a41 caption {
-  font-size: 14px;
-  font-weight: bold;
-  color: #33302E;
-  padding: 10px 0;
-}
-#T_d4a41  {
-  border-collapse: collapse;
-  font-family: Georgia, serif;
-}
-#T_d4a41_row0_col3, #T_d4a41_row1_col3, #T_d4a41_row2_col3, #T_d4a41_row3_col3, #T_d4a41_row4_col3 {
-  color: #09814A;
-  font-weight: bold;
-}
-</style>
-<table id="T_d4a41">
-  <caption>Exit Timing Sweep: When to sell? (0.5% budget, leveraged)</caption>
-  <thead>
-    <tr>
-      <th class="blank level0" >&nbsp;</th>
-      <th id="T_d4a41_level0_col0" class="col_heading level0 col0" >Exit Rule</th>
-      <th id="T_d4a41_level0_col1" class="col_heading level0 col1" >Exit DTE</th>
-      <th id="T_d4a41_level0_col2" class="col_heading level0 col2" >Annual %</th>
-      <th id="T_d4a41_level0_col3" class="col_heading level0 col3" >Excess %</th>
-      <th id="T_d4a41_level0_col4" class="col_heading level0 col4" >Max DD %</th>
-      <th id="T_d4a41_level0_col5" class="col_heading level0 col5" >Vol %</th>
-      <th id="T_d4a41_level0_col6" class="col_heading level0 col6" >Trades</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th id="T_d4a41_level0_row0" class="row_heading level0 row0" >0</th>
-      <td id="T_d4a41_row0_col0" class="data row0 col0" >Exit at DTE 7 (near expiry)</td>
-      <td id="T_d4a41_row0_col1" class="data row0 col1" >7</td>
-      <td id="T_d4a41_row0_col2" class="data row0 col2" >16.02</td>
-      <td id="T_d4a41_row0_col3" class="data row0 col3" >+4.97</td>
-      <td id="T_d4a41_row0_col4" class="data row0 col4" >-47.1</td>
-      <td id="T_d4a41_row0_col5" class="data row0 col5" >17.8</td>
-      <td id="T_d4a41_row0_col6" class="data row0 col6" >380</td>
-    </tr>
-    <tr>
-      <th id="T_d4a41_level0_row1" class="row_heading level0 row1" >1</th>
-      <td id="T_d4a41_row1_col0" class="data row1 col0" >Exit at DTE 14</td>
-      <td id="T_d4a41_row1_col1" class="data row1 col1" >14</td>
-      <td id="T_d4a41_row1_col2" class="data row1 col2" >16.02</td>
-      <td id="T_d4a41_row1_col3" class="data row1 col3" >+4.97</td>
-      <td id="T_d4a41_row1_col4" class="data row1 col4" >-47.1</td>
-      <td id="T_d4a41_row1_col5" class="data row1 col5" >17.8</td>
-      <td id="T_d4a41_row1_col6" class="data row1 col6" >380</td>
-    </tr>
-    <tr>
-      <th id="T_d4a41_level0_row2" class="row_heading level0 row2" >2</th>
-      <td id="T_d4a41_row2_col0" class="data row2 col0" >Exit at DTE 30</td>
-      <td id="T_d4a41_row2_col1" class="data row2 col1" >30</td>
-      <td id="T_d4a41_row2_col2" class="data row2 col2" >16.01</td>
-      <td id="T_d4a41_row2_col3" class="data row2 col3" >+4.96</td>
-      <td id="T_d4a41_row2_col4" class="data row2 col4" >-47.5</td>
-      <td id="T_d4a41_row2_col5" class="data row2 col5" >17.8</td>
-      <td id="T_d4a41_row2_col6" class="data row2 col6" >389</td>
-    </tr>
-    <tr>
-      <th id="T_d4a41_level0_row3" class="row_heading level0 row3" >3</th>
-      <td id="T_d4a41_row3_col0" class="data row3 col0" >Exit at DTE 45</td>
-      <td id="T_d4a41_row3_col1" class="data row3 col1" >45</td>
-      <td id="T_d4a41_row3_col2" class="data row3 col2" >16.03</td>
-      <td id="T_d4a41_row3_col3" class="data row3 col3" >+4.98</td>
-      <td id="T_d4a41_row3_col4" class="data row3 col4" >-47.5</td>
-      <td id="T_d4a41_row3_col5" class="data row3 col5" >17.8</td>
-      <td id="T_d4a41_row3_col6" class="data row3 col6" >389</td>
-    </tr>
-    <tr>
-      <th id="T_d4a41_level0_row4" class="row_heading level0 row4" >4</th>
-      <td id="T_d4a41_row4_col0" class="data row4 col0" >Exit at DTE 60</td>
-      <td id="T_d4a41_row4_col1" class="data row4 col1" >60</td>
-      <td id="T_d4a41_row4_col2" class="data row4 col2" >16.19</td>
-      <td id="T_d4a41_row4_col3" class="data row4 col3" >+5.14</td>
-      <td id="T_d4a41_row4_col4" class="data row4 col4" >-47.5</td>
-      <td id="T_d4a41_row4_col5" class="data row4 col5" >18.0</td>
-      <td id="T_d4a41_row4_col6" class="data row4 col6" >389</td>
-    </tr>
-  </tbody>
-</table>
-
-
-
-
+| Exit Rule | Exit DTE | Annual % | Excess % | Max DD % | Vol % | Trades |
+|---|---|---|---|---|---|---|
+| Exit at DTE 7 (near expiry) | 7 | 16.02 | +4.97 | -47.1 | 17.8 | 380 |
+| Exit at DTE 14 | 14 | 16.02 | +4.97 | -47.1 | 17.8 | 380 |
+| Exit at DTE 30 | 30 | 16.01 | +4.96 | -47.5 | 17.8 | 389 |
+| Exit at DTE 45 | 45 | 16.03 | +4.98 | -47.5 | 17.8 | 389 |
+| Exit at DTE 60 | 60 | 16.19 | +5.14 | -47.5 | 18.0 | 389 |
 
 ```python
 # 10e. Multi-dimensional grid search: combine best parameters
@@ -2801,124 +1244,13 @@ print(f'\nDone. {len(df_grid)} configs tested.')
 ```
 
     Running 36 combinations...
-    
-    Warning: No valid output stream.
-
-
-    Warning: No valid output stream.
-
-
-    Warning: No valid output stream.
-
-
-    Warning: No valid output stream.
-
-
-    Warning: No valid output stream.
-
-
       [6/36] DTE90-180 δ(-0.1,-0.02) exit30 b1.0%...
-    Warning: No valid output stream.
-
-
-    Warning: No valid output stream.
-
-
-    Warning: No valid output stream.
-
-
-    Warning: No valid output stream.
-
-
-    Warning: No valid output stream.
-
-
-    Warning: No valid output stream.
-
-
       [12/36] DTE90-180 δ(-0.15,-0.05) exit14 b1.0%...
-    Warning: No valid output stream.
-
-
-    Warning: No valid output stream.
-
-
-    Warning: No valid output stream.
-
-
-    Warning: No valid output stream.
-
-
-    Warning: No valid output stream.
-
-
-    Warning: No valid output stream.
-
-
       [18/36] DTE90-180 δ(-0.15,-0.05) exit60 b1.0%...
-    Warning: No valid output stream.
-
-
-    Warning: No valid output stream.
-
-
-    Warning: No valid output stream.
-
-
-    Warning: No valid output stream.
-
-
-    Warning: No valid output stream.
-
-
-    Warning: No valid output stream.
-
-
       [24/36] DTE120-240 δ(-0.1,-0.02) exit30 b1.0%...
-    Warning: No valid output stream.
-
-
-    Warning: No valid output stream.
-
-
-    Warning: No valid output stream.
-
-
-    Warning: No valid output stream.
-
-
-    Warning: No valid output stream.
-
-
-    Warning: No valid output stream.
-
-
       [30/36] DTE120-240 δ(-0.15,-0.05) exit14 b1.0%...
-    Warning: No valid output stream.
-
-
-    Warning: No valid output stream.
-
-
-    Warning: No valid output stream.
-
-
-    Warning: No valid output stream.
-
-
-    Warning: No valid output stream.
-
-
-    Warning: No valid output stream.
-
-
       [36/36] DTE120-240 δ(-0.15,-0.05) exit60 b1.0%...
-    Warning: No valid output stream.
-
-
-    
     Done. 36 configs tested.
-
 
 
 ```python
@@ -2932,194 +1264,20 @@ styled = (top_sharpe.style
 style_returns_table(styled).set_caption('Top 10 Configs by Sharpe Ratio')
 ```
 
+**Top 10 Configs by Sharpe Ratio**
 
-
-
-<style type="text/css">
-#T_268fd th {
-  background-color: #0D7680;
-  color: white;
-  font-weight: bold;
-  text-align: center;
-  padding: 8px 12px;
-  border-bottom: 2px solid #33302E;
-}
-#T_268fd td {
-  padding: 6px 12px;
-  border-bottom: 1px solid #F2DFCE;
-}
-#T_268fd tr:hover td {
-  background-color: #F2DFCE;
-}
-#T_268fd caption {
-  font-size: 14px;
-  font-weight: bold;
-  color: #33302E;
-  padding: 10px 0;
-}
-#T_268fd  {
-  border-collapse: collapse;
-  font-family: Georgia, serif;
-}
-#T_268fd_row0_col5, #T_268fd_row1_col5, #T_268fd_row2_col5, #T_268fd_row3_col5, #T_268fd_row4_col5, #T_268fd_row5_col5, #T_268fd_row6_col5, #T_268fd_row7_col5, #T_268fd_row8_col5, #T_268fd_row9_col5 {
-  color: #09814A;
-  font-weight: bold;
-}
-</style>
-<table id="T_268fd">
-  <caption>Top 10 Configs by Sharpe Ratio</caption>
-  <thead>
-    <tr>
-      <th class="blank level0" >&nbsp;</th>
-      <th id="T_268fd_level0_col0" class="col_heading level0 col0" >DTE</th>
-      <th id="T_268fd_level0_col1" class="col_heading level0 col1" >Delta</th>
-      <th id="T_268fd_level0_col2" class="col_heading level0 col2" >Exit DTE</th>
-      <th id="T_268fd_level0_col3" class="col_heading level0 col3" >Budget %</th>
-      <th id="T_268fd_level0_col4" class="col_heading level0 col4" >Annual %</th>
-      <th id="T_268fd_level0_col5" class="col_heading level0 col5" >Excess %</th>
-      <th id="T_268fd_level0_col6" class="col_heading level0 col6" >Max DD %</th>
-      <th id="T_268fd_level0_col7" class="col_heading level0 col7" >Vol %</th>
-      <th id="T_268fd_level0_col8" class="col_heading level0 col8" >Sharpe</th>
-      <th id="T_268fd_level0_col9" class="col_heading level0 col9" >Trades</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th id="T_268fd_level0_row0" class="row_heading level0 row0" >20</th>
-      <td id="T_268fd_row0_col0" class="data row0 col0" >120-240</td>
-      <td id="T_268fd_row0_col1" class="data row0 col1" >(-0.1,-0.02)</td>
-      <td id="T_268fd_row0_col2" class="data row0 col2" >14</td>
-      <td id="T_268fd_row0_col3" class="data row0 col3" >1.0</td>
-      <td id="T_268fd_row0_col4" class="data row0 col4" >22.14</td>
-      <td id="T_268fd_row0_col5" class="data row0 col5" >+11.09</td>
-      <td id="T_268fd_row0_col6" class="data row0 col6" >-42.9</td>
-      <td id="T_268fd_row0_col7" class="data row0 col7" >16.9</td>
-      <td id="T_268fd_row0_col8" class="data row0 col8" >1.307</td>
-      <td id="T_268fd_row0_col9" class="data row0 col9" >385</td>
-    </tr>
-    <tr>
-      <th id="T_268fd_level0_row1" class="row_heading level0 row1" >17</th>
-      <td id="T_268fd_row1_col0" class="data row1 col0" >90-180</td>
-      <td id="T_268fd_row1_col1" class="data row1 col1" >(-0.15,-0.05)</td>
-      <td id="T_268fd_row1_col2" class="data row1 col2" >60</td>
-      <td id="T_268fd_row1_col3" class="data row1 col3" >1.0</td>
-      <td id="T_268fd_row1_col4" class="data row1 col4" >21.70</td>
-      <td id="T_268fd_row1_col5" class="data row1 col5" >+10.65</td>
-      <td id="T_268fd_row1_col6" class="data row1 col6" >-42.5</td>
-      <td id="T_268fd_row1_col7" class="data row1 col7" >16.6</td>
-      <td id="T_268fd_row1_col8" class="data row1 col8" >1.307</td>
-      <td id="T_268fd_row1_col9" class="data row1 col9" >390</td>
-    </tr>
-    <tr>
-      <th id="T_268fd_level0_row2" class="row_heading level0 row2" >26</th>
-      <td id="T_268fd_row2_col0" class="data row2 col0" >120-240</td>
-      <td id="T_268fd_row2_col1" class="data row2 col1" >(-0.1,-0.02)</td>
-      <td id="T_268fd_row2_col2" class="data row2 col2" >60</td>
-      <td id="T_268fd_row2_col3" class="data row2 col3" >1.0</td>
-      <td id="T_268fd_row2_col4" class="data row2 col4" >22.14</td>
-      <td id="T_268fd_row2_col5" class="data row2 col5" >+11.09</td>
-      <td id="T_268fd_row2_col6" class="data row2 col6" >-44.0</td>
-      <td id="T_268fd_row2_col7" class="data row2 col7" >17.1</td>
-      <td id="T_268fd_row2_col8" class="data row2 col8" >1.296</td>
-      <td id="T_268fd_row2_col9" class="data row2 col9" >392</td>
-    </tr>
-    <tr>
-      <th id="T_268fd_level0_row3" class="row_heading level0 row3" >23</th>
-      <td id="T_268fd_row3_col0" class="data row3 col0" >120-240</td>
-      <td id="T_268fd_row3_col1" class="data row3 col1" >(-0.1,-0.02)</td>
-      <td id="T_268fd_row3_col2" class="data row3 col2" >30</td>
-      <td id="T_268fd_row3_col3" class="data row3 col3" >1.0</td>
-      <td id="T_268fd_row3_col4" class="data row3 col4" >22.05</td>
-      <td id="T_268fd_row3_col5" class="data row3 col5" >+11.00</td>
-      <td id="T_268fd_row3_col6" class="data row3 col6" >-43.7</td>
-      <td id="T_268fd_row3_col7" class="data row3 col7" >17.0</td>
-      <td id="T_268fd_row3_col8" class="data row3 col8" >1.296</td>
-      <td id="T_268fd_row3_col9" class="data row3 col9" >387</td>
-    </tr>
-    <tr>
-      <th id="T_268fd_level0_row4" class="row_heading level0 row4" >14</th>
-      <td id="T_268fd_row4_col0" class="data row4 col0" >90-180</td>
-      <td id="T_268fd_row4_col1" class="data row4 col1" >(-0.15,-0.05)</td>
-      <td id="T_268fd_row4_col2" class="data row4 col2" >30</td>
-      <td id="T_268fd_row4_col3" class="data row4 col3" >1.0</td>
-      <td id="T_268fd_row4_col4" class="data row4 col4" >21.33</td>
-      <td id="T_268fd_row4_col5" class="data row4 col5" >+10.28</td>
-      <td id="T_268fd_row4_col6" class="data row4 col6" >-42.8</td>
-      <td id="T_268fd_row4_col7" class="data row4 col7" >16.5</td>
-      <td id="T_268fd_row4_col8" class="data row4 col8" >1.290</td>
-      <td id="T_268fd_row4_col9" class="data row4 col9" >385</td>
-    </tr>
-    <tr>
-      <th id="T_268fd_level0_row5" class="row_heading level0 row5" >11</th>
-      <td id="T_268fd_row5_col0" class="data row5 col0" >90-180</td>
-      <td id="T_268fd_row5_col1" class="data row5 col1" >(-0.15,-0.05)</td>
-      <td id="T_268fd_row5_col2" class="data row5 col2" >14</td>
-      <td id="T_268fd_row5_col3" class="data row5 col3" >1.0</td>
-      <td id="T_268fd_row5_col4" class="data row5 col4" >21.29</td>
-      <td id="T_268fd_row5_col5" class="data row5 col5" >+10.24</td>
-      <td id="T_268fd_row5_col6" class="data row5 col6" >-42.5</td>
-      <td id="T_268fd_row5_col7" class="data row5 col7" >16.5</td>
-      <td id="T_268fd_row5_col8" class="data row5 col8" >1.290</td>
-      <td id="T_268fd_row5_col9" class="data row5 col9" >382</td>
-    </tr>
-    <tr>
-      <th id="T_268fd_level0_row6" class="row_heading level0 row6" >32</th>
-      <td id="T_268fd_row6_col0" class="data row6 col0" >120-240</td>
-      <td id="T_268fd_row6_col1" class="data row6 col1" >(-0.15,-0.05)</td>
-      <td id="T_268fd_row6_col2" class="data row6 col2" >30</td>
-      <td id="T_268fd_row6_col3" class="data row6 col3" >1.0</td>
-      <td id="T_268fd_row6_col4" class="data row6 col4" >21.92</td>
-      <td id="T_268fd_row6_col5" class="data row6 col5" >+10.87</td>
-      <td id="T_268fd_row6_col6" class="data row6 col6" >-45.2</td>
-      <td id="T_268fd_row6_col7" class="data row6 col7" >17.1</td>
-      <td id="T_268fd_row6_col8" class="data row6 col8" >1.282</td>
-      <td id="T_268fd_row6_col9" class="data row6 col9" >384</td>
-    </tr>
-    <tr>
-      <th id="T_268fd_level0_row7" class="row_heading level0 row7" >35</th>
-      <td id="T_268fd_row7_col0" class="data row7 col0" >120-240</td>
-      <td id="T_268fd_row7_col1" class="data row7 col1" >(-0.15,-0.05)</td>
-      <td id="T_268fd_row7_col2" class="data row7 col2" >60</td>
-      <td id="T_268fd_row7_col3" class="data row7 col3" >1.0</td>
-      <td id="T_268fd_row7_col4" class="data row7 col4" >22.09</td>
-      <td id="T_268fd_row7_col5" class="data row7 col5" >+11.04</td>
-      <td id="T_268fd_row7_col6" class="data row7 col6" >-45.1</td>
-      <td id="T_268fd_row7_col7" class="data row7 col7" >17.2</td>
-      <td id="T_268fd_row7_col8" class="data row7 col8" >1.281</td>
-      <td id="T_268fd_row7_col9" class="data row7 col9" >384</td>
-    </tr>
-    <tr>
-      <th id="T_268fd_level0_row8" class="row_heading level0 row8" >29</th>
-      <td id="T_268fd_row8_col0" class="data row8 col0" >120-240</td>
-      <td id="T_268fd_row8_col1" class="data row8 col1" >(-0.15,-0.05)</td>
-      <td id="T_268fd_row8_col2" class="data row8 col2" >14</td>
-      <td id="T_268fd_row8_col3" class="data row8 col3" >1.0</td>
-      <td id="T_268fd_row8_col4" class="data row8 col4" >21.88</td>
-      <td id="T_268fd_row8_col5" class="data row8 col5" >+10.84</td>
-      <td id="T_268fd_row8_col6" class="data row8 col6" >-45.3</td>
-      <td id="T_268fd_row8_col7" class="data row8 col7" >17.1</td>
-      <td id="T_268fd_row8_col8" class="data row8 col8" >1.280</td>
-      <td id="T_268fd_row8_col9" class="data row8 col9" >378</td>
-    </tr>
-    <tr>
-      <th id="T_268fd_level0_row9" class="row_heading level0 row9" >8</th>
-      <td id="T_268fd_row9_col0" class="data row9 col0" >90-180</td>
-      <td id="T_268fd_row9_col1" class="data row9 col1" >(-0.1,-0.02)</td>
-      <td id="T_268fd_row9_col2" class="data row9 col2" >60</td>
-      <td id="T_268fd_row9_col3" class="data row9 col3" >1.0</td>
-      <td id="T_268fd_row9_col4" class="data row9 col4" >21.41</td>
-      <td id="T_268fd_row9_col5" class="data row9 col5" >+10.37</td>
-      <td id="T_268fd_row9_col6" class="data row9 col6" >-43.3</td>
-      <td id="T_268fd_row9_col7" class="data row9 col7" >16.9</td>
-      <td id="T_268fd_row9_col8" class="data row9 col8" >1.267</td>
-      <td id="T_268fd_row9_col9" class="data row9 col9" >393</td>
-    </tr>
-  </tbody>
-</table>
-
-
-
-
+| DTE | Delta | Exit DTE | Budget % | Annual % | Excess % | Max DD % | Vol % | Sharpe | Trades |
+|---|---|---|---|---|---|---|---|---|---|
+| 120-240 | (-0.1,-0.02) | 14 | 1.0 | 22.14 | +11.09 | -42.9 | 16.9 | 1.307 | 385 |
+| 90-180 | (-0.15,-0.05) | 60 | 1.0 | 21.70 | +10.65 | -42.5 | 16.6 | 1.307 | 390 |
+| 120-240 | (-0.1,-0.02) | 60 | 1.0 | 22.14 | +11.09 | -44.0 | 17.1 | 1.296 | 392 |
+| 120-240 | (-0.1,-0.02) | 30 | 1.0 | 22.05 | +11.00 | -43.7 | 17.0 | 1.296 | 387 |
+| 90-180 | (-0.15,-0.05) | 30 | 1.0 | 21.33 | +10.28 | -42.8 | 16.5 | 1.290 | 385 |
+| 90-180 | (-0.15,-0.05) | 14 | 1.0 | 21.29 | +10.24 | -42.5 | 16.5 | 1.290 | 382 |
+| 120-240 | (-0.15,-0.05) | 30 | 1.0 | 21.92 | +10.87 | -45.2 | 17.1 | 1.282 | 384 |
+| 120-240 | (-0.15,-0.05) | 60 | 1.0 | 22.09 | +11.04 | -45.1 | 17.2 | 1.281 | 384 |
+| 120-240 | (-0.15,-0.05) | 14 | 1.0 | 21.88 | +10.84 | -45.3 | 17.1 | 1.280 | 378 |
+| 90-180 | (-0.1,-0.02) | 60 | 1.0 | 21.41 | +10.37 | -43.3 | 16.9 | 1.267 | 393 |
 
 ```python
 # Top 10 by lowest max drawdown (best crash protection)
@@ -3132,194 +1290,20 @@ styled = (top_dd.style
 style_returns_table(styled).set_caption('Top 10 Configs by Lowest Max Drawdown')
 ```
 
+**Top 10 Configs by Lowest Max Drawdown**
 
-
-
-<style type="text/css">
-#T_a32cf th {
-  background-color: #0D7680;
-  color: white;
-  font-weight: bold;
-  text-align: center;
-  padding: 8px 12px;
-  border-bottom: 2px solid #33302E;
-}
-#T_a32cf td {
-  padding: 6px 12px;
-  border-bottom: 1px solid #F2DFCE;
-}
-#T_a32cf tr:hover td {
-  background-color: #F2DFCE;
-}
-#T_a32cf caption {
-  font-size: 14px;
-  font-weight: bold;
-  color: #33302E;
-  padding: 10px 0;
-}
-#T_a32cf  {
-  border-collapse: collapse;
-  font-family: Georgia, serif;
-}
-#T_a32cf_row0_col5, #T_a32cf_row1_col5, #T_a32cf_row2_col5, #T_a32cf_row3_col5, #T_a32cf_row4_col5, #T_a32cf_row5_col5, #T_a32cf_row6_col5, #T_a32cf_row7_col5, #T_a32cf_row8_col5, #T_a32cf_row9_col5 {
-  color: #09814A;
-  font-weight: bold;
-}
-</style>
-<table id="T_a32cf">
-  <caption>Top 10 Configs by Lowest Max Drawdown</caption>
-  <thead>
-    <tr>
-      <th class="blank level0" >&nbsp;</th>
-      <th id="T_a32cf_level0_col0" class="col_heading level0 col0" >DTE</th>
-      <th id="T_a32cf_level0_col1" class="col_heading level0 col1" >Delta</th>
-      <th id="T_a32cf_level0_col2" class="col_heading level0 col2" >Exit DTE</th>
-      <th id="T_a32cf_level0_col3" class="col_heading level0 col3" >Budget %</th>
-      <th id="T_a32cf_level0_col4" class="col_heading level0 col4" >Annual %</th>
-      <th id="T_a32cf_level0_col5" class="col_heading level0 col5" >Excess %</th>
-      <th id="T_a32cf_level0_col6" class="col_heading level0 col6" >Max DD %</th>
-      <th id="T_a32cf_level0_col7" class="col_heading level0 col7" >Vol %</th>
-      <th id="T_a32cf_level0_col8" class="col_heading level0 col8" >Sharpe</th>
-      <th id="T_a32cf_level0_col9" class="col_heading level0 col9" >Trades</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th id="T_a32cf_level0_row0" class="row_heading level0 row0" >2</th>
-      <td id="T_a32cf_row0_col0" class="data row0 col0" >90-180</td>
-      <td id="T_a32cf_row0_col1" class="data row0 col1" >(-0.1,-0.02)</td>
-      <td id="T_a32cf_row0_col2" class="data row0 col2" >14</td>
-      <td id="T_a32cf_row0_col3" class="data row0 col3" >1.0</td>
-      <td id="T_a32cf_row0_col4" class="data row0 col4" >21.08</td>
-      <td id="T_a32cf_row0_col5" class="data row0 col5" >+10.03</td>
-      <td id="T_a32cf_row0_col6" class="data row0 col6" >-42.4</td>
-      <td id="T_a32cf_row0_col7" class="data row0 col7" >16.7</td>
-      <td id="T_a32cf_row0_col8" class="data row0 col8" >1.259</td>
-      <td id="T_a32cf_row0_col9" class="data row0 col9" >389</td>
-    </tr>
-    <tr>
-      <th id="T_a32cf_level0_row1" class="row_heading level0 row1" >17</th>
-      <td id="T_a32cf_row1_col0" class="data row1 col0" >90-180</td>
-      <td id="T_a32cf_row1_col1" class="data row1 col1" >(-0.15,-0.05)</td>
-      <td id="T_a32cf_row1_col2" class="data row1 col2" >60</td>
-      <td id="T_a32cf_row1_col3" class="data row1 col3" >1.0</td>
-      <td id="T_a32cf_row1_col4" class="data row1 col4" >21.70</td>
-      <td id="T_a32cf_row1_col5" class="data row1 col5" >+10.65</td>
-      <td id="T_a32cf_row1_col6" class="data row1 col6" >-42.5</td>
-      <td id="T_a32cf_row1_col7" class="data row1 col7" >16.6</td>
-      <td id="T_a32cf_row1_col8" class="data row1 col8" >1.307</td>
-      <td id="T_a32cf_row1_col9" class="data row1 col9" >390</td>
-    </tr>
-    <tr>
-      <th id="T_a32cf_level0_row2" class="row_heading level0 row2" >11</th>
-      <td id="T_a32cf_row2_col0" class="data row2 col0" >90-180</td>
-      <td id="T_a32cf_row2_col1" class="data row2 col1" >(-0.15,-0.05)</td>
-      <td id="T_a32cf_row2_col2" class="data row2 col2" >14</td>
-      <td id="T_a32cf_row2_col3" class="data row2 col3" >1.0</td>
-      <td id="T_a32cf_row2_col4" class="data row2 col4" >21.29</td>
-      <td id="T_a32cf_row2_col5" class="data row2 col5" >+10.24</td>
-      <td id="T_a32cf_row2_col6" class="data row2 col6" >-42.5</td>
-      <td id="T_a32cf_row2_col7" class="data row2 col7" >16.5</td>
-      <td id="T_a32cf_row2_col8" class="data row2 col8" >1.290</td>
-      <td id="T_a32cf_row2_col9" class="data row2 col9" >382</td>
-    </tr>
-    <tr>
-      <th id="T_a32cf_level0_row3" class="row_heading level0 row3" >14</th>
-      <td id="T_a32cf_row3_col0" class="data row3 col0" >90-180</td>
-      <td id="T_a32cf_row3_col1" class="data row3 col1" >(-0.15,-0.05)</td>
-      <td id="T_a32cf_row3_col2" class="data row3 col2" >30</td>
-      <td id="T_a32cf_row3_col3" class="data row3 col3" >1.0</td>
-      <td id="T_a32cf_row3_col4" class="data row3 col4" >21.33</td>
-      <td id="T_a32cf_row3_col5" class="data row3 col5" >+10.28</td>
-      <td id="T_a32cf_row3_col6" class="data row3 col6" >-42.8</td>
-      <td id="T_a32cf_row3_col7" class="data row3 col7" >16.5</td>
-      <td id="T_a32cf_row3_col8" class="data row3 col8" >1.290</td>
-      <td id="T_a32cf_row3_col9" class="data row3 col9" >385</td>
-    </tr>
-    <tr>
-      <th id="T_a32cf_level0_row4" class="row_heading level0 row4" >20</th>
-      <td id="T_a32cf_row4_col0" class="data row4 col0" >120-240</td>
-      <td id="T_a32cf_row4_col1" class="data row4 col1" >(-0.1,-0.02)</td>
-      <td id="T_a32cf_row4_col2" class="data row4 col2" >14</td>
-      <td id="T_a32cf_row4_col3" class="data row4 col3" >1.0</td>
-      <td id="T_a32cf_row4_col4" class="data row4 col4" >22.14</td>
-      <td id="T_a32cf_row4_col5" class="data row4 col5" >+11.09</td>
-      <td id="T_a32cf_row4_col6" class="data row4 col6" >-42.9</td>
-      <td id="T_a32cf_row4_col7" class="data row4 col7" >16.9</td>
-      <td id="T_a32cf_row4_col8" class="data row4 col8" >1.307</td>
-      <td id="T_a32cf_row4_col9" class="data row4 col9" >385</td>
-    </tr>
-    <tr>
-      <th id="T_a32cf_level0_row5" class="row_heading level0 row5" >8</th>
-      <td id="T_a32cf_row5_col0" class="data row5 col0" >90-180</td>
-      <td id="T_a32cf_row5_col1" class="data row5 col1" >(-0.1,-0.02)</td>
-      <td id="T_a32cf_row5_col2" class="data row5 col2" >60</td>
-      <td id="T_a32cf_row5_col3" class="data row5 col3" >1.0</td>
-      <td id="T_a32cf_row5_col4" class="data row5 col4" >21.41</td>
-      <td id="T_a32cf_row5_col5" class="data row5 col5" >+10.37</td>
-      <td id="T_a32cf_row5_col6" class="data row5 col6" >-43.3</td>
-      <td id="T_a32cf_row5_col7" class="data row5 col7" >16.9</td>
-      <td id="T_a32cf_row5_col8" class="data row5 col8" >1.267</td>
-      <td id="T_a32cf_row5_col9" class="data row5 col9" >393</td>
-    </tr>
-    <tr>
-      <th id="T_a32cf_level0_row6" class="row_heading level0 row6" >5</th>
-      <td id="T_a32cf_row6_col0" class="data row6 col0" >90-180</td>
-      <td id="T_a32cf_row6_col1" class="data row6 col1" >(-0.1,-0.02)</td>
-      <td id="T_a32cf_row6_col2" class="data row6 col2" >30</td>
-      <td id="T_a32cf_row6_col3" class="data row6 col3" >1.0</td>
-      <td id="T_a32cf_row6_col4" class="data row6 col4" >21.03</td>
-      <td id="T_a32cf_row6_col5" class="data row6 col5" >+9.98</td>
-      <td id="T_a32cf_row6_col6" class="data row6 col6" >-43.4</td>
-      <td id="T_a32cf_row6_col7" class="data row6 col7" >16.8</td>
-      <td id="T_a32cf_row6_col8" class="data row6 col8" >1.248</td>
-      <td id="T_a32cf_row6_col9" class="data row6 col9" >390</td>
-    </tr>
-    <tr>
-      <th id="T_a32cf_level0_row7" class="row_heading level0 row7" >23</th>
-      <td id="T_a32cf_row7_col0" class="data row7 col0" >120-240</td>
-      <td id="T_a32cf_row7_col1" class="data row7 col1" >(-0.1,-0.02)</td>
-      <td id="T_a32cf_row7_col2" class="data row7 col2" >30</td>
-      <td id="T_a32cf_row7_col3" class="data row7 col3" >1.0</td>
-      <td id="T_a32cf_row7_col4" class="data row7 col4" >22.05</td>
-      <td id="T_a32cf_row7_col5" class="data row7 col5" >+11.00</td>
-      <td id="T_a32cf_row7_col6" class="data row7 col6" >-43.7</td>
-      <td id="T_a32cf_row7_col7" class="data row7 col7" >17.0</td>
-      <td id="T_a32cf_row7_col8" class="data row7 col8" >1.296</td>
-      <td id="T_a32cf_row7_col9" class="data row7 col9" >387</td>
-    </tr>
-    <tr>
-      <th id="T_a32cf_level0_row8" class="row_heading level0 row8" >26</th>
-      <td id="T_a32cf_row8_col0" class="data row8 col0" >120-240</td>
-      <td id="T_a32cf_row8_col1" class="data row8 col1" >(-0.1,-0.02)</td>
-      <td id="T_a32cf_row8_col2" class="data row8 col2" >60</td>
-      <td id="T_a32cf_row8_col3" class="data row8 col3" >1.0</td>
-      <td id="T_a32cf_row8_col4" class="data row8 col4" >22.14</td>
-      <td id="T_a32cf_row8_col5" class="data row8 col5" >+11.09</td>
-      <td id="T_a32cf_row8_col6" class="data row8 col6" >-44.0</td>
-      <td id="T_a32cf_row8_col7" class="data row8 col7" >17.1</td>
-      <td id="T_a32cf_row8_col8" class="data row8 col8" >1.296</td>
-      <td id="T_a32cf_row8_col9" class="data row8 col9" >392</td>
-    </tr>
-    <tr>
-      <th id="T_a32cf_level0_row9" class="row_heading level0 row9" >35</th>
-      <td id="T_a32cf_row9_col0" class="data row9 col0" >120-240</td>
-      <td id="T_a32cf_row9_col1" class="data row9 col1" >(-0.15,-0.05)</td>
-      <td id="T_a32cf_row9_col2" class="data row9 col2" >60</td>
-      <td id="T_a32cf_row9_col3" class="data row9 col3" >1.0</td>
-      <td id="T_a32cf_row9_col4" class="data row9 col4" >22.09</td>
-      <td id="T_a32cf_row9_col5" class="data row9 col5" >+11.04</td>
-      <td id="T_a32cf_row9_col6" class="data row9 col6" >-45.1</td>
-      <td id="T_a32cf_row9_col7" class="data row9 col7" >17.2</td>
-      <td id="T_a32cf_row9_col8" class="data row9 col8" >1.281</td>
-      <td id="T_a32cf_row9_col9" class="data row9 col9" >384</td>
-    </tr>
-  </tbody>
-</table>
-
-
-
-
+| DTE | Delta | Exit DTE | Budget % | Annual % | Excess % | Max DD % | Vol % | Sharpe | Trades |
+|---|---|---|---|---|---|---|---|---|---|
+| 90-180 | (-0.1,-0.02) | 14 | 1.0 | 21.08 | +10.03 | -42.4 | 16.7 | 1.259 | 389 |
+| 90-180 | (-0.15,-0.05) | 60 | 1.0 | 21.70 | +10.65 | -42.5 | 16.6 | 1.307 | 390 |
+| 90-180 | (-0.15,-0.05) | 14 | 1.0 | 21.29 | +10.24 | -42.5 | 16.5 | 1.290 | 382 |
+| 90-180 | (-0.15,-0.05) | 30 | 1.0 | 21.33 | +10.28 | -42.8 | 16.5 | 1.290 | 385 |
+| 120-240 | (-0.1,-0.02) | 14 | 1.0 | 22.14 | +11.09 | -42.9 | 16.9 | 1.307 | 385 |
+| 90-180 | (-0.1,-0.02) | 60 | 1.0 | 21.41 | +10.37 | -43.3 | 16.9 | 1.267 | 393 |
+| 90-180 | (-0.1,-0.02) | 30 | 1.0 | 21.03 | +9.98 | -43.4 | 16.8 | 1.248 | 390 |
+| 120-240 | (-0.1,-0.02) | 30 | 1.0 | 22.05 | +11.00 | -43.7 | 17.0 | 1.296 | 387 |
+| 120-240 | (-0.1,-0.02) | 60 | 1.0 | 22.14 | +11.09 | -44.0 | 17.1 | 1.296 | 392 |
+| 120-240 | (-0.15,-0.05) | 60 | 1.0 | 22.09 | +11.04 | -45.1 | 17.2 | 1.281 | 384 |
 
 ```python
 # Heatmap: Annual return by DTE x Budget, averaged over delta and exit
@@ -3346,7 +1330,6 @@ plt.show()
     
 ![png](spitznagel_case_files/spitznagel_case_43_0.png)
     
-
 
 
 ```python
@@ -3396,7 +1379,6 @@ print(f'Configs with higher Sharpe: {configs_better_sharpe}/{len(df_grid)} ({con
     
     SPY Sharpe: 0.553
     Configs with higher Sharpe: 36/36 (100%)
-
 
 
 ```python
@@ -3458,12 +1440,6 @@ print(f'Beats SPY in BOTH halves? {"YES" if both_positive else "NO"}')
 ```
 
     Split date: 2016-12-22
-    
-
-
-    Warning: No valid output stream.
-
-
     Out-of-Sample Check: same params (0.5% budget, default deep OTM), split in half
     
     Period                        Strategy      SPY B&H     Excess     Max DD
@@ -3559,113 +1535,15 @@ style_returns_table(styled).set_caption(
 )
 ```
 
-    Warning: No valid output stream.
+**Subperiod Analysis: Does the strategy work in calm markets? (0.5% budget, leveraged)**
 
-
-
-
-
-<style type="text/css">
-#T_f1e51 th {
-  background-color: #0D7680;
-  color: white;
-  font-weight: bold;
-  text-align: center;
-  padding: 8px 12px;
-  border-bottom: 2px solid #33302E;
-}
-#T_f1e51 td {
-  padding: 6px 12px;
-  border-bottom: 1px solid #F2DFCE;
-}
-#T_f1e51 tr:hover td {
-  background-color: #F2DFCE;
-}
-#T_f1e51 caption {
-  font-size: 14px;
-  font-weight: bold;
-  color: #33302E;
-  padding: 10px 0;
-}
-#T_f1e51  {
-  border-collapse: collapse;
-  font-family: Georgia, serif;
-}
-#T_f1e51_row0_col4, #T_f1e51_row1_col4, #T_f1e51_row2_col4, #T_f1e51_row3_col4, #T_f1e51_row4_col4 {
-  color: #09814A;
-  font-weight: bold;
-}
-</style>
-<table id="T_f1e51">
-  <caption>Subperiod Analysis: Does the strategy work in calm markets? (0.5% budget, leveraged)</caption>
-  <thead>
-    <tr>
-      <th class="blank level0" >&nbsp;</th>
-      <th id="T_f1e51_level0_col0" class="col_heading level0 col0" >Period</th>
-      <th id="T_f1e51_level0_col1" class="col_heading level0 col1" >Years</th>
-      <th id="T_f1e51_level0_col2" class="col_heading level0 col2" >Strategy %/yr</th>
-      <th id="T_f1e51_level0_col3" class="col_heading level0 col3" >SPY %/yr</th>
-      <th id="T_f1e51_level0_col4" class="col_heading level0 col4" >Excess %</th>
-      <th id="T_f1e51_level0_col5" class="col_heading level0 col5" >Strategy DD %</th>
-      <th id="T_f1e51_level0_col6" class="col_heading level0 col6" >SPY DD %</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th id="T_f1e51_level0_row0" class="row_heading level0 row0" >0</th>
-      <td id="T_f1e51_row0_col0" class="data row0 col0" >Full (2008-2025)</td>
-      <td id="T_f1e51_row0_col1" class="data row0 col1" >17.9</td>
-      <td id="T_f1e51_row0_col2" class="data row0 col2" >16.02</td>
-      <td id="T_f1e51_row0_col3" class="data row0 col3" >11.11</td>
-      <td id="T_f1e51_row0_col4" class="data row0 col4" >+4.90</td>
-      <td id="T_f1e51_row0_col5" class="data row0 col5" >-47.1</td>
-      <td id="T_f1e51_row0_col6" class="data row0 col6" >-51.9</td>
-    </tr>
-    <tr>
-      <th id="T_f1e51_level0_row1" class="row_heading level0 row1" >1</th>
-      <td id="T_f1e51_row1_col0" class="data row1 col0" >GFC era (2008-2009)</td>
-      <td id="T_f1e51_row1_col1" class="data row1 col1" >2.0</td>
-      <td id="T_f1e51_row1_col2" class="data row1 col2" >-4.45</td>
-      <td id="T_f1e51_row1_col3" class="data row1 col3" >-10.25</td>
-      <td id="T_f1e51_row1_col4" class="data row1 col4" >+5.80</td>
-      <td id="T_f1e51_row1_col5" class="data row1 col5" >-47.1</td>
-      <td id="T_f1e51_row1_col6" class="data row1 col6" >-51.9</td>
-    </tr>
-    <tr>
-      <th id="T_f1e51_level0_row2" class="row_heading level0 row2" >2</th>
-      <td id="T_f1e51_row2_col0" class="data row2 col0" >Bull market (2010-2019)</td>
-      <td id="T_f1e51_row2_col1" class="data row2 col1" >10.0</td>
-      <td id="T_f1e51_row2_col2" class="data row2 col2" >17.56</td>
-      <td id="T_f1e51_row2_col3" class="data row2 col3" >13.26</td>
-      <td id="T_f1e51_row2_col4" class="data row2 col4" >+4.30</td>
-      <td id="T_f1e51_row2_col5" class="data row2 col5" >-15.6</td>
-      <td id="T_f1e51_row2_col6" class="data row2 col6" >-19.3</td>
-    </tr>
-    <tr>
-      <th id="T_f1e51_level0_row3" class="row_heading level0 row3" >3</th>
-      <td id="T_f1e51_row3_col0" class="data row3 col0" >COVID + after (2020-2022)</td>
-      <td id="T_f1e51_row3_col1" class="data row3 col1" >3.0</td>
-      <td id="T_f1e51_row3_col2" class="data row3 col2" >13.56</td>
-      <td id="T_f1e51_row3_col3" class="data row3 col3" >7.32</td>
-      <td id="T_f1e51_row3_col4" class="data row3 col4" >+6.24</td>
-      <td id="T_f1e51_row3_col5" class="data row3 col5" >-22.3</td>
-      <td id="T_f1e51_row3_col6" class="data row3 col6" >-33.7</td>
-    </tr>
-    <tr>
-      <th id="T_f1e51_level0_row4" class="row_heading level0 row4" >4</th>
-      <td id="T_f1e51_row4_col0" class="data row4 col0" >Recent (2023-2025)</td>
-      <td id="T_f1e51_row4_col1" class="data row4 col1" >2.9</td>
-      <td id="T_f1e51_row4_col2" class="data row4 col2" >27.99</td>
-      <td id="T_f1e51_row4_col3" class="data row4 col3" >23.91</td>
-      <td id="T_f1e51_row4_col4" class="data row4 col4" >+4.08</td>
-      <td id="T_f1e51_row4_col5" class="data row4 col5" >-14.6</td>
-      <td id="T_f1e51_row4_col6" class="data row4 col6" >-18.8</td>
-    </tr>
-  </tbody>
-</table>
-
-
-
+| Period | Years | Strategy %/yr | SPY %/yr | Excess % | Strategy DD % | SPY DD % |
+|---|---|---|---|---|---|---|
+| Full (2008-2025) | 17.9 | 16.02 | 11.11 | +4.90 | -47.1 | -51.9 |
+| GFC era (2008-2009) | 2.0 | -4.45 | -10.25 | +5.80 | -47.1 | -51.9 |
+| Bull market (2010-2019) | 10.0 | 17.56 | 13.26 | +4.30 | -15.6 | -19.3 |
+| COVID + after (2020-2022) | 3.0 | 13.56 | 7.32 | +6.24 | -22.3 | -33.7 |
+| Recent (2023-2025) | 2.9 | 27.99 | 23.91 | +4.08 | -14.6 | -18.8 |
 
 **Key question**: the 2010-2019 bull market had no crash worse than -20%. If the strategy underperforms there, it means the edge comes entirely from crash payoffs (which is expected and fine — that's the whole thesis). If it still outperforms or breaks even, the strategy is even more robust than we thought.
 
@@ -3813,109 +1691,19 @@ style_returns_table(styled).set_caption(
 ```
 
       Monthly... 
-
-    Warning: No valid output stream.
-
-
     annual +16.02%, excess +4.97%, DD -47.1%
       Biweekly... 
-
-    Warning: No valid output stream.
-
-
     annual +24.59%, excess +13.54%, DD -44.6%
       Weekly... 
-
-    Warning: No valid output stream.
-
-
     annual +41.61%, excess +30.56%, DD -38.8%
 
+**Rebalance Frequency: Monthly vs Biweekly vs Weekly (0.5% budget, leveraged)**
 
-
-
-
-<style type="text/css">
-#T_86716 th {
-  background-color: #0D7680;
-  color: white;
-  font-weight: bold;
-  text-align: center;
-  padding: 8px 12px;
-  border-bottom: 2px solid #33302E;
-}
-#T_86716 td {
-  padding: 6px 12px;
-  border-bottom: 1px solid #F2DFCE;
-}
-#T_86716 tr:hover td {
-  background-color: #F2DFCE;
-}
-#T_86716 caption {
-  font-size: 14px;
-  font-weight: bold;
-  color: #33302E;
-  padding: 10px 0;
-}
-#T_86716  {
-  border-collapse: collapse;
-  font-family: Georgia, serif;
-}
-#T_86716_row0_col2, #T_86716_row1_col2, #T_86716_row2_col2 {
-  color: #09814A;
-  font-weight: bold;
-}
-</style>
-<table id="T_86716">
-  <caption>Rebalance Frequency: Monthly vs Biweekly vs Weekly (0.5% budget, leveraged)</caption>
-  <thead>
-    <tr>
-      <th class="blank level0" >&nbsp;</th>
-      <th id="T_86716_level0_col0" class="col_heading level0 col0" >Frequency</th>
-      <th id="T_86716_level0_col1" class="col_heading level0 col1" >Annual %</th>
-      <th id="T_86716_level0_col2" class="col_heading level0 col2" >Excess %</th>
-      <th id="T_86716_level0_col3" class="col_heading level0 col3" >Max DD %</th>
-      <th id="T_86716_level0_col4" class="col_heading level0 col4" >Vol %</th>
-      <th id="T_86716_level0_col5" class="col_heading level0 col5" >Sharpe</th>
-      <th id="T_86716_level0_col6" class="col_heading level0 col6" >Trades</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th id="T_86716_level0_row0" class="row_heading level0 row0" >0</th>
-      <td id="T_86716_row0_col0" class="data row0 col0" >Monthly</td>
-      <td id="T_86716_row0_col1" class="data row0 col1" >16.02</td>
-      <td id="T_86716_row0_col2" class="data row0 col2" >+4.97</td>
-      <td id="T_86716_row0_col3" class="data row0 col3" >-47.1</td>
-      <td id="T_86716_row0_col4" class="data row0 col4" >17.8</td>
-      <td id="T_86716_row0_col5" class="data row0 col5" >0.901</td>
-      <td id="T_86716_row0_col6" class="data row0 col6" >380</td>
-    </tr>
-    <tr>
-      <th id="T_86716_level0_row1" class="row_heading level0 row1" >1</th>
-      <td id="T_86716_row1_col0" class="data row1 col0" >Biweekly</td>
-      <td id="T_86716_row1_col1" class="data row1 col1" >24.59</td>
-      <td id="T_86716_row1_col2" class="data row1 col2" >+13.54</td>
-      <td id="T_86716_row1_col3" class="data row1 col3" >-44.6</td>
-      <td id="T_86716_row1_col4" class="data row1 col4" >18.6</td>
-      <td id="T_86716_row1_col5" class="data row1 col5" >1.321</td>
-      <td id="T_86716_row1_col6" class="data row1 col6" >782</td>
-    </tr>
-    <tr>
-      <th id="T_86716_level0_row2" class="row_heading level0 row2" >2</th>
-      <td id="T_86716_row2_col0" class="data row2 col0" >Weekly</td>
-      <td id="T_86716_row2_col1" class="data row2 col1" >41.61</td>
-      <td id="T_86716_row2_col2" class="data row2 col2" >+30.56</td>
-      <td id="T_86716_row2_col3" class="data row2 col3" >-38.8</td>
-      <td id="T_86716_row2_col4" class="data row2 col4" >19.0</td>
-      <td id="T_86716_row2_col5" class="data row2 col5" >2.192</td>
-      <td id="T_86716_row2_col6" class="data row2 col6" >1566</td>
-    </tr>
-  </tbody>
-</table>
-
-
-
+| Frequency | Annual % | Excess % | Max DD % | Vol % | Sharpe | Trades |
+|---|---|---|---|---|---|---|
+| Monthly | 16.02 | +4.97 | -47.1 | 17.8 | 0.901 | 380 |
+| Biweekly | 24.59 | +13.54 | -44.6 | 18.6 | 1.321 | 782 |
+| Weekly | 41.61 | +30.56 | -38.8 | 19.0 | 2.192 | 1566 |
 
 ---
 ## 12. Conclusion: Spitznagel Is Right (With Caveats)

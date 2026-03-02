@@ -305,7 +305,6 @@ print(row)
        Med       -3.6%       -2.0%       -3.9%      -16.5%
 
 
-
 ```python
 # Plot roll yield over time
 fig, ax = plt.subplots(figsize=(14, 5))
@@ -482,7 +481,6 @@ for name, (filename, product) in opt_configs.items():
       482,338 total (puts: 211,268, calls: 271,070)
       Date range: 2010-06-06 00:00:00+00:00 to 2026-02-27 00:00:00+00:00
     
-
 
 
 ```python
@@ -985,7 +983,6 @@ for name in commodities:
     
 
 
-
 ```python
 # Cross-commodity comparison at 3x leverage
 print(f'\n{"=" * 105}')
@@ -1169,7 +1166,6 @@ plt.show()
     
 ![png](commodity_carry_files/commodity_carry_20_0.png)
     
-
 
 
 ```python
@@ -1366,7 +1362,6 @@ for name in commodities:
     
 
 
-
 ```python
 # Put economics detail: win rate, avg payoff, cost
 print(f'\n{"=" * 90}')
@@ -1422,7 +1417,6 @@ for name in commodities:
 
 
     NatGas           186  24.2%     0.0677       0.1201        1.49x        45.7x
-
 
 
 ```python
@@ -1518,7 +1512,6 @@ for name in commodities:
     NatGas         3x          -0.651        -0.639      +0.012      -100.0%    -100.0%
     NatGas         5x          -0.426        -0.421      +0.005      -100.0%    -100.0%
     
-
 
 
 ```python

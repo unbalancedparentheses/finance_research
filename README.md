@@ -67,7 +67,7 @@ Applies the leveraged + OTM puts framework to non-equity asset classes using CME
 
 ## Scripts
 
-Parameter sweeps, verification, and analysis scripts in `scripts/`:
+### Sweeps & Analysis
 
 | Script | Purpose |
 |--------|---------|
@@ -79,15 +79,46 @@ Parameter sweeps, verification, and analysis scripts in `scripts/`:
 | `sweep_allocation.py` | Allocation percentage sweep |
 | `sweep_beat_spy.py` | Configurations that beat SPY |
 | `sweep_comprehensive.py` | All-parameter combinatorial sweep |
+| `run_spy_otm_puts.py` | Multi-dimensional strategy sweep (6 variants) |
+| `analyze_entries_exits.py` | Entry/exit timing and signal analysis for hedge trades |
+| `calm_period_experiment.py` | Performance during calm markets (2012-2018) |
+
+### Validation
+
+| Script | Purpose |
+|--------|---------|
 | `walk_forward_report.py` | Walk-forward out-of-sample validation |
 | `verify_blog_numbers.py` | Verify published article numbers |
 | `verify_aqr_numbers.py` | Reproduce AQR's published results |
 | `verify_atm_vs_otm.py` | ATM vs OTM direct comparison |
-| `calm_period_experiment.py` | Performance during calm markets |
-| `generate_blog_tables.py` | Generate tables for the published article |
+
+### Notebook Generators
+
+| Script | Purpose |
+|--------|---------|
+| `build_equity_nb.py` | Generate equity Spitznagel analysis (ES futures + puts) |
+| `build_treasury_nb.py` | Generate treasury Spitznagel analysis (ZN/ZB + puts) |
+| `build_bond_carry_nb.py` | Generate US-UK bond carry analysis |
+| `build_combined_portfolio_nb.py` | Generate combined multi-asset portfolio analysis |
+
+### Benchmarking
+
+| Script | Purpose |
+|--------|---------|
 | `benchmark_rust_vs_python.py` | Backtester engine performance comparison |
+| `benchmark_sweep.py` | Rust parallel_sweep vs Python sequential grid search |
+| `benchmark_large_pipeline.py` | Full-dataset (24.7M rows) Rust vs Python benchmark |
+| `benchmark_matrix.py` | Multi-scenario benchmark scorecard |
+| `compare_with_bt.py` | Head-to-head comparison with the `bt` library |
+
+### Utilities
+
+| Script | Purpose |
+|--------|---------|
+| `backtest_runner.py` | Shared helpers for sweep scripts (data loading, charting) |
 | `parallel_sweep.py` | Parallelized parameter sweep |
 | `nb_style.py` | Shared FT-inspired matplotlib styling |
+| `generate_blog_tables.py` | Generate tables for the published article |
 | `export_fx_results.py` | Export FX carry results to CSV |
 
 ## Structure
@@ -106,7 +137,7 @@ data/
   fetch_data.py             Fetch stock data from Tiingo
   fetch_signals.py          Fetch VIX/signal data
   convert_optionsdx.py      Convert OptionsDX raw to processed CSVs
-REFERENCES.md               Annotated literature review (~50 papers)
+REFERENCES.md               Annotated literature review (~25 papers)
 ```
 
 ## Future Work: Deepening the Spitznagel Research
@@ -158,7 +189,7 @@ The article's test range of -0.10 to -0.02 delta should be presented as our chos
 
 ## References
 
-See [`REFERENCES.md`](REFERENCES.md) for an annotated literature review covering protective put overlays, covered calls, volatility strategies, tail hedging, carry, ergodicity economics, and backtesting methodology.
+See [`REFERENCES.md`](REFERENCES.md) for an annotated literature review covering protective put overlays, covered calls, volatility strategies, tail hedging, and carry.
 
 For a general introduction to finance and economics for programmers, see this [post](https://notamonadtutorial.com/how-to-earn-your-macroeconomics-and-finance-white-belt-as-a-software-developer-136e7454866f).
 
