@@ -1,6 +1,6 @@
 # Finance Research
 
-Empirical research on derivatives, tail hedging, volatility risk premium, and multi-asset carry strategies. We backtest real strategies on real options and futures data — no synthetic pricing, no Black-Scholes assumptions.
+Empirical research on derivatives, tail hedging, volatility risk premium, and multi-asset carry strategies. We backtest real strategies on real options and futures data, no synthetic pricing, no Black-Scholes assumptions.
 
 The work so far focuses on Spitznagel's tail hedging thesis and whether it generalizes across asset classes, but the repo is a broader home for quantitative finance research using the [options_portfolio_backtester](https://github.com/unbalancedparentheses/options_backtester) library.
 
@@ -8,12 +8,12 @@ The work so far focuses on Spitznagel's tail hedging thesis and whether it gener
 
 ### [Spitznagel Thesis on SPY](research/spitznagel_spy/)
 
-Does a small allocation to deep OTM puts improve long-run geometric compounding? Spitznagel says yes — the puts reduce variance drain (sigma^2/2) by more than they cost. AQR says no — puts are expensive insurance that drags returns.
+Does a small allocation to deep OTM puts improve long-run geometric compounding? Spitznagel says yes, the puts reduce variance drain (sigma^2/2) by more than they cost. AQR says no, puts are expensive insurance that drags returns.
 
 Both are right, but they test different things. AQR reduces equity to fund puts (of course that loses). Spitznagel keeps 100% equity and adds puts on top as a leveraged overlay costing ~0.5%/yr. We tested this on 17.9 years of real SPY options data (24.7M rows, 2008-2025):
 
 - Every configuration beats SPY. 0.5% budget: 16.0% CAGR vs 11.1%, Sharpe 0.90 vs 0.55, max DD -47% vs -52%.
-- All 36 parameter combinations in a grid search beat SPY. Not parameter-picking — the strategy is robust.
+- All 36 parameter combinations in a grid search beat SPY. Not parameter-picking, the strategy is robust.
 - The result holds in both halves of an out-of-sample split and during the 2010-2019 bull market (no crash > -20%).
 - The puts lose money even during crashes (-$1.6M on $2M premium). The benefit is second-order: reduced variance drain on geometric compounding, not direct option profits.
 - The edge concentrates around 3 crashes in 17 years. If crashes of -30%+ stop happening once per decade, the strategy stops working.
@@ -35,7 +35,7 @@ We tested 7 pairs vs JPY (AUD, GBP, CAD, EUR, CHF, MXN, NZD) on Databento CME da
 
 Does the leveraged + OTM puts structure work beyond equities? We tested it on S&P 500 (ES), US Treasuries (ZN/ZB), US-UK bond carry, and commodities (gold, crude, copper, natgas) using CME futures from Databento:
 
-- Works well on equity and treasuries. Treasury + puts is naturally anti-correlated with equity + puts — excellent diversifier.
+- Works well on equity and treasuries. Treasury + puts is naturally anti-correlated with equity + puts, making it an excellent diversifier.
 - Fails on commodities. All four have persistent negative roll yield (gold -5.4%/yr, natgas -22.3%/yr). Without positive base carry to fund the hedge cost, the structure breaks down.
 - The key insight: Spitznagel requires a positive-carry asset. Equity risk premium > FX carry >> commodity contango.
 - A combined portfolio (ES + FX carry + bond carry, each with their own puts) achieves better risk-adjusted returns than any individual strategy.
