@@ -34,36 +34,29 @@ See [`data/README.md`](data/README.md) for details on data sources and formats.
 
 The core research thread. Tests whether deep OTM puts improve geometric compounding via variance drain reduction. Uses SPY options data 2008-2025 from Tiingo/OptionsDX.
 
-- [`summary.md`](research/spitznagel_spy/summary.md) — Hand-written findings with full data tables
-- [`spitznagel_case.md`](research/spitznagel_spy/spitznagel_case.md) — Authoritative analysis: AQR framing vs Spitznagel overlay, parameter sweeps, out-of-sample, calm periods
-- [`cross_asset_notes.md`](research/spitznagel_spy/cross_asset_notes.md) — Detailed notes on applying the structure to rates, FX, credit, commodities, EM debt. Includes data sourcing guide.
-
-### [`spy_options_strategies/`](research/spy_options_strategies/) — SPY Options Strategy Analysis
-
-Tests specific options structures on SPY against academic claims. Same backtester and data as the Spitznagel thread.
-
-- [`findings.md`](research/spy_options_strategies/findings.md) — Comprehensive findings: puts as hedge, calls for momentum, macro signal timing
-- [`paper_comparison.md`](research/spy_options_strategies/paper_comparison.md) — 10 strategies tested against Carr & Wu, Whaley, Israelov, etc.
-- [`trade_analysis.md`](research/spy_options_strategies/trade_analysis.md) — Trade-level P&L, greeks at entry, crash breakdown
+- [`README.md`](research/spitznagel_spy/README.md) — Hand-written findings with full data tables
+- [`ANALYSIS.md`](research/spitznagel_spy/ANALYSIS.md) — Authoritative analysis: AQR framing vs Spitznagel overlay, parameter sweeps, out-of-sample, calm periods
+- [`cross_asset_notes.md`](research/spitznagel_spy/cross_asset_notes.md) — Detailed notes on applying the structure to rates, FX, credit, commodities, EM debt
+- [`run.py`](research/spitznagel_spy/run.py) — Reproduce all analysis charts and tables
 
 ### [`fx_carry_hedged/`](research/fx_carry_hedged/) — FX Carry + Tail Hedge
 
 FX carry trades with OTM put protection. Uses Databento CME futures data 2010-2026. Progression: single pair -> multi-pair -> portfolio construction -> leverage analysis.
 
-- [`fx_carry_real.md`](research/fx_carry_hedged/fx_carry_real.md) — AUD/JPY carry with dual-leg hedge (AUD puts + JPY calls)
-- [`multi_asset_carry.md`](research/fx_carry_hedged/multi_asset_carry.md) — 7 FX pairs vs JPY with monthly OTM puts
-- [`carry_portfolio.md`](research/fx_carry_hedged/carry_portfolio.md) — Portfolio construction: equal-weight, risk-parity, min-variance, max-Sharpe
-- [`leverage_analysis.md`](research/fx_carry_hedged/leverage_analysis.md) — Kelly-optimal leverage, blow-up frontier, put budget sensitivity
+- [`README.md`](research/fx_carry_hedged/README.md) — Findings across all four analyses
+- [`run.py`](research/fx_carry_hedged/run.py) — `--analysis {fx_carry_real,multi_asset,portfolio,leverage,all}`
 
 ### [`cross_asset_spitznagel/`](research/cross_asset_spitznagel/) — Spitznagel Structure Across Asset Classes
 
 Applies the leveraged + OTM puts framework to non-equity asset classes using CME futures from Databento.
 
-- [`equity_spitznagel.md`](research/cross_asset_spitznagel/equity_spitznagel.md) — ES futures + puts (1x-10x leverage)
-- [`treasury_spitznagel.md`](research/cross_asset_spitznagel/treasury_spitznagel.md) — ZN/ZB Treasury futures + puts
-- [`bond_carry_usuk.md`](research/cross_asset_spitznagel/bond_carry_usuk.md) — US-UK bond carry (ZN vs Gilt) + OZN options
-- [`commodity_carry.md`](research/cross_asset_spitznagel/commodity_carry.md) — Gold, crude, copper, natgas carry + puts
-- [`combined_portfolio.md`](research/cross_asset_spitznagel/combined_portfolio.md) — Capstone: ES + FX Carry + Bond Carry combined
+- [`README.md`](research/cross_asset_spitznagel/README.md) — Findings across all five asset classes
+- [`run.py`](research/cross_asset_spitznagel/run.py) — Orchestrator: `python run.py equity treasury bond_carry commodity combined`
+- [`run_equity.py`](research/cross_asset_spitznagel/run_equity.py) — ES futures + puts (1x-10x leverage)
+- [`run_treasury.py`](research/cross_asset_spitznagel/run_treasury.py) — ZN/ZB Treasury futures + puts
+- [`run_bond_carry.py`](research/cross_asset_spitznagel/run_bond_carry.py) — US-UK bond carry (ZN vs Gilt) + OZN options
+- [`run_commodity.py`](research/cross_asset_spitznagel/run_commodity.py) — Gold, crude, copper, natgas carry + puts
+- [`run_combined.py`](research/cross_asset_spitznagel/run_combined.py) — Capstone: ES + FX Carry + Bond Carry combined
 
 ## Scripts
 
@@ -92,15 +85,6 @@ Applies the leveraged + OTM puts framework to non-equity asset classes using CME
 | `verify_aqr_numbers.py` | Reproduce AQR's published results |
 | `verify_atm_vs_otm.py` | ATM vs OTM direct comparison |
 
-### Notebook Generators
-
-| Script | Purpose |
-|--------|---------|
-| `build_equity_nb.py` | Generate equity Spitznagel analysis (ES futures + puts) |
-| `build_treasury_nb.py` | Generate treasury Spitznagel analysis (ZN/ZB + puts) |
-| `build_bond_carry_nb.py` | Generate US-UK bond carry analysis |
-| `build_combined_portfolio_nb.py` | Generate combined multi-asset portfolio analysis |
-
 ### Benchmarking
 
 | Script | Purpose |
@@ -116,6 +100,7 @@ Applies the leveraged + OTM puts framework to non-equity asset classes using CME
 | Script | Purpose |
 |--------|---------|
 | `backtest_runner.py` | Shared helpers for sweep scripts (data loading, charting) |
+| `databento_helpers.py` | Shared Databento helpers (load_front_month, compute_stats, option parsing) |
 | `parallel_sweep.py` | Parallelized parameter sweep |
 | `nb_style.py` | Shared FT-inspired matplotlib styling |
 | `generate_blog_tables.py` | Generate tables for the published article |
@@ -126,10 +111,29 @@ Applies the leveraged + OTM puts framework to non-equity asset classes using CME
 ```
 research/
   spitznagel_spy/           Core tail hedge thesis (SPY, Tiingo data 2008-2025)
-  spy_options_strategies/   Options strategy analysis (SPY, same data)
+    README.md                 Hand-written findings
+    ANALYSIS.md               Narrative analysis (no code)
+    cross_asset_notes.md      Notes on applying to other asset classes
+    run.py                    Reproduce all charts and tables
+    charts/                   Generated PNGs
   fx_carry_hedged/          FX carry + tail hedge (Databento CME data 2010-2026)
+    README.md                 Findings
+    run.py                    --analysis {fx_carry_real,multi_asset,portfolio,leverage,all}
+    charts/
   cross_asset_spitznagel/   Spitznagel structure on futures (Databento CME data)
-scripts/                    Backtesting scripts, sweeps, and verification
+    README.md                 Findings
+    run.py                    Orchestrator for all five analyses
+    run_equity.py             ES futures + puts
+    run_treasury.py           ZN/ZB + puts
+    run_bond_carry.py         US-UK bond carry + OZN options
+    run_commodity.py          Gold, crude, copper, natgas + puts
+    run_combined.py           Combined multi-asset portfolio
+    charts/
+scripts/
+  backtest_runner.py        Shared helpers for SPY-based backtests
+  databento_helpers.py      Shared Databento helpers (front-month, stats, option parsing)
+  nb_style.py               FT-inspired matplotlib styling
+  ...                       Sweeps, benchmarks, verification scripts
 data/
   databento/                CME futures and options data (Databento parquets)
   processed/                Processed CSVs (options.csv, stocks.csv, signals.csv)

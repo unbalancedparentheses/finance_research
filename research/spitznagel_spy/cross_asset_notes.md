@@ -2,7 +2,7 @@
 
 **Date:** February 2026
 **Data:** SPY options 2008-2025 (~24.7M rows)
-**Notebook:** `beyond_spitznagel` (deleted — pure barbell fails, see summary.md)
+**Context:** Pure barbell approach (vol selling + tail protection, no equity) was tested and failed — see README.md
 
 ---
 
@@ -631,7 +631,7 @@ Both would require downloading historical options data from CME DataMine or Data
 
 ## 8. Real FX Options Backtest: AUD/USD (Databento CME Data)
 
-**Notebook:** `research/fx_carry_hedged/fx_carry_real.md`
+**Source:** `research/fx_carry_hedged/run.py`
 
 We bought real CME AUD futures options from Databento (~$5.57 total cost) and ran the backtest with actual market prices. This is the first test using real option data instead of synthetic Black-Scholes pricing.
 
@@ -693,7 +693,7 @@ The puts helped in 3 of 6 crises. They failed in 2015 (AUD drop was too gradual)
 
 ## 8b. Leveraged AUD/JPY Carry + OTM Puts (The Real Carry Trade)
 
-**Notebook:** `research/fx_carry_hedged/fx_carry_real.md` (updated)
+**Source:** `research/fx_carry_hedged/run.py`
 
 The previous section tested AUD/USD — the wrong pair. AUD/USD carry was only 0.95%/yr over 2010-2026 because the Fed hiked above the RBA in 2018-2024. The **real** carry trade is AUD/JPY, where the differential averaged 2.47%/yr over the same period (BOJ held at ~0% until 2024).
 
@@ -771,7 +771,7 @@ The carry trade's appeal is **diversification**, not replacement. In 2011, AUD p
 
 ## 8c. Dual-Leg Hedge: AUD Puts + JPY Calls
 
-**Notebook:** `research/fx_carry_hedged/fx_carry_real.md` (updated)
+**Source:** `research/fx_carry_hedged/run.py`
 
 The imperfect hedge problem from 8b: our AUD/USD puts only protect against AUD weakness, but AUD/JPY can crash from **JPY strength** too (which doesn't move AUD/USD). The fix: add JPY calls on 6J futures — when JPY strengthens, 6J rises above strike and the calls pay off.
 
