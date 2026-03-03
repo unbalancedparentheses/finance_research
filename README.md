@@ -10,7 +10,7 @@ The work so far focuses on Spitznagel's tail hedging thesis and whether it gener
 
 Does a small allocation to deep OTM puts improve long-run geometric compounding? Spitznagel says yes, the puts reduce variance drain (sigma^2/2) by more than they cost. AQR says no, puts are expensive insurance that drags returns.
 
-Both are right, but they test different things. AQR reduces equity to fund puts (of course that loses). Spitznagel keeps 100% equity and adds puts on top as a leveraged overlay costing ~0.5%/yr. We tested this on 17.9 years of real SPY options data (24.7M rows, 2008-2025):
+AQR makes two mistakes. First, they test near-ATM puts (delta ~-0.35, ~5% OTM) which are expensive and decay fast. When you use deep OTM puts (delta -0.10 to -0.02) in AQR's own no-leverage framing, they beat SPY: 99% SPY + 1% deep OTM puts returns 14.1% vs 11.1% for SPY alone, with max drawdown improving from -51.9% to -43.1%. AQR is wrong even without leverage because they picked the wrong strikes. Second, Spitznagel doesn't reduce equity to fund puts. He keeps 100% equity and adds puts on top as a leveraged overlay costing ~0.5%/yr. We tested both framings on 17.9 years of real SPY options data (24.7M rows, 2008-2025):
 
 - Every configuration beats SPY. 0.5% budget: 16.0% CAGR vs 11.1%, Sharpe 0.90 vs 0.55, max DD -47% vs -52%.
 - All 36 parameter combinations in a grid search beat SPY. Not parameter-picking, the strategy is robust.
