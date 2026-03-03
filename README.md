@@ -32,165 +32,30 @@ See [`data/README.md`](data/README.md) for details on data sources and formats.
 
 ### [`spitznagel_spy/`](research/spitznagel_spy/) — Spitznagel Thesis on SPY
 
-The core research thread. Tests whether deep OTM puts improve geometric compounding via variance drain reduction. Uses SPY options data 2008-2025 from Tiingo/OptionsDX.
-
-- [`README.md`](research/spitznagel_spy/README.md) — Hand-written findings with full data tables
-- [`ANALYSIS.md`](research/spitznagel_spy/ANALYSIS.md) — Authoritative analysis: AQR framing vs Spitznagel overlay, parameter sweeps, out-of-sample, calm periods
-- [`cross_asset_notes.md`](research/spitznagel_spy/cross_asset_notes.md) — Detailed notes on applying the structure to rates, FX, credit, commodities, EM debt
-- [`run.py`](research/spitznagel_spy/run.py) — Reproduce all analysis charts and tables
+The core research thread. Tests whether deep OTM puts improve geometric compounding via variance drain reduction. SPY options data 2008-2025 from Tiingo/OptionsDX.
 
 ### [`fx_carry_hedged/`](research/fx_carry_hedged/) — FX Carry + Tail Hedge
 
-FX carry trades with OTM put protection. Uses Databento CME futures data 2010-2026. Progression: single pair -> multi-pair -> portfolio construction -> leverage analysis.
-
-- [`README.md`](research/fx_carry_hedged/README.md) — Findings across all four analyses
-- [`run.py`](research/fx_carry_hedged/run.py) — `--analysis {fx_carry_real,multi_asset,portfolio,leverage,all}`
+FX carry trades with OTM put protection. Databento CME futures data 2010-2026. Progresses from single AUD/JPY pair to multi-pair portfolio construction with leverage sweeps.
 
 ### [`cross_asset_spitznagel/`](research/cross_asset_spitznagel/) — Spitznagel Structure Across Asset Classes
 
-Applies the leveraged + OTM puts framework to non-equity asset classes using CME futures from Databento.
+Applies the leveraged + OTM puts framework to equity (ES), treasuries (ZN/ZB), US-UK bond carry, and commodities (gold, crude, copper, natgas) using CME futures from Databento.
 
-- [`README.md`](research/cross_asset_spitznagel/README.md) — Findings across all five asset classes
-- [`run.py`](research/cross_asset_spitznagel/run.py) — Orchestrator: `python run.py equity treasury bond_carry commodity combined`
-- [`run_equity.py`](research/cross_asset_spitznagel/run_equity.py) — ES futures + puts (1x-10x leverage)
-- [`run_treasury.py`](research/cross_asset_spitznagel/run_treasury.py) — ZN/ZB Treasury futures + puts
-- [`run_bond_carry.py`](research/cross_asset_spitznagel/run_bond_carry.py) — US-UK bond carry (ZN vs Gilt) + OZN options
-- [`run_commodity.py`](research/cross_asset_spitznagel/run_commodity.py) — Gold, crude, copper, natgas carry + puts
-- [`run_combined.py`](research/cross_asset_spitznagel/run_combined.py) — Capstone: ES + FX Carry + Bond Carry combined
+Each directory has a `README.md` with findings and a `run.py` that reproduces all charts and tables.
 
 ## Scripts
 
-### Sweeps & Analysis
+`scripts/` contains parameter sweeps, validation scripts, and shared helpers. Each script has a docstring explaining what it does. Key ones:
 
-| Script | Purpose |
-|--------|---------|
-| `spitznagel_sweep.py` | Full parameter sweep across delta, DTE, allocation |
-| `sweep_otm.py` | OTM depth sweep |
-| `sweep_volatility.py` | Volatility regime sweep |
-| `sweep_leverage.py` | Leverage level sweep |
-| `sweep_iv_signal.py` | IV-based signal sweep |
-| `sweep_allocation.py` | Allocation percentage sweep |
-| `sweep_beat_spy.py` | Configurations that beat SPY |
-| `sweep_comprehensive.py` | All-parameter combinatorial sweep |
-| `run_spy_otm_puts.py` | Multi-dimensional strategy sweep (6 variants) |
-| `analyze_entries_exits.py` | Entry/exit timing and signal analysis for hedge trades |
-| `calm_period_experiment.py` | Performance during calm markets (2012-2018) |
-
-### Validation
-
-| Script | Purpose |
-|--------|---------|
-| `walk_forward_report.py` | Walk-forward out-of-sample validation |
-| `verify_blog_numbers.py` | Verify published article numbers |
-| `verify_aqr_numbers.py` | Reproduce AQR's published results |
-| `verify_atm_vs_otm.py` | ATM vs OTM direct comparison |
-
-### Utilities
-
-| Script | Purpose |
-|--------|---------|
-| `backtest_runner.py` | Shared helpers for sweep scripts (data loading, charting) |
-| `databento_helpers.py` | Shared Databento helpers (load_front_month, compute_stats, option parsing) |
-| `parallel_sweep.py` | Parallelized parameter sweep |
-| `nb_style.py` | Shared FT-inspired matplotlib styling |
-| `generate_blog_tables.py` | Generate tables for the published article |
-| `export_fx_results.py` | Export FX carry results to CSV |
-
-## Structure
-
-```
-research/
-  spitznagel_spy/           Core tail hedge thesis (SPY, Tiingo data 2008-2025)
-    README.md                 Hand-written findings
-    ANALYSIS.md               Narrative analysis (no code)
-    cross_asset_notes.md      Notes on applying to other asset classes
-    run.py                    Reproduce all charts and tables
-    charts/                   Generated PNGs
-  fx_carry_hedged/          FX carry + tail hedge (Databento CME data 2010-2026)
-    README.md                 Findings
-    run.py                    --analysis {fx_carry_real,multi_asset,portfolio,leverage,all}
-    charts/
-  cross_asset_spitznagel/   Spitznagel structure on futures (Databento CME data)
-    README.md                 Findings
-    run.py                    Orchestrator for all five analyses
-    run_equity.py             ES futures + puts
-    run_treasury.py           ZN/ZB + puts
-    run_bond_carry.py         US-UK bond carry + OZN options
-    run_commodity.py          Gold, crude, copper, natgas + puts
-    run_combined.py           Combined multi-asset portfolio
-    charts/
-scripts/
-  backtest_runner.py        Shared helpers for SPY-based backtests
-  databento_helpers.py      Shared Databento helpers (front-month, stats, option parsing)
-  nb_style.py               FT-inspired matplotlib styling
-  ...                       Sweeps, benchmarks, verification scripts
-data/
-  databento/                CME futures and options data (Databento parquets)
-  processed/                Processed CSVs (options.csv, stocks.csv, signals.csv)
-  raw/                      Raw OptionsDX downloads
-  fetch_data.py             Fetch stock data from Tiingo
-  fetch_signals.py          Fetch VIX/signal data
-  convert_optionsdx.py      Convert OptionsDX raw to processed CSVs
-REFERENCES.md               Annotated literature review (~25 papers)
-```
-
-## Future Work: Deepening the Spitznagel Research
-
-The current analysis is compelling but needs a higher standard of proof, tighter claim discipline, and more adversarial testing to move from a strong argument to great research.
-
-### Broader Validation
-
-The core result relies on one asset, one implementation family, and one historical window. It needs to be tested across multiple indices, longer histories, different volatility regimes, and multiple option markets. If the conclusion survives that, it stops looking like a clever backtest and starts looking like a durable finding.
-
-### Causal Decomposition
-
-The strongest claim is that AQR tests the wrong question because both framing and strike selection differ. To prove that cleanly, we need an explicit decomposition holding other variables constant:
-
-- Near-ATM vs deep OTM, holding funding constant
-- No-leverage vs overlay, holding strikes constant
-- Rebalance frequency, holding everything else constant
-
-This turns the argument from "this seems to be the driver" into "here is the marginal contribution of each driver."
-
-### Execution Realism
-
-Include conservative slippage, bid-ask spread assumptions by delta bucket, liquidity filters, and stress-period fill assumptions. If the effect survives realistic frictions, the result becomes much harder to dismiss.
-
-### Stricter Wording
-
-A few lines currently blur "shown" and "inferred." For each claim:
-
-- State what the table directly proves
-- State what is a plausible interpretation
-- Avoid stronger historical claims unless actually demonstrated
-
-### Delta Selection and Source Attribution
-
-There is no clean public primary source where Taleb or Universa state a single exact recommended delta. What is publicly verifiable:
-
-- **Confirmed**: Taleb/Universa use very far OTM puts, small premium budget, constant protection. Patterson describes Universa as "constantly" buying far OTM puts aimed at roughly a 20% S&P decline in one month, but no exact delta is given ([Tim Ferriss transcript, 2023](https://tim.blog/2023/09/08/nassim-nicholas-taleb-scott-patterson-transcript/)).
-- **Secondary inference**: A widely cited writeup estimates Universa uses roughly 0.01-delta puts, 70-90 DTE, around 30-35% OTM, but presents this as inference, not official specification ([Grey Enlightenment, 2016](https://greyenlightenment.com/2016/10/04/tail-hedging-part-2/)).
-- **Qualitative only**: Spitznagel's own book discussions describe puts as "extremely far out of the money" with ~0.5% monthly spend, without a verified delta ([Founders podcast transcript](https://podscripts.co/podcasts/founders/70-mark-spitznagel-the-dao-of-capital)).
-
-The article's test range of -0.10 to -0.02 delta should be presented as our chosen test range, not as a precise published Taleb/Spitznagel rule. If keeping a numeric range, frame it as: "we test across this spectrum" rather than "Taleb recommends X." Secondary commentary often pegs Universa even more extreme (~0.01 delta), which is beyond our current test range and worth exploring.
-
-### Out-of-Sample and Benchmark Discipline
-
-- Compare against alternative tail hedges, especially trend-following
-- Use walk-forward or pre-registered parameter choices rather than best-in-sample
-- Show robustness under less favorable crash assumptions
-- Include a benchmark that accounts for the external capital source in the overlay framing
+- `backtest_runner.py` — shared data loading and charting helpers
+- `databento_helpers.py` — shared Databento data loading and option parsing
+- `spitznagel_sweep.py` — full parameter sweep across delta, DTE, allocation
+- `walk_forward_report.py` — walk-forward out-of-sample validation
+- `verify_blog_numbers.py` / `verify_aqr_numbers.py` — reproduce published numbers
 
 ## References
 
-See [`REFERENCES.md`](REFERENCES.md) for an annotated literature review covering protective put overlays, covered calls, volatility strategies, tail hedging, and carry.
+See [`REFERENCES.md`](REFERENCES.md) for an annotated literature review (~25 papers) and book recommendations.
 
 For a general introduction to finance and economics for programmers, see this [post](https://notamonadtutorial.com/how-to-earn-your-macroeconomics-and-finance-white-belt-as-a-software-developer-136e7454866f).
-
-### Key Books
-
-**Introductory** — Option Volatility and Pricing (Natenberg), Options, Futures, and Other Derivatives (Hull), Trading Options Greeks (Passarelli)
-
-**Intermediate** — Trading Volatility (Bennett), Volatility Trading (Sinclair)
-
-**Advanced** — Dynamic Hedging (Taleb), The Volatility Surface (Gatheral), The Volatility Smile (Derman & Miller)

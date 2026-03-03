@@ -282,3 +282,40 @@ At 3.3%, the drag in a no-crash decade would be ~33% — painful enough to aband
 ---
 
 *The authoritative analysis is `ANALYSIS.md`, which corrects the no-leverage claims from the original and adds extended risk metrics, calm-period analysis, and the diminishing returns discussion.*
+
+## Future Work
+
+The current analysis is compelling but needs a higher standard of proof, tighter claim discipline, and more adversarial testing.
+
+### Broader Validation
+
+The core result relies on one asset, one implementation family, and one historical window. It needs to be tested across multiple indices, longer histories, different volatility regimes, and multiple option markets.
+
+### Causal Decomposition
+
+The strongest claim is that AQR tests the wrong question because both framing and strike selection differ. To prove that cleanly, we need an explicit decomposition holding other variables constant:
+
+- Near-ATM vs deep OTM, holding funding constant
+- No-leverage vs overlay, holding strikes constant
+- Rebalance frequency, holding everything else constant
+
+### Execution Realism
+
+Include conservative slippage, bid-ask spread assumptions by delta bucket, liquidity filters, and stress-period fill assumptions.
+
+### Delta Selection and Source Attribution
+
+There is no clean public primary source where Taleb or Universa state a single exact recommended delta. What is publicly verifiable:
+
+- **Confirmed**: Taleb/Universa use very far OTM puts, small premium budget, constant protection. Patterson describes Universa as "constantly" buying far OTM puts aimed at roughly a 20% S&P decline in one month, but no exact delta is given ([Tim Ferriss transcript, 2023](https://tim.blog/2023/09/08/nassim-nicholas-taleb-scott-patterson-transcript/)).
+- **Secondary inference**: A widely cited writeup estimates Universa uses roughly 0.01-delta puts, 70-90 DTE, around 30-35% OTM, but presents this as inference, not official specification ([Grey Enlightenment, 2016](https://greyenlightenment.com/2016/10/04/tail-hedging-part-2/)).
+- **Qualitative only**: Spitznagel's own book discussions describe puts as "extremely far out of the money" with ~0.5% monthly spend, without a verified delta ([Founders podcast transcript](https://podscripts.co/podcasts/founders/70-mark-spitznagel-the-dao-of-capital)).
+
+The article's test range of -0.10 to -0.02 delta should be presented as our chosen test range, not as a precise published Taleb/Spitznagel rule.
+
+### Out-of-Sample and Benchmark Discipline
+
+- Compare against alternative tail hedges, especially trend-following
+- Use walk-forward or pre-registered parameter choices rather than best-in-sample
+- Show robustness under less favorable crash assumptions
+- Include a benchmark that accounts for the external capital source in the overlay framing
