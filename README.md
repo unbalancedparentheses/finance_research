@@ -85,16 +85,6 @@ Applies the leveraged + OTM puts framework to non-equity asset classes using CME
 | `verify_aqr_numbers.py` | Reproduce AQR's published results |
 | `verify_atm_vs_otm.py` | ATM vs OTM direct comparison |
 
-### Benchmarking
-
-| Script | Purpose |
-|--------|---------|
-| `benchmark_rust_vs_python.py` | Backtester engine performance comparison |
-| `benchmark_sweep.py` | Rust parallel_sweep vs Python sequential grid search |
-| `benchmark_large_pipeline.py` | Full-dataset (24.7M rows) Rust vs Python benchmark |
-| `benchmark_matrix.py` | Multi-scenario benchmark scorecard |
-| `compare_with_bt.py` | Head-to-head comparison with the `bt` library |
-
 ### Utilities
 
 | Script | Purpose |
