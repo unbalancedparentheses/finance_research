@@ -26,7 +26,7 @@ CHARTS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'charts')
 
 from backtest_runner import (
     load_data, run_backtest, INITIAL_CAPITAL,
-    make_puts_strategy, make_deep_otm_put_strategy,
+    make_puts_strategy, make_deep_otm_put_strategy, make_atm_put_strategy,
 )
 from options_portfolio_backtester import Order
 from nb_style import apply_style, shade_crashes, color_excess, style_returns_table, FT_GREEN, FT_RED, FT_BLUE
@@ -161,6 +161,22 @@ for pct_label, blog_val in blog_numbers.items():
     budget_val = no_lev_budget_results[budget_idx]['annual_ret']
     print(f'{pct_label:<20} {alloc_val:>14.2f} {budget_val:>15.2f} {blog_val:>13.2f}')
 
+# Run blog params (DTE 90-180, exit DTE 14, monthly-only exits) for comparison
+print('\n=== Blog Params Comparison (DTE 90-180, exit 14, monthly exits) ===')
+print(f'{"Config":<20} {"Our config":>12} {"Blog params":>12} {"Blog article":>13}')
+print('-' * 60)
+blog_param_budgets = [0.001, 0.005, 0.01, 0.033]
+blog_param_labels = ['0.1%', '0.5%', '1.0%', '3.3%']
+for bp, label in zip(blog_param_budgets, blog_param_labels):
+    r_blog = run_backtest(
+        f'blog-params {label}', 1.0, 0.0,
+        lambda: make_deep_otm_put_strategy(schema, dte_min=90, dte_max=180, exit_dte=14),
+        data, budget_pct=bp, check_exits_daily=False)
+    our_idx = list(blog_numbers.keys()).index(label)
+    our_val = no_lev_budget_results[our_idx]['annual_ret']
+    blog_val = blog_numbers[label]
+    print(f'{label:<20} {our_val:>12.2f} {r_blog["annual_ret"]:>12.2f} {blog_val:>13.2f}')
+
 # ---------------------------------------------------------------------------
 # 3. The Spitznagel Test: With Leverage (100% Equity + Puts on Top)
 # ---------------------------------------------------------------------------
@@ -232,6 +248,65 @@ styled_lev = (df_leverage.style
 style_returns_table(styled_lev).set_caption(
     'Leverage Breakdown: Tiny Leverage, Massive Convex Payoff'
 )
+
+# ---------------------------------------------------------------------------
+# 3c. Side-by-Side: Deep OTM vs ATM, Leveraged vs No-Leverage
+# ---------------------------------------------------------------------------
+print('\n=== Side-by-Side Comparison: Strike Selection x Leverage ===')
+budgets = [0.005, 0.01, 0.033]
+budget_labels = ['0.5%', '1.0%', '3.3%']
+
+comparison_rows = []
+# SPY baseline
+comparison_rows.append({
+    'Strategy': 'SPY B&H', 'Type': '-', 'Framing': '-', 'Budget': '-',
+    'Annual %': lev_results[0]['annual_ret'], 'Excess %': 0.0,
+    'Max DD %': lev_results[0]['max_dd'],
+})
+
+for bp, label in zip(budgets, budget_labels):
+    # Deep OTM leveraged (already computed above)
+    lev_idx = {0.005: 4, 0.01: 5, 0.033: 7}[bp]
+    r = lev_results[lev_idx]
+    comparison_rows.append({
+        'Strategy': f'Deep OTM {label} (leveraged)', 'Type': 'Deep OTM', 'Framing': 'Leveraged',
+        'Budget': label, 'Annual %': r['annual_ret'], 'Excess %': r['excess_annual'],
+        'Max DD %': r['max_dd'],
+    })
+    # Deep OTM no-leverage (allocation-based, NOT budget_pct)
+    r = run_backtest(f'Deep OTM {label} (no-lev)', 1.0 - bp, bp,
+                     lambda: make_deep_otm_put_strategy(schema), data)
+    comparison_rows.append({
+        'Strategy': f'Deep OTM {label} (no-leverage)', 'Type': 'Deep OTM', 'Framing': 'No-leverage',
+        'Budget': label, 'Annual %': r['annual_ret'], 'Excess %': r['excess_annual'],
+        'Max DD %': r['max_dd'],
+    })
+    # ATM leveraged (externally funded)
+    r = run_backtest(f'ATM {label} (leveraged)', 1.0, 0.0,
+                     lambda: make_atm_put_strategy(schema), data, budget_pct=bp)
+    comparison_rows.append({
+        'Strategy': f'ATM {label} (leveraged)', 'Type': 'ATM', 'Framing': 'Leveraged',
+        'Budget': label, 'Annual %': r['annual_ret'], 'Excess %': r['excess_annual'],
+        'Max DD %': r['max_dd'],
+    })
+    # ATM no-leverage (allocation-based, NOT budget_pct)
+    r = run_backtest(f'ATM {label} (no-lev)', 1.0 - bp, bp,
+                     lambda: make_atm_put_strategy(schema), data)
+    comparison_rows.append({
+        'Strategy': f'ATM {label} (no-leverage)', 'Type': 'ATM', 'Framing': 'No-leverage',
+        'Budget': label, 'Annual %': r['annual_ret'], 'Excess %': r['excess_annual'],
+        'Max DD %': r['max_dd'],
+    })
+
+df_comp = pd.DataFrame(comparison_rows)
+styled_comp = (df_comp[['Strategy', 'Annual %', 'Excess %', 'Max DD %']].style
+    .format({'Annual %': '{:.2f}', 'Excess %': '{:+.2f}', 'Max DD %': '{:.1f}'})
+    .map(color_excess, subset=['Excess %'])
+)
+style_returns_table(styled_comp).set_caption('Strike Selection x Leverage: All Combinations')
+
+for row in comparison_rows:
+    print(f"  {row['Strategy']:<35} annual {row['Annual %']:+.2f}%  excess {row['Excess %']:+.2f}%  DD {row['Max DD %']:.1f}%")
 
 # ---------------------------------------------------------------------------
 # 4. Capital Curves: AQR Framing vs Spitznagel Framing
@@ -698,11 +773,11 @@ for r in all_lev:
 # 10a. DTE Range Sweep
 # ---------------------------------------------------------------------------
 dte_configs = [
-    ('DTE 30-60',   30,  60,  7),
-    ('DTE 60-120',  60,  120, 14),
-    ('DTE 90-180',  90,  180, 14),
-    ('DTE 120-240', 120, 240, 30),
-    ('DTE 180-365', 180, 365, 30),
+    ('DTE 30-60',   30,  60,  14),
+    ('DTE 60-90',   60,  90,  30),
+    ('DTE 90-120',  90,  120, 45),
+    ('DTE 120-180', 120, 180, 60),
+    ('DTE 180-365', 180, 365, 90),
 ]
 
 dte_results = []
@@ -841,9 +916,9 @@ style_returns_table(styled).set_caption('Exit Timing Sweep: When to sell? (0.5% 
 # ---------------------------------------------------------------------------
 from itertools import product
 
-grid_dte = [(90, 180, 14), (120, 240, 30)]
+grid_dte = [(60, 90, 30), (90, 120, 45)]
 grid_delta = [(-0.10, -0.02), (-0.15, -0.05)]
-grid_exit = [14, 30, 60]
+grid_exit = [21, 30, 45]
 grid_budget = [0.003, 0.005, 0.01]
 
 combos = list(product(grid_dte, grid_delta, grid_exit, grid_budget))
@@ -893,6 +968,7 @@ _base_config = {
     "loss_pct": None,
     "stocks": [("SPY", 1.0)],
     "options_budget_pct": 0.005,
+    "check_exits_daily": True,
 }
 
 _schema_mapping = {

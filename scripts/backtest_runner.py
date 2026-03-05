@@ -133,6 +133,34 @@ def make_puts_strategy(schema: Any) -> Strategy:
     return s
 
 
+def make_atm_put_strategy(
+    schema: Any,
+    delta_min: float = -0.55,
+    delta_max: float = -0.40,
+    dte_min: int = 60,
+    dte_max: int = 90,
+    exit_dte: int = 30,
+) -> Strategy:
+    """ATM put hedge: buy near-the-money puts (expensive insurance).
+
+    AQR argues these are the most efficient hedge but also the most
+    expensive. In the leveraged overlay, the high premium cost should
+    drag returns significantly.
+    """
+    leg = StrategyLeg('leg_1', schema, option_type=Type.PUT, direction=Direction.BUY)
+    leg.entry_filter = (
+        (schema.underlying == 'SPY')
+        & (schema.dte >= dte_min) & (schema.dte <= dte_max)
+        & (schema.delta >= delta_min) & (schema.delta <= delta_max)
+    )
+    leg.entry_sort = ('delta', False)
+    leg.exit_filter = (schema.dte <= exit_dte)
+    s = Strategy(schema)
+    s.add_leg(leg)
+    s.add_exit_thresholds(profit_pct=math.inf, loss_pct=math.inf)
+    return s
+
+
 def make_calls_strategy(schema: Any) -> Strategy:
     """OTM call momentum: buy delta 0.10 to 0.25 calls."""
     leg = StrategyLeg('leg_1', schema, option_type=Type.CALL, direction=Direction.BUY)
@@ -285,9 +313,9 @@ def make_deep_otm_put_strategy(
     schema: Any,
     delta_min: float = -0.10,
     delta_max: float = -0.02,
-    dte_min: int = 90,
-    dte_max: int = 180,
-    exit_dte: int = 14,
+    dte_min: int = 60,
+    dte_max: int = 90,
+    exit_dte: int = 30,
 ) -> Strategy:
     """Deep OTM tail hedge (Universa-style): buy far-OTM puts.
 
@@ -322,6 +350,7 @@ def run_backtest(
     initial_capital: int = INITIAL_CAPITAL,
     rebal_months: int = REBAL_MONTHS,
     rebal_unit: str = 'BMS',
+    check_exits_daily: bool = True,
 ) -> dict[str, Any]:
     """Run a single backtest configuration and return results dict.
 
@@ -340,7 +369,8 @@ def run_backtest(
     bt.stocks_data = data['stocks_data']
     bt.options_strategy = strategy_fn()
     bt.options_data = data['options_data']
-    bt.run(rebalance_freq=rebal_months, rebalance_unit=rebal_unit)
+    bt.run(rebalance_freq=rebal_months, rebalance_unit=rebal_unit,
+           check_exits_daily=check_exits_daily)
 
     balance = bt.balance
     total_cap = balance['total capital']

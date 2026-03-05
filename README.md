@@ -10,12 +10,13 @@ The work so far focuses on Spitznagel's tail hedging thesis and whether it gener
 
 Does a small allocation to deep OTM puts improve long-run geometric compounding? Spitznagel says yes, the puts reduce variance drain (sigma^2/2) by more than they cost. AQR says no, puts are expensive insurance that drags returns.
 
-AQR makes two mistakes. First, they test near-ATM puts (delta ~-0.35, ~5% OTM) which are expensive and decay fast. When you use deep OTM puts (delta -0.10 to -0.02) in AQR's own no-leverage framing, they beat SPY: 99% SPY + 1% deep OTM puts returns 14.1% vs 11.1% for SPY alone, with max drawdown improving from -51.9% to -43.1%. AQR is wrong even without leverage because they picked the wrong strikes. Second, Spitznagel doesn't reduce equity to fund puts. He keeps 100% equity and adds puts on top as a leveraged overlay costing ~0.5%/yr. We tested both framings on 17.9 years of real SPY options data (24.7M rows, 2008-2025):
+AQR is right in their no-leverage framing: reducing equity to fund puts always underperforms SPY. But this is not what Spitznagel proposes. He keeps 100% equity and adds puts on top as a leveraged overlay costing ~0.5%/yr. We tested both framings on 17.9 years of real SPY options data (24.7M rows, 2008-2025):
 
-- Every configuration beats SPY. 0.5% budget: 16.0% CAGR vs 11.1%, Sharpe 0.90 vs 0.55, max DD -47% vs -52%.
-- All 36 parameter combinations in a grid search beat SPY. Not parameter-picking, the strategy is robust.
-- The result holds in both halves of an out-of-sample split and during the 2010-2019 bull market (no crash > -20%).
-- The puts lose money even during crashes (-$1.6M on $2M premium). The benefit is second-order: reduced variance drain on geometric compounding, not direct option profits.
+- Every configuration beats SPY on both return and max drawdown in the leveraged framing. 0.5% budget: 13.5% CAGR vs 11.1%, max DD -50% vs -52%. At 3.3%: 26.2% CAGR, -39% DD.
+- ATM puts outperform deep OTM in the leveraged overlay (14.3% vs 13.5% at 0.5%, 33.2% vs 26.2% at 3.3%). Both lose in the no-leverage framing.
+- All 36 parameter combinations in a grid search beat SPY. Median excess +2.31%/yr. Not parameter-picking, the strategy is robust (spread/median ratio 2.2x).
+- The result holds in both halves of an out-of-sample split (+1.96% first half, +2.92% second half) and during the 2010-2019 bull market where the 0.5% strategy improves Sharpe from 0.90 to 1.09.
+- The puts make money during crashes (+$148k) but lose in calm markets (-$1.5M). Total put P&L is negative, but the crash payoffs reduce drawdowns and the variance drain reduction improves geometric compounding.
 - The edge concentrates around 3 crashes in 17 years. If crashes of -30%+ stop happening once per decade, the strategy stops working.
 
 Published writeup: [The Tail Hedge Debate: Spitznagel Is Right, AQR Is Answering the Wrong Question](https://federicocarrone.com/series/leptokurtic/the-tail-hedge-debate-spitznagel-is-right/)
