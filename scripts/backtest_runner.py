@@ -318,6 +318,7 @@ def run_backtest(
     strategy_fn: Callable[[], Strategy],
     data: dict[str, Any],
     budget_fn: Callable[[pd.Timestamp, float], float] | None = None,
+    budget_pct: float | None = None,
     initial_capital: int = INITIAL_CAPITAL,
     rebal_months: int = REBAL_MONTHS,
     rebal_unit: str = 'BMS',
@@ -331,7 +332,9 @@ def run_backtest(
         {'stocks': stock_pct, 'options': opt_pct, 'cash': 0.0},
         initial_capital=initial_capital,
     )
-    if budget_fn is not None:
+    if budget_pct is not None:
+        bt.options_budget_pct = budget_pct
+    elif budget_fn is not None:
         bt.options_budget = budget_fn
     bt.stocks = [Stock('SPY', 1.0)]
     bt.stocks_data = data['stocks_data']

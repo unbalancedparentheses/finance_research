@@ -110,6 +110,58 @@ styled = df.style.format({'Annual %': '{:.2f}', 'Vol %': '{:.1f}', 'Max DD %': '
 style_returns_table(styled).set_caption('AQR framing: reduce equity to fund puts (NO leverage) — always loses')
 
 # ---------------------------------------------------------------------------
+# 2b. DEBUG: No Leverage via Budget (spend X% of portfolio as premium, 99% equity)
+# ---------------------------------------------------------------------------
+print('\n=== DEBUG: No-leverage via BUDGET approach ===')
+print('Same equity reduction but using budget_fn instead of allocation split.\n')
+
+no_lev_budget_configs = [
+    ('Budget 0.1%',  0.001),
+    ('Budget 0.5%',  0.005),
+    ('Budget 1.0%',  0.01),
+    ('Budget 3.3%',  0.033),
+]
+
+no_lev_budget_results = []
+for name, bp in no_lev_budget_configs:
+    print(f'  {name}...', end=' ', flush=True)
+    stock_pct = 1.0 - bp  # e.g. 0.99 for 1% budget
+    r = run_backtest(name, stock_pct, 0.0, lambda: make_deep_otm_put_strategy(schema), data, budget_pct=bp)
+    no_lev_budget_results.append(r)
+    print(f'annual {r["annual_ret"]:+.2f}%, excess {r["excess_annual"]:+.2f}%, DD {r["max_dd"]:.1f}%')
+
+rows_debug = []
+for r in no_lev_budget_results:
+    d = r['balance']['% change'].dropna()
+    vol = d.std() * np.sqrt(252) * 100
+    rows_debug.append({
+        'Strategy': r['name'], 'Annual %': r['annual_ret'],
+        'Vol %': vol, 'Max DD %': r['max_dd'],
+        'Excess %': r['excess_annual'], 'Trades': r['trades'],
+    })
+df_debug = pd.DataFrame(rows_debug)
+print('\nNo-leverage via budget:')
+print(df_debug.to_string(index=False))
+
+# Also compare: what does leveraged (stocks=1.0) give for same budgets?
+print('\n=== DEBUG: Leveraged (stocks=1.0) for same budgets ===')
+for name, bp in no_lev_budget_configs:
+    print(f'  Leveraged {name}...', end=' ', flush=True)
+    r = run_backtest(f'Lev {name}', 1.0, 0.0, lambda: make_deep_otm_put_strategy(schema), data, budget_pct=bp)
+    print(f'annual {r["annual_ret"]:+.2f}%, excess {r["excess_annual"]:+.2f}%, DD {r["max_dd"]:.1f}%')
+
+print('\n=== Comparison: Allocation vs Budget vs Blog ===')
+print(f'{"Config":<20} {"Alloc annual%":>14} {"Budget annual%":>15} {"Blog annual%":>13}')
+print('-' * 65)
+blog_numbers = {'0.1%': 11.40, '0.5%': 12.63, '1.0%': 14.11, '3.3%': 20.74}
+alloc_map = {'0.1%': 1, '0.5%': 2, '1.0%': 3, '3.3%': 4}  # indices into no_lev_results
+for pct_label, blog_val in blog_numbers.items():
+    alloc_val = no_lev_results[alloc_map[pct_label]]['annual_ret'] if pct_label in alloc_map else 'N/A'
+    budget_idx = list(blog_numbers.keys()).index(pct_label)
+    budget_val = no_lev_budget_results[budget_idx]['annual_ret']
+    print(f'{pct_label:<20} {alloc_val:>14.2f} {budget_val:>15.2f} {blog_val:>13.2f}')
+
+# ---------------------------------------------------------------------------
 # 3. The Spitznagel Test: With Leverage (100% Equity + Puts on Top)
 # ---------------------------------------------------------------------------
 leverage_configs = [
@@ -126,11 +178,7 @@ leverage_configs = [
 lev_results = []
 for name, budget_pct in leverage_configs:
     print(f'  {name}...', end=' ', flush=True)
-    bfn = None
-    if budget_pct is not None:
-        _bp = budget_pct
-        bfn = lambda date, tc, bp=_bp: tc * bp
-    r = run_backtest(name, 1.0, 0.0, lambda: make_deep_otm_put_strategy(schema), data, budget_fn=bfn)
+    r = run_backtest(name, 1.0, 0.0, lambda: make_deep_otm_put_strategy(schema), data, budget_pct=budget_pct)
     lev_results.append(r)
     print(f'annual {r["annual_ret"]:+.2f}%, excess {r["excess_annual"]:+.2f}%, DD {r["max_dd"]:.1f}%')
 
@@ -232,9 +280,7 @@ std_lev_configs = [
 std_lev_results = [lev_results[0]]  # baseline
 for name, budget_pct in std_lev_configs:
     print(f'  {name}...', end=' ', flush=True)
-    _bp = budget_pct
-    bfn = lambda date, tc, bp=_bp: tc * bp
-    r = run_backtest(name, 1.0, 0.0, lambda: make_puts_strategy(schema), data, budget_fn=bfn)
+    r = run_backtest(name, 1.0, 0.0, lambda: make_puts_strategy(schema), data, budget_pct=budget_pct)
     std_lev_results.append(r)
     print(f'annual {r["annual_ret"]:+.2f}%, excess {r["excess_annual"]:+.2f}%, DD {r["max_dd"]:.1f}%')
 
@@ -263,12 +309,12 @@ plt.savefig(os.path.join(CHARTS_DIR, 'deep_vs_standard_otm_leveraged.png'), dpi=
 # ---------------------------------------------------------------------------
 r_analysis = run_backtest('Deep OTM 0.5% (leveraged)', 1.0, 0.0,
                           lambda: make_deep_otm_put_strategy(schema), data,
-                          budget_fn=lambda date, tc: tc * 0.005)
+                          budget_pct=0.005)
 trade_log = r_analysis['trade_log']
 
 if len(trade_log) > 0:
     first_leg = trade_log.columns.levels[0][0]
-    entry_mask = trade_log[first_leg]['order'].isin([Order.BTO, Order.STO])
+    entry_mask = trade_log[first_leg]['order'].isin([Order.BTO.value, Order.STO.value])
     entries = trade_log[entry_mask]
     exits = trade_log[~entry_mask]
 
@@ -667,7 +713,7 @@ for name, dte_min, dte_max, exit_dte in dte_configs:
         lambda dmin=dte_min, dmax=dte_max, edte=exit_dte: make_deep_otm_put_strategy(
             schema, dte_min=dmin, dte_max=dmax, exit_dte=edte),
         data,
-        budget_fn=lambda date, tc: tc * 0.005,
+        budget_pct=0.005,
     )
     dte_results.append(r)
     print(f'annual {r["annual_ret"]:+.2f}%, excess {r["excess_annual"]:+.2f}%, DD {r["max_dd"]:.1f}%')
@@ -701,7 +747,7 @@ for name, freq in rebal_configs:
         name, 1.0, 0.0,
         lambda: make_deep_otm_put_strategy(schema),
         data,
-        budget_fn=lambda date, tc: tc * 0.005,
+        budget_pct=0.005,
         rebal_months=freq,
     )
     rebal_results.append(r)
@@ -738,7 +784,7 @@ for name, dmin, dmax in delta_configs:
         lambda d1=dmin, d2=dmax: make_deep_otm_put_strategy(
             schema, delta_min=d1, delta_max=d2),
         data,
-        budget_fn=lambda date, tc: tc * 0.005,
+        budget_pct=0.005,
     )
     delta_results.append(r)
     print(f'annual {r["annual_ret"]:+.2f}%, excess {r["excess_annual"]:+.2f}%, DD {r["max_dd"]:.1f}%')
@@ -773,7 +819,7 @@ for name, exit_dte in exit_configs:
         name, 1.0, 0.0,
         lambda edte=exit_dte: make_deep_otm_put_strategy(schema, exit_dte=edte),
         data,
-        budget_fn=lambda date, tc: tc * 0.005,
+        budget_pct=0.005,
     )
     exit_results.append(r)
     print(f'annual {r["annual_ret"]:+.2f}%, excess {r["excess_annual"]:+.2f}%, DD {r["max_dd"]:.1f}%')
@@ -800,31 +846,109 @@ grid_delta = [(-0.10, -0.02), (-0.15, -0.05)]
 grid_exit = [14, 30, 60]
 grid_budget = [0.003, 0.005, 0.01]
 
-grid_results = []
 combos = list(product(grid_dte, grid_delta, grid_exit, grid_budget))
-print(f'Running {len(combos)} combinations...\n')
+print(f'Running {len(combos)} combinations via Rust parallel sweep...\n')
 
-for i, ((dte_min, dte_max, _), (d_min, d_max), exit_dte, budget) in enumerate(combos):
-    name = f'DTE{dte_min}-{dte_max} delta({d_min},{d_max}) exit{exit_dte} b{budget*100:.1f}%'
-    if (i + 1) % 6 == 0:
-        print(f'  [{i+1}/{len(combos)}] {name}...')
-    r = run_backtest(
-        name, 1.0, 0.0,
-        lambda dmin=dte_min, dmax=dte_max, dl=d_min, dh=d_max, e=exit_dte:
-            make_deep_otm_put_strategy(schema, delta_min=dl, delta_max=dh,
-                                        dte_min=dmin, dte_max=dmax, exit_dte=e),
-        data,
-        budget_fn=lambda date, tc, b=budget: tc * b,
-    )
-    d = r['balance']['% change'].dropna()
-    vol = d.std() * np.sqrt(252) * 100
-    sharpe = r['annual_ret'] / vol if vol > 0 else 0
+import time as _time
+import polars as pl
+import pyarrow as pa
+from options_portfolio_backtester.data.providers import HistoricalOptionsData, TiingoData
+
+_opts_data = data['options_data']
+_stocks_data = data['stocks_data']
+_opts_schema = _opts_data.schema
+_stocks_schema = _stocks_data.schema
+
+# Build rebalance dates as nanosecond timestamps
+_dates_df = (
+    pd.DataFrame(_opts_data._data[["quotedate", "volume"]])
+    .drop_duplicates("quotedate")
+    .set_index("quotedate")
+)
+_rb_days = pd.to_datetime(
+    _dates_df.groupby(pd.Grouper(freq="1BMS"))
+    .apply(lambda x: x.index.min())
+    .values
+)
+_rb_date_ns = [int(d.value) for d in _rb_days if not pd.isna(d)]
+
+# Build base config using default deep OTM put strategy
+_base_strat = make_deep_otm_put_strategy(schema)
+_base_leg = _base_strat.legs[0]
+_base_config = {
+    "allocation": {"stocks": 1.0, "options": 0.0, "cash": 0.0},
+    "initial_capital": float(INITIAL_CAPITAL),
+    "shares_per_contract": 100,
+    "rebalance_dates": _rb_date_ns,
+    "legs": [{
+        "name": _base_leg.name,
+        "entry_filter": _base_leg.entry_filter.query,
+        "exit_filter": _base_leg.exit_filter.query,
+        "direction": _base_leg.direction.price_column,
+        "type": _base_leg.type.value,
+        "entry_sort_col": _base_leg.entry_sort[0] if _base_leg.entry_sort else None,
+        "entry_sort_asc": _base_leg.entry_sort[1] if _base_leg.entry_sort else True,
+    }],
+    "profit_pct": None,
+    "loss_pct": None,
+    "stocks": [("SPY", 1.0)],
+    "options_budget_pct": 0.005,
+}
+
+_schema_mapping = {
+    "contract": _opts_schema["contract"],
+    "date": _opts_schema["date"],
+    "stocks_date": _stocks_schema["date"],
+    "stocks_symbol": _stocks_schema["symbol"],
+    "stocks_price": _stocks_schema["adjClose"],
+    "underlying": _opts_schema["underlying"],
+    "expiration": _opts_schema["expiration"],
+    "type": _opts_schema["type"],
+    "strike": _opts_schema["strike"],
+}
+
+# Convert to Polars
+_opts_pl = pl.from_arrow(pa.Table.from_pandas(_opts_data._data, preserve_index=False))
+_stocks_pl = pl.from_arrow(pa.Table.from_pandas(_stocks_data._data, preserve_index=False))
+
+# Build param overrides
+_param_grid = []
+for (dte_min, dte_max, _), (d_min, d_max), exit_dte, budget in combos:
+    label = f'DTE{dte_min}-{dte_max} delta({d_min},{d_max}) exit{exit_dte} b{budget*100:.1f}%'
+    entry_q = (f"((type == 'put') & (ask > 0)) & (((((underlying == 'SPY')"
+               f" & (dte >= {dte_min})) & (dte <= {dte_max}))"
+               f" & (delta >= {d_min})) & (delta <= {d_max}))")
+    exit_q = f"(type == 'put') & (dte <= {exit_dte})"
+    _param_grid.append({
+        "label": label,
+        "leg_entry_filters": [entry_q],
+        "leg_exit_filters": [exit_q],
+        "options_budget_pct": budget,
+    })
+
+_t0 = _time.perf_counter()
+from options_portfolio_backtester._ob_rust import parallel_sweep
+_sweep_results = parallel_sweep(
+    _opts_pl, _stocks_pl, _base_config, _schema_mapping, _param_grid, None,
+)
+_elapsed = _time.perf_counter() - _t0
+print(f'Parallel sweep done in {_elapsed:.1f}s')
+
+# Convert sweep results to the format the rest of the script expects
+spy_annual = data['spy_annual_ret']
+grid_results = []
+for res, ((dte_min, dte_max, _), (d_min, d_max), exit_dte, budget) in zip(_sweep_results, combos):
+    ann_ret = res['annualized_return'] * 100
+    max_dd = res['max_drawdown'] * 100
+    sharpe = res.get('sharpe_ratio', 0.0)
+    excess = ann_ret - spy_annual
     grid_results.append({
         'DTE': f'{dte_min}-{dte_max}', 'Delta': f'({d_min},{d_max})',
         'Exit DTE': exit_dte, 'Budget %': budget * 100,
-        'Annual %': r['annual_ret'], 'Excess %': r['excess_annual'],
-        'Max DD %': r['max_dd'], 'Vol %': vol, 'Sharpe': sharpe,
-        'Trades': r['trades'],
+        'Annual %': ann_ret, 'Excess %': excess,
+        'Max DD %': max_dd, 'Vol %': 0.0,  # not available from sweep stats
+        'Sharpe': sharpe,
+        'Trades': res.get('total_trades', 0),
     })
 
 df_grid = pd.DataFrame(grid_results)
@@ -912,7 +1036,7 @@ r_full = run_backtest(
     'Full period', 1.0, 0.0,
     lambda: make_deep_otm_put_strategy(schema),
     data,
-    budget_fn=lambda date, tc: tc * 0.005,
+    budget_pct=0.005,
 )
 
 bal = r_full['balance']
@@ -963,7 +1087,7 @@ r_sub = run_backtest(
     'subperiod test', 1.0, 0.0,
     lambda: make_deep_otm_put_strategy(schema),
     data,
-    budget_fn=lambda date, tc: tc * 0.005,
+    budget_pct=0.005,
 )
 
 bal = r_sub['balance']
@@ -1030,11 +1154,7 @@ calm_configs = [
 calm_results = []
 for name, framing, spct, opct, budget_pct in calm_configs:
     print(f'  {name}...', end=' ', flush=True)
-    bfn = None
-    if budget_pct is not None:
-        _bp = budget_pct
-        bfn = lambda date, tc, bp=_bp: tc * bp
-    r = run_backtest(name, spct, opct, lambda: make_deep_otm_put_strategy(schema), data, budget_fn=bfn)
+    r = run_backtest(name, spct, opct, lambda: make_deep_otm_put_strategy(schema), data, budget_pct=budget_pct)
     r['framing'] = framing
     calm_results.append(r)
     print(f'done')
@@ -1109,7 +1229,7 @@ for name, freq, unit in freq_configs:
         name, 1.0, 0.0,
         lambda: make_deep_otm_put_strategy(schema),
         data,
-        budget_fn=lambda date, tc: tc * 0.005,
+        budget_pct=0.005,
         rebal_months=freq,
         rebal_unit=unit,
     )
