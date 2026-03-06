@@ -1,14 +1,23 @@
 #!/usr/bin/env python3
-"""Parallel grid sweep using Rust's parallel_sweep (Rayon).
+"""Parallel put-hedge grid sweep using Rust Rayon.
 
-Tests OTM level x DTE x exit DTE x budget in parallel.
-Both leveraged and no-leverage modes.
+Importable module + CLI. ~36 configs/sec on Apple Silicon.
+
+Usage as library:
+    from sweep_parallel import init_engine, run_sweep, print_pivot
+    engine = init_engine()
+    df = run_sweep(engine, leveraged=True)
+    print_pivot(df, engine)
+
+Usage as CLI:
+    python sweep_parallel.py                # full default grid
+    python sweep_parallel.py --lev          # leveraged only
+    python sweep_parallel.py --nolev        # no-leverage only
 """
 
-import os, sys, warnings, math, time
+import os, sys, warnings, time, argparse
 warnings.filterwarnings('ignore')
 
-import numpy as np
 import pandas as pd
 import polars as pl
 import pyarrow as pa
@@ -18,91 +27,12 @@ sys.path.insert(0, os.path.join(PROJECT_ROOT, 'scripts'))
 os.chdir(PROJECT_ROOT)
 
 from backtest_runner import load_data, INITIAL_CAPITAL
-from options_portfolio_backtester import OptionType as Type, Direction
-from options_portfolio_backtester.strategy.strategy import Strategy
-from options_portfolio_backtester.strategy.strategy_leg import StrategyLeg
 from options_portfolio_backtester._ob_rust import parallel_sweep
-from options_portfolio_backtester.data.providers import HistoricalOptionsData, TiingoData
-
-data = load_data()
-schema = data['schema']
-spy_annual = data['spy_annual_ret']
-spy_dd = data['spy_dd']
 
 # =====================================================================
-# Prepare data for Rust engine
+# Default grid dimensions
 # =====================================================================
-opts_data = data['options_data']
-stocks_data = data['stocks_data']
-opts_schema = opts_data.schema
-stocks_schema = stocks_data.schema
-
-# Rebalance dates (business month start)
-dates_df = (
-    pd.DataFrame(opts_data._data[["quotedate", "volume"]])
-    .drop_duplicates("quotedate")
-    .set_index("quotedate")
-)
-rb_days = pd.to_datetime(
-    dates_df.groupby(pd.Grouper(freq="1BMS"))
-    .apply(lambda x: x.index.min())
-    .values
-)
-rb_date_ns = [int(d.value) for d in rb_days if not pd.isna(d)]
-
-# Schema mapping
-schema_mapping = {
-    "contract": opts_schema["contract"],
-    "date": opts_schema["date"],
-    "stocks_date": stocks_schema["date"],
-    "stocks_symbol": stocks_schema["symbol"],
-    "stocks_price": stocks_schema["adjClose"],
-    "underlying": opts_schema["underlying"],
-    "expiration": opts_schema["expiration"],
-    "type": opts_schema["type"],
-    "strike": opts_schema["strike"],
-}
-
-# Convert to Polars (once)
-opts_pl = pl.from_arrow(pa.Table.from_pandas(opts_data._data, preserve_index=False))
-stocks_pl = pl.from_arrow(pa.Table.from_pandas(stocks_data._data, preserve_index=False))
-
-# Build a base config template
-def make_base_config(stock_pct, opt_pct, budget_pct=None):
-    cfg = {
-        "allocation": {"stocks": stock_pct, "options": opt_pct, "cash": 0.0},
-        "initial_capital": float(INITIAL_CAPITAL),
-        "shares_per_contract": 100,
-        "rebalance_dates": rb_date_ns,
-        "legs": [{
-            "name": "leg_1",
-            "entry_filter": "((type == 'put') & (ask > 0)) & (((((underlying == 'SPY') & (dte >= 30)) & (dte <= 60)) & (delta >= -0.25)) & (delta <= -0.15))",
-            "exit_filter": "(type == 'put') & (dte <= 14)",
-            "direction": "ask",
-            "type": "put",
-            "entry_sort_col": "delta",
-            "entry_sort_asc": True,
-        }],
-        "profit_pct": None,
-        "loss_pct": None,
-        "stocks": [("SPY", 1.0)],
-        "options_budget_pct": budget_pct,
-        "check_exits_daily": True,
-    }
-    return cfg
-
-def make_entry_filter(delta_min, delta_max, dte_min, dte_max):
-    return (f"((type == 'put') & (ask > 0)) & (((((underlying == 'SPY')"
-            f" & (dte >= {dte_min})) & (dte <= {dte_max}))"
-            f" & (delta >= {delta_min})) & (delta <= {delta_max}))")
-
-def make_exit_filter(exit_dte):
-    return f"(type == 'put') & (dte <= {exit_dte})"
-
-# =====================================================================
-# Grid dimensions
-# =====================================================================
-otm_levels = [
+DEFAULT_OTM = [
     ('ATM',     -0.55, -0.45),
     ('5%OTM',   -0.40, -0.30),
     ('10%OTM',  -0.25, -0.15),
@@ -114,7 +44,7 @@ otm_levels = [
     ('40%OTM',  -0.015, -0.002),
 ]
 
-dte_configs = [
+DEFAULT_DTE = [
     ('30-60/7',    30,  60,  7),
     ('30-60/10',   30,  60, 10),
     ('30-60/14',   30,  60, 14),
@@ -127,130 +57,199 @@ dte_configs = [
     ('90-120/30',  90, 120, 30),
 ]
 
-budgets_lev = [0.005, 0.01, 0.02, 0.033]
-budgets_nolev = [0.005, 0.01, 0.02, 0.033]
+DEFAULT_BUDGETS = [0.005, 0.01, 0.02, 0.033]
 
 # =====================================================================
-# LEVERAGED SWEEP
+# Engine init (expensive — call once, reuse)
 # =====================================================================
-print('='*130)
-print('LEVERAGED SWEEP (100% stocks + puts on top)')
-print('='*130 + '\n')
+def init_engine(data=None):
+    """Load data, build Polars frames & schema mapping. Returns engine dict."""
+    if data is None:
+        data = load_data()
 
-param_grid = []
-combo_keys = []
-for otm_name, dmin, dmax in otm_levels:
-    for dte_name, dte_min, dte_max, exit_dte in dte_configs:
-        for bp in budgets_lev:
-            label = f'{otm_name} {dte_name} b{bp*100:.1f}%'
-            param_grid.append({
-                "label": label,
-                "leg_entry_filters": [make_entry_filter(dmin, dmax, dte_min, dte_max)],
-                "leg_exit_filters": [make_exit_filter(exit_dte)],
-                "options_budget_pct": bp,
-            })
-            combo_keys.append((otm_name, dte_name, bp))
+    opts = data['options_data']
+    stocks = data['stocks_data']
+    oschema = opts.schema
+    sschema = stocks.schema
 
-base_config = make_base_config(1.0, 0.0, budget_pct=0.005)
+    # Rebalance dates (business month start)
+    dates_df = (
+        pd.DataFrame(opts._data[["quotedate", "volume"]])
+        .drop_duplicates("quotedate")
+        .set_index("quotedate")
+    )
+    rb_days = pd.to_datetime(
+        dates_df.groupby(pd.Grouper(freq="1BMS"))
+        .apply(lambda x: x.index.min())
+        .values
+    )
 
-print(f'Running {len(param_grid)} configs in parallel...', flush=True)
-t0 = time.perf_counter()
-results = parallel_sweep(opts_pl, stocks_pl, base_config, schema_mapping, param_grid, None)
-elapsed = time.perf_counter() - t0
-print(f'Done in {elapsed:.1f}s ({len(param_grid)/elapsed:.0f} configs/sec)\n')
-
-# Parse results into a DataFrame
-rows = []
-for res, (otm_name, dte_name, bp) in zip(results, combo_keys):
-    ann_ret = res['annualized_return'] * 100
-    max_dd = res['max_drawdown'] * 100
-    excess = ann_ret - spy_annual
-    rows.append({
-        'OTM': otm_name, 'DTE': dte_name, 'Budget': bp * 100,
-        'Annual%': ann_ret, 'Excess%': excess, 'MaxDD%': max_dd,
-        'Trades': res.get('total_trades', 0),
-    })
-df_lev = pd.DataFrame(rows)
-
-# Print pivot: OTM x DTE at each budget
-for bp in budgets_lev:
-    bl = f'{bp*100:.1f}%'
-    sub = df_lev[df_lev['Budget'] == bp * 100]
-    pivot = sub.pivot_table(index='DTE', columns='OTM', values='Excess%')
-    # Reorder columns
-    otm_order = [o[0] for o in otm_levels]
-    pivot = pivot[[c for c in otm_order if c in pivot.columns]]
-    print(f'\n--- Leveraged, Budget {bl}: Excess Annual % ---')
-    print(pivot.to_string(float_format='{:+.2f}'.format))
-    # Find best
-    best_idx = sub['Excess%'].idxmax()
-    best = sub.loc[best_idx]
-    print(f'Best: {best["OTM"]} {best["DTE"]} = {best["Excess%"]:+.2f}%')
+    return {
+        'data': data,
+        'opts_pl': pl.from_arrow(pa.Table.from_pandas(opts._data, preserve_index=False)),
+        'stocks_pl': pl.from_arrow(pa.Table.from_pandas(stocks._data, preserve_index=False)),
+        'schema_mapping': {
+            "contract": oschema["contract"], "date": oschema["date"],
+            "stocks_date": sschema["date"], "stocks_symbol": sschema["symbol"],
+            "stocks_price": sschema["adjClose"], "underlying": oschema["underlying"],
+            "expiration": oschema["expiration"], "type": oschema["type"],
+            "strike": oschema["strike"],
+        },
+        'rb_date_ns': [int(d.value) for d in rb_days if not pd.isna(d)],
+        'spy_annual': data['spy_annual_ret'],
+        'spy_dd': data['spy_dd'],
+    }
 
 # =====================================================================
-# NO-LEVERAGE SWEEP
+# Internal helpers
 # =====================================================================
-print('\n\n' + '='*130)
-print('NO-LEVERAGE SWEEP (stock + opt = 100%)')
-print('='*130 + '\n')
+def _entry_q(dmin, dmax, dte_min, dte_max):
+    return (f"((type == 'put') & (ask > 0)) & (((((underlying == 'SPY')"
+            f" & (dte >= {dte_min})) & (dte <= {dte_max}))"
+            f" & (delta >= {dmin})) & (delta <= {dmax}))")
 
-nolev_grid = []
-nolev_keys = []
-for otm_name, dmin, dmax in otm_levels:
-    for dte_name, dte_min, dte_max, exit_dte in dte_configs:
-        for bp in budgets_nolev:
-            label = f'{otm_name} {dte_name} nolev b{bp*100:.1f}%'
-            nolev_grid.append({
-                "label": label,
-                "leg_entry_filters": [make_entry_filter(dmin, dmax, dte_min, dte_max)],
-                "leg_exit_filters": [make_exit_filter(exit_dte)],
-                "options_budget_pct": None,  # Use allocation-based, not external budget
-            })
-            nolev_keys.append((otm_name, dte_name, bp))
+def _exit_q(exit_dte):
+    return f"(type == 'put') & (dte <= {exit_dte})"
 
-# For no-leverage we need different base configs per budget level.
-# parallel_sweep uses a single base config, so we run one sweep per budget.
-for bp in budgets_nolev:
-    bl = f'{bp*100:.1f}%'
-    stock_pct = 1.0 - bp
-    base_nolev = make_base_config(stock_pct, bp, budget_pct=None)
+def _base_cfg(rb_ns, stock_pct, opt_pct, budget_pct):
+    return {
+        "allocation": {"stocks": stock_pct, "options": opt_pct, "cash": 0.0},
+        "initial_capital": float(INITIAL_CAPITAL),
+        "shares_per_contract": 100,
+        "rebalance_dates": rb_ns,
+        "legs": [{
+            "name": "leg_1",
+            "entry_filter": "((type == 'put') & (ask > 0)) & (underlying == 'SPY')",
+            "exit_filter": "(type == 'put') & (dte <= 14)",
+            "direction": "ask", "type": "put",
+            "entry_sort_col": "delta", "entry_sort_asc": True,
+        }],
+        "profit_pct": None, "loss_pct": None,
+        "stocks": [("SPY", 1.0)],
+        "options_budget_pct": budget_pct,
+        "check_exits_daily": True,
+    }
 
-    sub_grid = []
-    sub_keys = []
-    for otm_name, dmin, dmax in otm_levels:
-        for dte_name, dte_min, dte_max, exit_dte in dte_configs:
-            sub_grid.append({
-                "label": f'{otm_name} {dte_name} nolev {bl}',
-                "leg_entry_filters": [make_entry_filter(dmin, dmax, dte_min, dte_max)],
-                "leg_exit_filters": [make_exit_filter(exit_dte)],
-            })
-            sub_keys.append((otm_name, dte_name, bp))
-
-    print(f'No-leverage {bl}: {len(sub_grid)} configs...', end=' ', flush=True)
-    t0 = time.perf_counter()
-    nolev_results = parallel_sweep(opts_pl, stocks_pl, base_nolev, schema_mapping, sub_grid, None)
-    elapsed = time.perf_counter() - t0
-    print(f'{elapsed:.1f}s')
-
+def _parse_results(raw, keys, spy_annual):
     rows = []
-    for res, (otm_name, dte_name, _) in zip(nolev_results, sub_keys):
-        ann_ret = res['annualized_return'] * 100
-        max_dd = res['max_drawdown'] * 100
-        excess = ann_ret - spy_annual
+    for res, (otm, dte, bp) in zip(raw, keys):
+        ann = res['annualized_return'] * 100
         rows.append({
-            'OTM': otm_name, 'DTE': dte_name, 'Budget': bp * 100,
-            'Annual%': ann_ret, 'Excess%': excess, 'MaxDD%': max_dd,
+            'OTM': otm, 'DTE': dte, 'Budget': bp * 100,
+            'Annual%': ann, 'Excess%': ann - spy_annual,
+            'MaxDD%': res['max_drawdown'] * 100,
             'Trades': res.get('total_trades', 0),
         })
-    df_sub = pd.DataFrame(rows)
+    return pd.DataFrame(rows)
 
-    pivot = df_sub.pivot_table(index='DTE', columns='OTM', values='Excess%')
-    otm_order = [o[0] for o in otm_levels]
-    pivot = pivot[[c for c in otm_order if c in pivot.columns]]
-    print(f'\n--- No-Leverage {bl}: Excess Annual % ---')
-    print(pivot.to_string(float_format='{:+.2f}'.format))
-    best_idx = df_sub['Excess%'].idxmax()
-    best = df_sub.loc[best_idx]
-    print(f'Best: {best["OTM"]} {best["DTE"]} = {best["Excess%"]:+.2f}%\n')
+# =====================================================================
+# Core sweep
+# =====================================================================
+def run_sweep(engine, otm=None, dte=None, budgets=None, leveraged=False, verbose=True):
+    """Run parallel grid sweep. Returns DataFrame with OTM, DTE, Budget, Annual%, Excess%, MaxDD%, Trades."""
+    otm = otm or DEFAULT_OTM
+    dte = dte or DEFAULT_DTE
+    budgets = budgets or DEFAULT_BUDGETS
+    spy_annual = engine['spy_annual']
+    rb_ns = engine['rb_date_ns']
 
-print('\nDone.')
+    if leveraged:
+        grid, keys = [], []
+        for oname, dmin, dmax in otm:
+            for dname, dmin_dte, dmax_dte, exit_dte in dte:
+                for bp in budgets:
+                    grid.append({
+                        "label": f'{oname} {dname} b{bp*100:.1f}%',
+                        "leg_entry_filters": [_entry_q(dmin, dmax, dmin_dte, dmax_dte)],
+                        "leg_exit_filters": [_exit_q(exit_dte)],
+                        "options_budget_pct": bp,
+                    })
+                    keys.append((oname, dname, bp))
+
+        base = _base_cfg(rb_ns, 1.0, 0.0, budgets[0])
+        if verbose:
+            print(f'Leveraged: {len(grid)} configs...', end=' ', flush=True)
+        t0 = time.perf_counter()
+        raw = parallel_sweep(engine['opts_pl'], engine['stocks_pl'], base,
+                             engine['schema_mapping'], grid, None)
+        if verbose:
+            print(f'{time.perf_counter()-t0:.1f}s')
+        return _parse_results(raw, keys, spy_annual)
+
+    # No-leverage: one sweep per budget (different base allocation)
+    frames = []
+    for bp in budgets:
+        base = _base_cfg(rb_ns, 1.0 - bp, bp, None)
+        grid, keys = [], []
+        for oname, dmin, dmax in otm:
+            for dname, dmin_dte, dmax_dte, exit_dte in dte:
+                grid.append({
+                    "label": f'{oname} {dname} nolev {bp*100:.1f}%',
+                    "leg_entry_filters": [_entry_q(dmin, dmax, dmin_dte, dmax_dte)],
+                    "leg_exit_filters": [_exit_q(exit_dte)],
+                })
+                keys.append((oname, dname, bp))
+
+        if verbose:
+            print(f'No-leverage {bp*100:.1f}%: {len(grid)} configs...', end=' ', flush=True)
+        t0 = time.perf_counter()
+        raw = parallel_sweep(engine['opts_pl'], engine['stocks_pl'], base,
+                             engine['schema_mapping'], grid, None)
+        if verbose:
+            print(f'{time.perf_counter()-t0:.1f}s')
+        frames.append(_parse_results(raw, keys, spy_annual))
+
+    return pd.concat(frames, ignore_index=True)
+
+# =====================================================================
+# Display
+# =====================================================================
+def print_pivot(df, engine=None, otm=None, value='Excess%', title=''):
+    """Print OTM x DTE pivot for each budget level."""
+    otm = otm or DEFAULT_OTM
+    order = [o[0] for o in otm]
+    for budget in sorted(df['Budget'].unique()):
+        sub = df[df['Budget'] == budget]
+        piv = sub.pivot_table(index='DTE', columns='OTM', values=value)
+        piv = piv[[c for c in order if c in piv.columns]]
+        lbl = f'{title} {budget:.1f}%' if title else f'Budget {budget:.1f}%'
+        print(f'\n--- {lbl}: {value} ---')
+        print(piv.to_string(float_format='{:+.2f}'.format))
+        best = sub.loc[sub[value].idxmax()]
+        print(f'Best: {best["OTM"]} {best["DTE"]} = {best[value]:+.2f}%')
+
+def print_top(df, n=10, by='Excess%'):
+    """Print top N configs."""
+    top = df.sort_values(by, ascending=False).head(n)
+    print(f'\nTop {n} by {by}:')
+    print(top.to_string(index=False, float_format='{:.2f}'.format))
+
+# =====================================================================
+# CLI
+# =====================================================================
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='Parallel put-hedge sweep')
+    parser.add_argument('--lev', action='store_true', help='Leveraged only')
+    parser.add_argument('--nolev', action='store_true', help='No-leverage only')
+    args = parser.parse_args()
+
+    do_lev = args.lev
+    do_nolev = args.nolev or not args.lev
+
+    engine = init_engine()
+
+    if do_lev:
+        print('='*100)
+        print('LEVERAGED SWEEP (100% stocks + puts on top)')
+        print('='*100)
+        df_lev = run_sweep(engine, leveraged=True)
+        print_pivot(df_lev, title='Leveraged')
+        print_top(df_lev)
+
+    if do_nolev:
+        print('\n' + '='*100)
+        print('NO-LEVERAGE SWEEP (stock + opt = 100%)')
+        print('='*100)
+        df_nolev = run_sweep(engine, leveraged=False)
+        print_pivot(df_nolev, title='No-leverage')
+        print_top(df_nolev)
