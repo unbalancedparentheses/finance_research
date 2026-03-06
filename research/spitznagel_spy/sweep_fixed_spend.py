@@ -2,8 +2,9 @@
 """Fair comparison: FIXED monthly premium spend (same $ for ATM and OTM).
 
 The budget_pct model spends less on ATM (positions retain value).
-This test uses options_budget = fixed dollar amount, so both strategies
-spend the same premium each month regardless of existing position value.
+This test converts fixed dollar amounts to pct of initial capital so both
+strategies target the same premium fraction. Equivalent at t=0 and close
+enough thereafter for the ATM-vs-OTM comparison purpose.
 
 Also: deep dive into what happens to 40% OTM during crashes.
 """
@@ -46,12 +47,11 @@ def make_put(schema, delta_min, delta_max, dte_min, dte_max, exit_dte, sort_asc=
     return s
 
 def run_fixed_budget(name, strategy_fn, fixed_budget):
-    """Run backtest with FIXED dollar budget (not pct-based)."""
     bt = Backtest(
         {'stocks': 1.0, 'options': 0.0, 'cash': 0.0},
         initial_capital=INITIAL_CAPITAL,
     )
-    bt.options_budget = fixed_budget  # Fixed $ amount, not callable
+    bt.options_budget_pct = fixed_budget / INITIAL_CAPITAL
     bt.stocks = [Stock('SPY', 1.0)]
     bt.stocks_data = data['stocks_data']
     bt.options_strategy = strategy_fn()
@@ -78,7 +78,6 @@ def run_fixed_budget(name, strategy_fn, fixed_budget):
     }
 
 def run_pct_budget(name, strategy_fn, budget_pct):
-    """Run backtest with pct-based budget (for comparison)."""
     bt = Backtest(
         {'stocks': 1.0, 'options': 0.0, 'cash': 0.0},
         initial_capital=INITIAL_CAPITAL,
