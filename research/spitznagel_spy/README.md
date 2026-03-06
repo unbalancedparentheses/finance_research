@@ -273,9 +273,58 @@ The mechanism is not mysterious. A tiny amount of leverage (100.5% at 0.5% budge
 
 ---
 
+## Important: Strike-Based vs Delta-Based Selection
+
+The results above used delta-based put selection (e.g., delta -0.10 to -0.02 for "deep OTM"). This is flawed for deep OTM puts: at delta -0.01, the engine picks $0.01 penny puts with zero gamma and zero convexity. These are not real OTM puts -- they are worthless contracts the market quotes as a formality.
+
+Strike-based selection (e.g., strike = 60-65% of underlying price for 35-40% OTM) fixes this by selecting puts with actual convexity. With strike-based filters, deep OTM puts perform significantly better:
+
+### Strike-Based Results (Leveraged, DTE 60-90, Exit 30)
+
+| OTM Level | 0.5% Budget | 1.0% Budget | 2.0% Budget | 3.3% Budget |
+|-----------|------------|------------|------------|------------|
+| 5% OTM | +2.93% | +5.86% | +11.89% | +19.97% |
+| 10% OTM | +2.94% | +5.85% | +11.76% | +19.53% |
+| 25% OTM | +4.11% | +7.78% | +14.52% | +22.60% |
+| 28% OTM | +4.60% | +8.59% | +15.70% | +24.07% |
+| 30% OTM | +4.19% | +7.72% | +13.88% | +20.93% |
+| 40% OTM | +4.40% | +7.96% | +13.96% | +20.61% |
+
+At low budgets (0.5-1%), 28-40% OTM beats near-ATM on both excess returns AND drawdown. The Spitznagel convexity thesis is confirmed when puts are selected correctly.
+
+Best overall leveraged config: **40% OTM, DTE 90-120, exit 30** at 1% budget gives +12.02% excess with -33.5% max DD.
+
+### No-Leverage (Strike-Based)
+
+Only deep OTM with DTE 90-120 and exit 30 stays positive without leverage:
+
+| OTM Level | 0.5% Budget | 1.0% Budget |
+|-----------|------------|------------|
+| 35% OTM | +2.82% | +3.52% |
+| 40% OTM | +3.19% | +3.91% |
+
+All other configurations are negative without leverage.
+
 ## Future Work
 
+### Dimensions already swept
+1. **Leverage** -- leveraged overlay vs no-leverage (funded from equity)
+2. **OTM level** -- 5% to 40% OTM (strike-based)
+3. **Entry DTE** -- 30-60, 60-90, 90-120, 120-180, 180-270
+4. **Exit DTE** -- 7, 14, 25, 30, 60, 90
+5. **Budget** -- 0.5%, 1%, 2%, 3.3%
+
+### Dimensions not yet tested
+6. **Rebalance frequency** -- weekly vs biweekly vs monthly vs quarterly (preliminary results suggest weekly nearly doubles excess over monthly)
+7. **Profit target exits** -- sell when put reaches 5x, 10x, 50x return instead of/combined with DTE exit (preliminary test showed modest improvement)
+8. **Stop loss** -- cut losing puts early to reduce premium bleed in calm markets
+9. **Entry sort** -- pick cheapest vs most expensive put within the strike range
+10. **Signal-based entry** -- only buy puts when VIX is low (cheaper premium), or gate on macro signals (yield curve, credit spreads). The engine already supports signal selectors
+11. **Multiple legs** -- put spreads instead of naked puts to reduce cost while preserving some convexity
+
+### Other future work
 - **Broader validation:** Test across multiple indices, longer histories, different volatility regimes, and international option markets
 - **Execution realism:** Add conservative slippage, bid-ask spread assumptions by delta bucket, liquidity filters, and stress-period fill assumptions
 - **Alternative benchmarks:** Compare against trend-following and other tail hedges; include a benchmark that accounts for the external capital cost
 - **Walk-forward testing:** Use pre-registered parameter choices rather than best-in-sample
+- **Update all results in this README to use strike-based selection** -- the delta-based tables above (sections 3-8) need to be re-run with strike filters
