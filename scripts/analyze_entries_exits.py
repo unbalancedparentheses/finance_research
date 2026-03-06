@@ -132,8 +132,7 @@ bt = Backtest(
     {'stocks': cfg['stock_alloc'], 'options': cfg['options_alloc'], 'cash': cfg['cash_alloc']},
     initial_capital=cfg['initial_capital'],
 )
-budget_pct = cfg['budget_pct'] / 100.0
-bt.options_budget = lambda date, total_capital: total_capital * budget_pct
+bt.options_budget_pct = cfg['budget_pct'] / 100.0
 bt.stocks = [Stock('SPY', 1.0)]
 bt.stocks_data = stocks_data
 bt.options_strategy = strategy

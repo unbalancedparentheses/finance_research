@@ -113,7 +113,7 @@ style_returns_table(styled).set_caption('AQR framing: reduce equity to fund puts
 # 2b. DEBUG: No Leverage via Budget (spend X% of portfolio as premium, 99% equity)
 # ---------------------------------------------------------------------------
 print('\n=== DEBUG: No-leverage via BUDGET approach ===')
-print('Same equity reduction but using budget_fn instead of allocation split.\n')
+print('Same equity reduction but using budget_pct instead of allocation split.\n')
 
 no_lev_budget_configs = [
     ('Budget 0.1%',  0.001),

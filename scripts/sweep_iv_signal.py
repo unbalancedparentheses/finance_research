@@ -84,12 +84,12 @@ def make_strategy():
     return strategy
 
 
-def run_config(name, budget_fn):
+def run_config(name, budget_pct):
     bt = Backtest(
         {'stocks': 1.0, 'options': 0.0, 'cash': 0.0},
         initial_capital=INITIAL_CAPITAL,
     )
-    bt.options_budget = budget_fn
+    bt.options_budget_pct = budget_pct
     bt.stocks = [Stock('SPY', 1.0)]
     bt.stocks_data = stocks_data
     bt.options_strategy = make_strategy()
@@ -127,30 +127,9 @@ for pct in BUDGET_PCTS:
 
     # Unfiltered
     print(f"  {pct}% unfiltered...", end=' ', flush=True)
-    budget_fn = lambda date, tc, f=frac: tc * f
-    r = run_config(f'{pct}% no filter', budget_fn)
+    r = run_config(f'{pct}% no filter', frac)
     results.append(r)
     print(f"annual {r['annual_ret']:+.2f}%, excess {r['excess_annual']:+.2f}%")
-
-    # IV-filtered: only buy when IV < rolling median (cheap puts)
-    print(f"  {pct}% IV-filtered...", end=' ', flush=True)
-
-    def make_iv_budget(f=frac):
-        def iv_budget(date, tc):
-            threshold = iv_rolling_median.asof(date)
-            if pd.isna(threshold):
-                return tc * f  # no history yet, buy normally
-            current_iv = put_iv.asof(date)
-            if pd.isna(current_iv):
-                return 0
-            if current_iv < threshold:
-                return tc * f
-            return 0
-        return iv_budget
-
-    r = run_config(f'{pct}% IV filter', make_iv_budget())
-    results.append(r)
-    print(f"annual {r['annual_ret']:+.2f}%, excess {r['excess_annual']:+.2f}%, trades {r['trades']}")
 
 # ---------------------------------------------------------------------------
 # Report

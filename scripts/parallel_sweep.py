@@ -26,7 +26,7 @@ def run_single(args):
             schema, delta_min=delta_min, delta_max=delta_max,
             dte_min=dte_min, dte_max=dte_max, exit_dte=exit_dte),
         data,
-        budget_fn=lambda date, tc, bp=budget_pct: tc * bp,
+        budget_pct=budget_pct,
         rebal_months=rebal_freq,
         rebal_unit=rebal_unit,
     )

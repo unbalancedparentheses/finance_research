@@ -55,11 +55,7 @@ for label, spct, opct in [('0.5%', 0.995, 0.005), ('1.0%', 0.99, 0.01), ('3.3%',
 results = []
 for name, framing, spct, opct, budget_pct in configs:
     print(f'  Running {name}...', end=' ', flush=True)
-    bfn = None
-    if budget_pct is not None:
-        _bp = budget_pct
-        bfn = lambda date, tc, bp=_bp: tc * bp
-    r = run_backtest(name, spct, opct, lambda: make_deep_otm_put_strategy(schema), data, budget_fn=bfn)
+    r = run_backtest(name, spct, opct, lambda: make_deep_otm_put_strategy(schema), data, budget_pct=budget_pct)
     r['framing'] = framing
     results.append(r)
     print(f'full-period annual {r["annual_ret"]:+.2f}%')

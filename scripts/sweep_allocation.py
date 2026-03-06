@@ -74,21 +74,8 @@ if data['signals_df'] is not None:
     sig_s, sig_o = 0.998, 0.002
     print(f"\n=== Part 3: Signal-Filtered Puts ({sig_o*100:.1f}% alloc) ===")
 
-    def make_signal_budget(signal_series, median_series, buy_when_above):
-        alloc_amount = sig_o
-        def fn(date, tc):
-            if signal_series is None or median_series is None:
-                return tc * alloc_amount
-            thresh = median_series.asof(date)
-            if pd.isna(thresh):
-                return tc * alloc_amount
-            cur = signal_series.asof(date)
-            if pd.isna(cur):
-                return 0
-            triggered = cur > thresh if buy_when_above else cur < thresh
-            return tc * alloc_amount if triggered else 0
-        return fn
-
+    # NOTE: Signal-filtered budget functions previously used callables.
+    # Now using plain budget_pct — signal gating should be done via entry filters.
     signal_configs = [
         ('VIX<med (cheap)', data['vix'], data['vix_median'], False),
         ('Buffett>med', data['buffett'], data['buffett_median'], True),
@@ -97,8 +84,7 @@ if data['signals_df'] is not None:
     for sig_name, sig_series, sig_median, above in signal_configs:
         label = f'0.2% puts {sig_name}'
         print(f"  {label}...", end=' ', flush=True)
-        budget_fn = make_signal_budget(sig_series, sig_median, above)
-        r = run_backtest(label, sig_s, sig_o, lambda: make_puts_strategy(schema), data, budget_fn=budget_fn)
+        r = run_backtest(label, sig_s, sig_o, lambda: make_puts_strategy(schema), data, budget_pct=sig_o)
         signal_results.append(r)
         print(f"annual {r['annual_ret']:+.2f}%, excess {r['excess_annual']:+.2f}%, trades {r['trades']}")
 

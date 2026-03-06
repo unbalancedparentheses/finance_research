@@ -133,12 +133,12 @@ def make_calls_strategy():
 # ---------------------------------------------------------------------------
 # Run helper
 # ---------------------------------------------------------------------------
-def run_config(name, strategy_fn, budget_fn):
+def run_config(name, strategy_fn, budget_pct):
     bt = Backtest(
         {'stocks': 1.0, 'options': 0.0, 'cash': 0.0},
         initial_capital=INITIAL_CAPITAL,
     )
-    bt.options_budget = budget_fn
+    bt.options_budget_pct = budget_pct
     bt.stocks = [Stock('SPY', 1.0)]
     bt.stocks_data = stocks_data
     bt.options_strategy = strategy_fn()
@@ -167,49 +167,26 @@ def run_config(name, strategy_fn, budget_fn):
 
 
 # ---------------------------------------------------------------------------
-# Signal filter budget functions
+# Budget helpers — return per-rebalance fraction for options_budget_pct
 # ---------------------------------------------------------------------------
 def plain_budget(frac):
-    return lambda date, tc, f=frac: tc * f
+    return frac
 
 
+# NOTE: Signal-filtered budget functions previously used callables to
+# conditionally zero out spending. That feature was removed.  These now
+# just return the plain fraction — signal gating should be done via
+# entry filters or SMA gating instead.
 def vix_low_budget(frac):
-    """Buy when VIX < rolling median (cheap protection)."""
-    def fn(date, tc, f=frac):
-        if vix is None:
-            return tc * f
-        thresh = vix_median.asof(date) if vix_median is not None else None
-        if pd.isna(thresh):
-            return tc * f
-        cur = vix.asof(date)
-        return tc * f if (not pd.isna(cur) and cur < thresh) else 0
-    return fn
+    return frac
 
 
 def buffett_high_budget(frac):
-    """Buy puts when Buffett Indicator > rolling median (overvalued market)."""
-    def fn(date, tc, f=frac):
-        if buffett is None:
-            return tc * f
-        thresh = buffett_median.asof(date) if buffett_median is not None else None
-        if pd.isna(thresh):
-            return tc * f
-        cur = buffett.asof(date)
-        return tc * f if (not pd.isna(cur) and cur > thresh) else 0
-    return fn
+    return frac
 
 
 def tobin_high_budget(frac):
-    """Buy puts when Tobin's Q > rolling median (overvalued market)."""
-    def fn(date, tc, f=frac):
-        if tobin is None:
-            return tc * f
-        thresh = tobin_median.asof(date) if tobin_median is not None else None
-        if pd.isna(thresh):
-            return tc * f
-        cur = tobin.asof(date)
-        return tc * f if (not pd.isna(cur) and cur > thresh) else 0
-    return fn
+    return frac
 
 
 # ---------------------------------------------------------------------------

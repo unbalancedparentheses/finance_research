@@ -2,7 +2,7 @@
 
 Blog parameters:
 - DTE 90-180, delta (-0.10, -0.02), exit at DTE 14
-- budget_fn = lambda date, tc: tc * budget_pct
+- options_budget_pct = budget_pct (per rebalance)
 - allocation: stocks=1.0, options=0.0, cash=0.0
 - monthly rebalance (BMS)
 - initial_capital = 1_000_000
@@ -78,8 +78,7 @@ def run_spitznagel(options, stocks, schema, budget_pct):
         {"stocks": 1.0, "options": 0.0, "cash": 0.0},
         initial_capital=INITIAL_CAPITAL,
     )
-    _bp = budget_pct
-    bt.options_budget = lambda date, tc, bp=_bp: tc * bp
+    bt.options_budget_pct = budget_pct
     bt.stocks = [Stock("SPY", 1.0)]
     bt.stocks_data = stocks
     bt.options_data = options

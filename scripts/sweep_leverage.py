@@ -47,11 +47,7 @@ CONFIGS = [
 results = []
 for name, s_pct, o_pct, strat_fn, budget_pct in CONFIGS:
     print(f"  {name}...", end=' ', flush=True)
-    budget_fn = None
-    if budget_pct is not None:
-        _bp = budget_pct  # capture for closure
-        budget_fn = lambda date, tc, bp=_bp: tc * bp
-    r = run_backtest(name, s_pct, o_pct, strat_fn, data, budget_fn=budget_fn)
+    r = run_backtest(name, s_pct, o_pct, strat_fn, data, budget_pct=budget_pct)
     results.append(r)
     print(f"annual {r['annual_ret']:+.2f}%, excess {r['excess_annual']:+.2f}%, DD {r['max_dd']:.1f}%")
 
