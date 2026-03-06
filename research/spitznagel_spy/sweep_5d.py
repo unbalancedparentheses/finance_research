@@ -52,7 +52,7 @@ ENTRY_DTE = [
 
 EXIT_DTES = [1, 7, 10, 14, 21, 25, 30, 45]
 
-ANNUAL_BUDGETS = [0.0025, 0.005, 0.01, 0.015, 0.02, 0.033]
+ANNUAL_BUDGETS = [0.0025, 0.005, 0.01, 0.015, 0.02, 0.033, 0.04, 0.05, 0.065, 0.08, 0.10, 0.15]
 
 REBAL_FREQS = [
     ('monthly',   1, 12),   # (name, slice_step, rebalances_per_year)
